@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Scanner;
 
 public class Grille {
 	int size;
@@ -6,7 +7,6 @@ public class Grille {
 	int[][] grillejoueur;
 	
 	private static String[] availableColors = {"r", "o", "j", "v", "b", "i"};
-	private static String[] Colors = {"r", "o", "j", "v", "b", "i","R","O","J","V","B","I"};
 
 	public Grille(int size) {
 		this.size = size;
@@ -54,4 +54,64 @@ public class Grille {
 			System.out.println("");
 		}
 	}
+	
+	public String choisirCouleur(int joueur){
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Joueur "+joueur+", à vous de sélectionner une couleur");
+		String choix = scan.next();
+		scan.close();
+		
+		return choix;
+	}
+	
+	public void modifGrille(String couleur,int joueur){
+		int[][] newgrillejoueur = new int[this.size][this.size];
+		String[][] newgrillecouleur = new String[this.size][this.size];
+		for(int i = 0; i < this.size; i++) {
+			for(int j = 0; j < this.size; j++) {
+				if(grillejoueur[j][i] == joueur){
+					newgrillecouleur[j][i] = couleur.toUpperCase();
+					newgrillejoueur[j][i] = joueur;
+					System.out.println("Normal");
+					if(j > 0){
+						if(grillecouleur[j-1][i] == couleur || grillecouleur[j-1][i] == couleur.toUpperCase()){
+							newgrillecouleur[j-1][i] = couleur.toUpperCase();
+							newgrillejoueur[j-1][i] = joueur;
+						}
+					}
+					if(i > 0){
+						if(grillecouleur[j][i-1] == couleur || grillecouleur[j][i-1] == couleur.toUpperCase()){
+							newgrillecouleur[j][i-1] = couleur.toUpperCase();
+							newgrillejoueur[j][i-1] = joueur;
+						}
+					}
+					if(j < this.size){
+						if(grillecouleur[j+1][i] == couleur || grillecouleur[j+1][i] == couleur.toUpperCase()){
+							newgrillecouleur[j+1][i] = couleur.toUpperCase();
+							newgrillejoueur[j+1][i] = joueur;
+							System.out.println("Cool");
+						}
+					}
+					if(i < this.size){
+						if(grillecouleur[j][i+1] == couleur || grillecouleur[j][i+1] == couleur.toUpperCase()){
+							newgrillecouleur[j][i+1] = couleur.toUpperCase();
+							newgrillejoueur[j][i+1] = joueur;
+							System.out.println("Sympa");
+
+						}
+					}
+				}
+				else{
+					if(newgrillejoueur[j][i] != joueur){
+						newgrillecouleur[j][i] = grillecouleur[j][i];
+						newgrillejoueur[j][i] = grillejoueur[j][i];
+					}
+				}
+			}
+		}
+		grillecouleur = newgrillecouleur;
+		grillejoueur = newgrillejoueur;
+	}
+	
+	
 }

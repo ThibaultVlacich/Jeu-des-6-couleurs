@@ -9,6 +9,10 @@ public class Launcher {
 		grille.initRandom();
 		
 		grille.displayConsole();
+		int joueur = 1;
+		String choix = grille.choisirCouleur(joueur);
+		grille.modifGrille(choix, joueur);
+		grille.displayConsole();
 	}
 
 }
