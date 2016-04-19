@@ -26,6 +26,7 @@ public class Launcher {
       g.setMode("console");
     }
 
+    // Démarre le jeu
     g.start();
 
     // Ferme le scanner

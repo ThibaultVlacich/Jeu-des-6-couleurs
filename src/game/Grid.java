@@ -27,7 +27,7 @@ public class Grid {
    * Initialise la grille avec sa taille par défaut
    */
   public Grid() {
-    this.size = 13;
+    this(13);
   }
 
   /**
@@ -37,6 +37,8 @@ public class Grid {
    */
   public Grid(int s) {
     this.size = s;
+    
+    this.colorGrid = new String[s][s];
   }
 
   /**
