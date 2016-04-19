@@ -1,10 +1,10 @@
 /**
  * Jeu des 6 couleurs
- * 
+ *
  * @package default
  * @class   Launcher
  * @desc    Permet de lancer le jeu
- * 
+ *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
@@ -14,22 +14,22 @@ import game.Game;
 
 public class Launcher {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
     System.out.println("###\t\tJeu des 6 couleurs en Java\t\t###");
     System.out.println("###\tFait par Thibault VLACICH et Hugo MICHARD\t###");
     System.out.println("");
-    
+
     Game g = new Game();
-    
+
     if(args.length > 0 && args[0].equals("console")) {
       // Permet de démarrer le jeu en mode console
       g.setMode("console");
     }
-    
+
     g.start();
-    
+
     // Ferme le scanner
     Utils.scan.close();
-	}
+  }
 
 }
