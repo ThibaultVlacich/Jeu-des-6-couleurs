@@ -11,8 +11,6 @@
 
 package game;
 
-import java.util.Random;
-
 import models.Color;
 
 public class Grid {
