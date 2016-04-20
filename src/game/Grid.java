@@ -62,6 +62,46 @@ public class Grid {
     return grid[y][x];
   }
   
+  public void assignTiles(int pID, TileColor c) {
+    // On assigne les cases de la couleur demandée au joueur
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        Tile tile = grid[j][i];
+        
+        if (tile.getPlayerID() == pID) {
+          // La case appartient au joueur
+          // On la met de la nouvelle couleur choisie par le joueur
+          tile.setColor(c);
+          
+          // On parcourt les cases situées à proximité et on les lui assigne si elles sont de la couleur choisie
+          if (j > 0) {
+            if(grid[j-1][i].getColor() == c) {
+              grid[j-1][i].setPlayerID(pID);
+            }
+          }
+
+          if (i > 0) {
+            if (grid[j][i-1].getColor() == c){
+              grid[j][i-1].setPlayerID(pID);
+            }
+          }
+          
+          if (j < size - 1){
+            if (grid[j+1][i].getColor() == c) {
+              grid[j+1][i].setPlayerID(pID);
+            }
+          }
+          
+          if (i < size - 1){
+            if (grid[j][i+1].getColor() == c){
+              grid[j][i+1].setPlayerID(pID);
+            }
+          }
+        }
+      }
+    }
+  }
+  
   /**
    * Permet d'assigner un joueur à une case
    * 

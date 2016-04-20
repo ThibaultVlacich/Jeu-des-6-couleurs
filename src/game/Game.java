@@ -58,6 +58,7 @@ public class Game {
     
     while (!this.gameOver) {   
       System.out.println("Au tour du joueur "+currentPlayer.ID);
+      System.out.println("Votre couleur actuelle est "+TileColor.getColorCode(currentPlayer.getColor()));
       System.out.println("Joueur "+currentPlayer.ID+", quelle couleur choisissez-vous ?");
       
       String    colorCode = Utils.scan.next();
@@ -71,6 +72,10 @@ public class Game {
       }
       
       currentPlayer.setColor(color);
+      grid.assignTiles(currentPlayer.ID, color);
+      
+      // On affiche la nouvelle grille
+      grid.showConsole();
       
       // Au joueur suivant !
       currentPlayer = (currentPlayer == player1) ? player2 : player1;
