@@ -35,7 +35,7 @@ public enum Color {
    * 
    * @return  Le code de la couleur demandée
    */
-  public String getColorCode(Color c) {
+  public static String getColorCode(Color c) {
     switch (c) {
       case Red:
         return "r";
