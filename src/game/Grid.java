@@ -22,9 +22,6 @@ public class Grid {
   // Grille du jeu
   Tile[][] grid;
 
-  // Liste des couleurs disponibles
-  private static String[] availableColors = {"r", "o", "j", "v", "b", "i"};
-
   /**
    * Initialise la grille avec sa taille par défaut
    */
