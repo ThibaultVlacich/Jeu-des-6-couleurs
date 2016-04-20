@@ -74,6 +74,35 @@ public class Game {
       
       // Au joueur suivant !
       currentPlayer = (currentPlayer == player1) ? player2 : player1;
+      
+      checkIsGameIsOver();
+    }
+    
+    // La partie est terminée !
+    System.out.println("La partie est terminée !");
+  }
+  
+  /**
+   * Permet de définir si la partie est terminée
+   */
+  private void checkIsGameIsOver() {
+    // Calcule le nombre de cases dans la grille
+    double numberOfTiles = Math.pow(grid.getSize(), 2);
+    // Nombre de cases encore non controllées
+    int freeTiles = grid.countTilesOwnedBy(0);
+    // Nombre de cases controllées par les joueurs
+    int tilesOwnedByPlayer1 = grid.countTilesOwnedBy(1);
+    int tilesOwnedByPlayer2 = grid.countTilesOwnedBy(2);
+    
+    if (
+        // Il n'y a plus de cases libres, la partie est terminée
+        freeTiles == 0
+        // Ou le joueur 1 contrôle plus de 50% des cases
+        || tilesOwnedByPlayer1 > numberOfTiles / 2
+        // Ou le joueur 2 contrôle plus de 50% des cases
+        || tilesOwnedByPlayer2 > numberOfTiles / 2
+        ) {
+      gameOver = true;
     }
   }
 

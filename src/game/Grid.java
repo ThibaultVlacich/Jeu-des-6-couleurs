@@ -74,6 +74,37 @@ public class Grid {
     tile.setPlayerID(pID);
   }
   
+  /**
+   * Permet d'obtenir la taille de la grille
+   * 
+   * @return  La taille de la grille
+   */
+  public int getSize() {
+    return size;
+  }
+
+  /**
+   * Permet de compter le nombre de cases possédées par un joueur
+   * 
+   * @param   pID L'ID du joueur (0 pour avoir les cases libres)
+   * 
+   * @return  Le nombre de cases libres
+   */
+  public int countTilesOwnedBy(int pID) {
+    int count = 0;
+    
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        Tile tile = grid[j][i];
+        
+        if (tile.getPlayerID() == pID) {
+          // La case est libre
+          count++;
+        }
+      }
+    }
+    
+    return count;
   }
   
   /**
