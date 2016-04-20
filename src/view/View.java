@@ -53,6 +53,12 @@ public class View {
         
         // On dessine le pion
         StdDraw.filledCircle(j, -i, 0.4);
+        
+        if (tile.getPlayerID() != 0) {
+            // On affiche l'ID du joueur possédant la case, le cas échéant
+            StdDraw.setPenColor(Color.BLACK);
+            StdDraw.text(j, -i, ""+tile.getPlayerID()+"");
+        }
       }
     }
   }
