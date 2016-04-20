@@ -14,9 +14,15 @@ package game;
 import models.TileColor;
 
 public class Player {
+  // ID du joueur
+  public int ID;
   // Couleur actuelle du joueur
   private TileColor color;
 
+  Player(int ID) {
+    this.ID = ID;
+  }
+  
   /**
    * Permet d'obtenir la couleur actuelle du joueur
    * 

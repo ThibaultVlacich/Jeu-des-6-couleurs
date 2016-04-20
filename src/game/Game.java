@@ -23,8 +23,8 @@ public class Game {
   private Grid grid;
   
   // Les objets joueurs
-  private Player player1 = new Player();
-  private Player player2 = new Player();
+  private Player player1 = new Player(1);
+  private Player player2 = new Player(2);
   
   // Défini si la partie est terminée ou non
   private Boolean gameOver = false;
@@ -40,14 +40,14 @@ public class Game {
     grid.initRandom();
     
     // On associe inialement les cases des coins aux joueurs
-    grid.assignTile(0, 0, player1);
+    grid.assignTile(0, 0, player1.ID);
     player1.setColor(grid.getTile(0, 0).getColor());
-    grid.assignTile(12, 12, player2);
+    grid.assignTile(12, 12, player2.ID);
     player2.setColor(grid.getTile(12, 12).getColor());
     
     // On affiche la grille générée en console
-    System.out.println("Le joueur 1 a la couleur "+TileColor.getColorCode(player1.getColor()));
-    System.out.println("Le joueur 2 a la couleur "+TileColor.getColorCode(player2.getColor()));
+    System.out.println("Le joueur 1 débute en haut à gauche");
+    System.out.println("Le joueur 2 débute en bas à droite");
     System.out.println("");
     
     grid.showConsole();
@@ -56,11 +56,9 @@ public class Game {
     // Le joueur 1 commence
     Player currentPlayer = player1;
     
-    while (!this.gameOver) {
-      String playerName = (currentPlayer == player1) ? "1" : "2";
-      
-      System.out.println("Au tour du joueur "+playerName);
-      System.out.println("Joueur "+playerName+", quelle couleur choisissez-vous ?");
+    while (!this.gameOver) {   
+      System.out.println("Au tour du joueur "+currentPlayer.ID);
+      System.out.println("Joueur "+currentPlayer.ID+", quelle couleur choisissez-vous ?");
       
       String    colorCode = Utils.scan.next();
       TileColor color     = TileColor.getColorFromCode(colorCode);

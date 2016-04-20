@@ -18,7 +18,8 @@ public class Tile {
   private TileColor color;
   
   // Joueur à qui la case appartient
-  private Player player;
+  // Par défaut la case appartient à personne (0)
+  private int playerID = 0;
   
   /**
    * Initialise la case avec une couleur
@@ -48,20 +49,20 @@ public class Tile {
   }
   
   /**
-   * Permet d'obtenir le joueur à qui la case appartient
+   * Permet d'obtenir l'ID du joueur à qui la case appartient
    * 
-   * @return  Joueur à qui la case appartient
+   * @return  ID du joueur à qui la case appartient
    */
-  public Player getPlayer() {
-    return player;
+  public int getPlayerID() {
+    return playerID;
   }
   
   /**
    * Permet de modifier le joueur qui détient la case
    * 
-   * @param p Nouveau joueur
+   * @param p ID du nouveau joueur
    */
-  public void setPlayer(Player p) {
-    player = p;
+  public void setPlayerID(int ID) {
+    playerID = ID;
   }
 }

@@ -66,12 +66,14 @@ public class Grid {
    * Permet d'assigner un joueur à une case
    * 
    * @param x, y  Coordonnées de la case demandée
-   * @param p     Le joueur à assigner à la case
+   * @param pID   Le joueur à qui assigner la case
    */
-  public void assignTile(int x, int y, Player p) {
+  public void assignTile(int x, int y, int pID) {
     Tile tile = grid[y][x];
     
-    tile.setPlayer(p);
+    tile.setPlayerID(pID);
+  }
+  
   }
   
   /**
@@ -83,11 +85,11 @@ public class Grid {
         Tile tile = grid[j][i];
         
         TileColor tileColor  = tile.getColor();
-        Player    tilePlayer = tile.getPlayer();
+        int       tilePlayerID = tile.getPlayerID();
         
         String tileColorCode = TileColor.getColorCode(tileColor);
         
-        if (tilePlayer != null) {
+        if (tilePlayerID != 0) {
           // La case appartient à un joueur
           tileColorCode = tileColorCode.toUpperCase();
         }
