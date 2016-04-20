@@ -11,7 +11,8 @@
 
 package game;
 
-import models.Color;
+// Importe les modèles utiles au jeu
+import models.TileColor;
 import models.Utils;
 
 public class Game {
@@ -45,8 +46,8 @@ public class Game {
     player2.setColor(grid.getTile(12, 12).getColor());
     
     // On affiche la grille générée en console
-    System.out.println("Le joueur 1 a la couleur "+Color.getColorCode(player1.getColor()));
-    System.out.println("Le joueur 2 a la couleur "+Color.getColorCode(player2.getColor()));
+    System.out.println("Le joueur 1 a la couleur "+TileColor.getColorCode(player1.getColor()));
+    System.out.println("Le joueur 2 a la couleur "+TileColor.getColorCode(player2.getColor()));
     System.out.println("");
     
     grid.showConsole();
@@ -61,14 +62,14 @@ public class Game {
       System.out.println("Au tour du joueur "+playerName);
       System.out.println("Joueur "+playerName+", quelle couleur choisissez-vous ?");
       
-      String colorCode = Utils.scan.next();
-      Color  color     = Color.getColorFromCode(colorCode);
+      String    colorCode = Utils.scan.next();
+      TileColor color     = TileColor.getColorFromCode(colorCode);
       
       while (color == null) {
         System.out.println("La couleur demandée n'existe pas");
         
         colorCode = Utils.scan.next();
-        color     = Color.getColorFromCode(colorCode);
+        color     = TileColor.getColorFromCode(colorCode);
       }
       
       currentPlayer.setColor(color);

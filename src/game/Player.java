@@ -11,18 +11,18 @@
 
 package game;
 
-import models.Color;
+import models.TileColor;
 
 public class Player {
   // Couleur actuelle du joueur
-  private Color color;
+  private TileColor color;
 
   /**
    * Permet d'obtenir la couleur actuelle du joueur
    * 
    * @return  La couleur actuelle du joueur
    */
-  public Color getColor() {
+  public TileColor getColor() {
     return color;
   }
 
@@ -31,7 +31,7 @@ public class Player {
    * 
    * @param c La nouvelle couleur du joueur
    */
-  public void setColor(Color c) {
+  public void setColor(TileColor c) {
     color = c;
   }
 }

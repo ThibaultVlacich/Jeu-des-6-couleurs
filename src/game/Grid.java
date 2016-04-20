@@ -11,7 +11,7 @@
 
 package game;
 
-import models.Color;
+import models.TileColor;
 
 public class Grid {
   // Taille de la grille
@@ -44,7 +44,7 @@ public class Grid {
   public void initRandom() {
     for(int i = 0; i < size; i++) {
       for(int j = 0; j < size; j++) {
-        Color randomColor = Color.getRandomColor();
+        TileColor randomColor = TileColor.getRandomColor();
         
         grid[j][i] = new Tile(randomColor);
       }
@@ -82,10 +82,10 @@ public class Grid {
       for (int j = 0; j < size; j++) {
         Tile tile = grid[j][i];
         
-        Color  tileColor  = tile.getColor();
-        Player tilePlayer = tile.getPlayer();
+        TileColor tileColor  = tile.getColor();
+        Player    tilePlayer = tile.getPlayer();
         
-        String tileColorCode = Color.getColorCode(tileColor);
+        String tileColorCode = TileColor.getColorCode(tileColor);
         
         if (tilePlayer != null) {
           // La case appartient à un joueur

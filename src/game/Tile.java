@@ -11,11 +11,12 @@
 
 package game;
 
-import models.Color;
+import models.TileColor;
 
 public class Tile {
   // Couleur de la case
-  private Color  color;
+  private TileColor color;
+  
   // Joueur à qui la case appartient
   private Player player;
   
@@ -24,7 +25,7 @@ public class Tile {
    * 
    * @param c
    */
-  Tile(Color c) {
+  Tile(TileColor c) {
     color = c;
   }
   
@@ -33,7 +34,7 @@ public class Tile {
    * 
    * @return  Couleur de la case
    */
-  public Color getColor() {
+  public TileColor getColor() {
     return color;
   }
   
@@ -42,7 +43,7 @@ public class Tile {
    * 
    * @param c Nouvelle couleur
    */
-  public void setColor(Color c) {
+  public void setColor(TileColor c) {
     color = c;
   }
   

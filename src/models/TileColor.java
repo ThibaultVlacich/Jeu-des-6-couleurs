@@ -2,7 +2,7 @@
  * Jeu des 6 couleurs
  *
  * @package models
- * @enum    Color
+ * @enum    TileColor
  * @desc    Liste les couleurs disponibles
  *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
@@ -11,7 +11,7 @@
 
 package models;
 
-public enum Color {
+public enum TileColor {
   Red,
   Orange,
   Yellow,
@@ -24,7 +24,7 @@ public enum Color {
    * 
    * @return  La couleur obtenue aléatoirement
    */
-  public static Color getRandomColor()  {
+  public static TileColor getRandomColor()  {
     return values()[(int) (Math.random() * values().length)];
   }
   
@@ -35,7 +35,7 @@ public enum Color {
    * 
    * @return  Le code de la couleur demandée
    */
-  public static String getColorCode(Color c) {
+  public static String getColorCode(TileColor c) {
     switch (c) {
       case Red:
         return "r";
@@ -54,7 +54,7 @@ public enum Color {
     }
   }
   
-  public static Color getColorFromCode(String c) {
+  public static TileColor getColorFromCode(String c) {
     switch (c) {
       case "r":
         return Red;
