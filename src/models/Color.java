@@ -28,10 +28,22 @@ public enum Color {
   private static final int SIZE = VALUES.size();
   private static final Random RANDOM = new Random();
 
+  /**
+   * Permet d'obtenir une couleur aléatoire
+   * 
+   * @return  La couleur obtenue aléatoirement
+   */
   public static Color getRandomColor()  {
     return VALUES.get(RANDOM.nextInt(SIZE));
   }
   
+  /**
+   * Permet d'obtenir le code d'une couleur
+   * 
+   * @param c La couleur dont on veux le code
+   * 
+   * @return  Le code de la couleur demandée
+   */
   public String getColorCode(Color c) {
     switch (c) {
       case Red:
