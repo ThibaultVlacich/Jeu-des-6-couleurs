@@ -50,7 +50,11 @@ public class Game {
     System.out.println("Le joueur 2 débute en bas à droite");
     System.out.println("");
     
-    grid.showConsole();
+    if (mode == "console") {
+      grid.showConsole();
+    } else {
+      grid.show2D();
+    }
     
     // Variable contenant le joueur actuel
     // Le joueur 1 commence
@@ -76,7 +80,11 @@ public class Game {
       grid.assignTiles(currentPlayer.ID, color);
       
       // On affiche la nouvelle grille
-      grid.showConsole();
+      if (mode == "console") {
+        grid.showConsole();
+      } else {
+        grid.show2D();
+      }
       
       // Au joueur suivant !
       currentPlayer = (currentPlayer == player1) ? player2 : player1;

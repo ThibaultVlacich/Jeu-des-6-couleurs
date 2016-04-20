@@ -11,7 +11,11 @@
 
 package game;
 
+// Importe les modèles utiles à la grille
 import models.TileColor;
+
+// Importe l'objet View
+import view.View;
 
 public class Grid {
   // Taille de la grille
@@ -170,5 +174,12 @@ public class Grid {
       
       System.out.println("");
     }
+  }
+  
+  /**
+   * Permet d'afficher la grille en mode 2D
+   */
+  public void show2D() {
+    View.showGrid(this);
   }
 }

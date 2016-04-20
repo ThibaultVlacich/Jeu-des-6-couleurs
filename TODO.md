@@ -12,7 +12,7 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
 
 ### Extensions possible
 - Mode graphique
-  - [ ] Affichage graphique de la grille, mais l'affichage du score / la séléction de la couleur reste en console
+  - [x] Affichage graphique de la grille, mais l'affichage du score / la séléction de la couleur reste en console
   - [ ] Affichage graphique de la grille, sélection des couleurs à la souris
   - [ ] Jeu entirèrement graphique
 - [ ] Choix du nombre de joueurs (2, 3 ou 4)

@@ -11,6 +11,9 @@
 
 package models;
 
+// Importe l'objet Java Color
+import java.awt.Color;
+
 public enum TileColor {
   Red,
   Orange,
@@ -54,6 +57,13 @@ public enum TileColor {
     }
   }
   
+  /**
+   * Permet d'obtenir l'objet TileColor lié à un code couleur
+   * 
+   * @param c Le code couleur
+   * 
+   * @return  La couleur
+   */
   public static TileColor getColorFromCode(String c) {
     switch (c) {
       case "r":
@@ -70,6 +80,25 @@ public enum TileColor {
         return Purple;
        default:
          return null;
+    }
+  }
+  
+  public static Color getDrawColor(TileColor c) {
+    switch (c) {
+      case Red:
+        return Color.RED;
+      case Orange:
+        return Color.ORANGE;
+      case Yellow:
+        return Color.YELLOW;
+      case Green:
+        return Color.GREEN;
+      case Blue:
+        return Color.BLUE;
+      case Purple:
+        return Color.MAGENTA;
+      default:
+        return Color.WHITE;
     }
   }
 }
