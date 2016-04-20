@@ -93,7 +93,15 @@ public class Game {
     }
     
     // La partie est terminée !
+    // On compte le nombres de cases possédées par chaque joueur
+    int tilesOwnedByPlayer1 = grid.countTilesOwnedBy(1);
+    int tilesOwnedByPlayer2 = grid.countTilesOwnedBy(2);
+    
+    // Le gagnant est le joueur ayant le plus de cases
+    int winnerID = (tilesOwnedByPlayer1 > tilesOwnedByPlayer2) ? 1 : 2;
+    
     System.out.println("La partie est terminée !");
+    System.out.println("Le joueur gagnant est le joueur "+winnerID);
   }
   
   /**
