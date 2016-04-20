@@ -13,12 +13,14 @@ package game;
 
 import java.util.Random;
 
+import models.Color;
+
 public class Grid {
   // Taille de la grille
   private int size;
 
-
-  String[][] colorGrid;
+  // Grille du jeu
+  Tile[][] grid;
 
   // Liste des couleurs disponibles
   private static String[] availableColors = {"r", "o", "j", "v", "b", "i"};
@@ -38,23 +40,18 @@ public class Grid {
   public Grid(int s) {
     this.size = s;
     
-    this.colorGrid = new String[s][s];
+    this.grid = new Tile[s][s];
   }
 
   /**
    * Remplit la grille de manière aléatoire
    */
   public void initRandom() {
-    Random r = new Random();
-
-    int Min = 1;
-    int Max = 6;
-
     for(int i = 0; i < this.size; i++) {
       for(int j = 0; j < this.size; j++) {
-        int Result = r.nextInt(Max - Min) + Min;
-
-        colorGrid[j][i] = availableColors[Result - 1];
+        Color randomColor = Color.getRandomColor();
+        
+        grid[j][i] = new Tile(randomColor);
       }
     }
   }
