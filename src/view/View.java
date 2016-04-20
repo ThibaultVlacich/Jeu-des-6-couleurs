@@ -57,7 +57,7 @@ public class View {
         if (tile.getPlayerID() != 0) {
             // On affiche l'ID du joueur possédant la case, le cas échéant
             StdDraw.setPenColor(Color.BLACK);
-            StdDraw.text(j, -i, ""+tile.getPlayerID()+"");
+            StdDraw.text(j, -i, Integer.toString(tile.getPlayerID()));
         }
       }
     }
