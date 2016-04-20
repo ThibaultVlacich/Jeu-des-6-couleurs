@@ -9,6 +9,8 @@
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
 
+package models;
+
 import java.util.Scanner;
 
 public class Utils {

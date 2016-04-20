@@ -9,6 +9,9 @@
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
 
+// Importe la classe Utils
+import models.Utils;
+
 // Importe la classe principale du jeu
 import game.Game;
 
