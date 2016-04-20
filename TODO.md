@@ -5,10 +5,10 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
 ## To-do list
 
 ### Version minimale
-- [ ] Jeu de mode console
-- [ ] 2 joueurs sur la même machine
-- [ ] Grille carrée de 13 cases de cotés
-- [ ] Les joueurs tapent la lettre de la couleur pour la sélectionner
+- [x] Jeu de mode console
+- [x] 2 joueurs sur la même machine
+- [x] Grille carrée de 13 cases de cotés
+- [x] Les joueurs tapent la lettre de la couleur pour la sélectionner
 
 ### Extensions possible
 - Mode graphique

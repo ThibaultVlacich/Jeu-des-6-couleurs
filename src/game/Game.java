@@ -56,7 +56,8 @@ public class Game {
     // Le joueur 1 commence
     Player currentPlayer = player1;
     
-    while (!this.gameOver) {   
+    while (!this.gameOver) {
+      System.out.println("");
       System.out.println("Au tour du joueur "+currentPlayer.ID);
       System.out.println("Votre couleur actuelle est "+TileColor.getColorCode(currentPlayer.getColor()));
       System.out.println("Joueur "+currentPlayer.ID+", quelle couleur choisissez-vous ?");
