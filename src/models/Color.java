@@ -53,4 +53,23 @@ public enum Color {
         return "?";
     }
   }
+  
+  public static Color getColorFromCode(String c) {
+    switch (c) {
+      case "r":
+        return Red;
+      case "o":
+        return Orange;
+      case "j":
+        return Yellow;
+      case "v":
+        return Green;
+      case "b":
+        return Blue;
+      case "i":
+        return Purple;
+       default:
+         return null;
+    }
+  }
 }
