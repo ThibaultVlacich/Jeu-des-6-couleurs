@@ -33,17 +33,17 @@ public class Grid {
    * @param s Taille de la grille
    */
   public Grid(int s) {
-    this.size = s;
+    size = s;
     
-    this.grid = new Tile[s][s];
+    grid = new Tile[s][s];
   }
 
   /**
    * Remplit la grille de manière aléatoire
    */
   public void initRandom() {
-    for(int i = 0; i < this.size; i++) {
-      for(int j = 0; j < this.size; j++) {
+    for(int i = 0; i < size; i++) {
+      for(int j = 0; j < size; j++) {
         Color randomColor = Color.getRandomColor();
         
         grid[j][i] = new Tile(randomColor);

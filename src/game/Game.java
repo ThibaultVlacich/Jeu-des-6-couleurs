@@ -33,6 +33,6 @@ public class Game {
    * @param m
    */
   public void setMode(String m) {
-    this.mode = m;
+    mode = m;
   }
 }

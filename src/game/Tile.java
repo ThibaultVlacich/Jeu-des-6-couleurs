@@ -43,7 +43,7 @@ public class Tile {
    * @param c Nouvelle couleur
    */
   public void setColor(Color c) {
-    this.color = c;
+    color = c;
   }
   
   /**
@@ -61,6 +61,6 @@ public class Tile {
    * @param p Nouveau joueur
    */
   public void setPlayer(Player p) {
-    this.player = p;
+    player = p;
   }
 }
