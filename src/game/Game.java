@@ -59,6 +59,7 @@ public class Game {
     // Variable contenant le joueur actuel
     // Le joueur 1 commence
     Player currentPlayer = player1;
+    Player otherPlayer   = player2;
     
     while (!this.gameOver) {
       System.out.println("");
@@ -69,8 +70,17 @@ public class Game {
       String    colorCode = Utils.scan.next();
       TileColor color     = TileColor.getColorFromCode(colorCode);
       
-      while (color == null) {
-        System.out.println("La couleur demandée n'existe pas");
+      while (
+          // La couleur demandée n'existe pas
+          color == null
+          // La couleur demandée est celle de l'adversaire
+          || color == otherPlayer.getColor()
+            ) {
+        if(color == null) {
+          System.out.println("La couleur demandée n'existe pas");
+        } else if (color == otherPlayer.getColor()) {
+          System.out.println("Vous ne pouvez pas choisir la couleur de votre adversaire !");
+        }
         
         colorCode = Utils.scan.next();
         color     = TileColor.getColorFromCode(colorCode);
@@ -88,6 +98,7 @@ public class Game {
       
       // Au joueur suivant !
       currentPlayer = (currentPlayer == player1) ? player2 : player1;
+      otherPlayer   = (currentPlayer == player1) ? player1 : player2;
       
       checkIsGameIsOver();
     }
