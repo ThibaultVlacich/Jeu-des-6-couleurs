@@ -98,7 +98,7 @@ public class Game {
       
       // Au joueur suivant !
       currentPlayer = (currentPlayer == player1) ? player2 : player1;
-      otherPlayer   = (currentPlayer == player1) ? player1 : player2;
+      otherPlayer   = (currentPlayer == player1) ? player2 : player1;
       
       checkIsGameIsOver();
     }
