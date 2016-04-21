@@ -66,6 +66,13 @@ public class Grid {
     return grid[y][x];
   }
   
+  /**
+   * Permet d'assigner à un joueur toutes les cases de la couleur qu'il demande
+   * et qui touchent une case qu'il possède déjà
+   * 
+   * @param pID Le joueur à qui assigner les cases
+   * @param c   La couleur choisie par le joueur
+   */
   public void assignTiles(int pID, TileColor c) {
     // On assigne les cases de la couleur demandée au joueur
     for (int i = 0; i < size; i++) {
