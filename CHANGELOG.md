@@ -6,6 +6,8 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+## Version 1.1 [21/04/2016]
+
 ### Ajouts
 - Affichage en mode graphique de la grille de jeu
 

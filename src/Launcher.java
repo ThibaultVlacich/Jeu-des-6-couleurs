@@ -17,8 +17,8 @@ import game.Game;
 
 public class Launcher {
 
-  private static String version = "1.0";
-  
+  private static String version = "1.1";
+
   public static void main(String[] args) {
     System.out.println("###\t\tJeu des 6 couleurs en Java\t\t###");
     System.out.println("###\tFait par Thibault VLACICH et Hugo MICHARD\t###");
