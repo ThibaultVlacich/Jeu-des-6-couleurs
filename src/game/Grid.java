@@ -91,34 +91,6 @@ public class Grid {
             // On la met de la nouvelle couleur choisie par le joueur
             tile.setColor(c);
             
-            if (j > 0 && i > 0) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[j - 1][i - 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j - 1][i - 1].getPlayerID() != pID
-                  ) {
-                // Case située en haut à gauche
-                grid[j - 1][i - 1].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-            
-            if (j > 0 && i < size - 1) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[j - 1][i + 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j - 1][i + 1].getPlayerID() != pID
-                  ) {
-                // Case située en haut à droite
-                grid[j - 1][i + 1].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-            
             if (j > 0) {
               if (
                   // La case est de la couleur voulue
@@ -170,34 +142,6 @@ public class Grid {
                   ) {
                 // Case située à droite
                 grid[j][i + 1].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-            
-            if (j < size - 1 && i > 0) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[j + 1][i - 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j + 1][i - 1].getPlayerID() != pID
-                  ) {
-                // Case située en bas à gauche
-                grid[j + 1][i - 1].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-            
-            if (j < size - 1 && i < size - 1) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[j + 1][i + 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j + 1][i + 1].getPlayerID() != pID
-                  ) {
-                // Case située en bas à droite
-                grid[j + 1][i + 1].setPlayerID(pID);
                 
                 newAssignedTiles++;
               }
