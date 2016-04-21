@@ -84,28 +84,84 @@ public class Grid {
           // On la met de la nouvelle couleur choisie par le joueur
           tile.setColor(c);
           
+          int newAssignedTiles;
+          
           // On parcourt les cases situées à proximité et on les lui assigne si elles sont de la couleur choisie
-          if (j > 0) {
-            if(grid[j-1][i].getColor() == c) {
-              grid[j-1][i].setPlayerID(pID);
+          while (newAssignedTiles != 0) {
+            // Tant que la grille a été modifiée à l'éxécution précédente de la boucle,
+            // on continue à vérifier si des cases ne peuvent pas être contrôlées
+            newAssignedTiles = 0;
+            
+            if (j > 0 && i > 0) {
+              if (grid[j - 1][i - 1].getColor() == c) {
+                // Case située en haut à gauche
+                grid[j - 1][i - 1].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
             }
-          }
-
-          if (i > 0) {
-            if (grid[j][i-1].getColor() == c){
-              grid[j][i-1].setPlayerID(pID);
+            
+            if (j > 0 && i < size - 1) {
+              if (grid[j - 1][i + 1].getColor() == c) {
+                // Case située en haut à droite
+                grid[j - 1][i + 1].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
             }
-          }
-          
-          if (j < size - 1){
-            if (grid[j+1][i].getColor() == c) {
-              grid[j+1][i].setPlayerID(pID);
+            
+            if (j > 0) {
+              if (grid[j - 1][i].getColor() == c) {
+                // Case située en haut
+                grid[j - 1][i].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
             }
-          }
-          
-          if (i < size - 1){
-            if (grid[j][i+1].getColor() == c){
-              grid[j][i+1].setPlayerID(pID);
+  
+            if (i > 0) {
+              if (grid[j][i - 1].getColor() == c) {
+                // Case située à gauche
+                grid[j][i - 1].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
+            }
+            
+            if (j < size - 1){
+              if (grid[j + 1][i].getColor() == c) {
+                // Case située en dessous
+                grid[j + 1][i].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
+            }
+            
+            if (i < size - 1){
+              if (grid[j][i + 1].getColor() == c) {
+                // Case située à droite
+                grid[j][i + 1].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
+            }
+            
+            if (j < size - 1 && i > 0) {
+              if (grid[j + 1][i - 1].getColor() == c) {
+                // Case située en bas à gauche
+                grid[j + 1][i - 1].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
+            }
+            
+            if (j < size - 1 && i < size - 1) {
+              if (grid[j + 1][i + 1].getColor() == c) {
+                // Case située en bas à droite
+                grid[j + 1][i + 1].setPlayerID(pID);
+                
+                newAssignedTiles++;
+              }
             }
           }
         }
