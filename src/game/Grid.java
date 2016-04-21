@@ -74,23 +74,22 @@ public class Grid {
    * @param c   La couleur choisie par le joueur
    */
   public void assignTiles(int pID, TileColor c) {
-    // On assigne les cases de la couleur demandée au joueur
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-        Tile tile = grid[j][i];
+    int newAssignedTiles = -1;
+    
+    while (newAssignedTiles != 0) {
+      // Tant que la grille a été modifiée à l'éxécution précédente de la boucle,
+      // on continue à vérifier si des cases ne peuvent pas être contrôlées
+      newAssignedTiles = 0;
+      
+      // On assigne les cases de la couleur demandée au joueur
+      for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+          Tile tile = grid[j][i];
         
-        if (tile.getPlayerID() == pID) {
-          // La case appartient au joueur
-          // On la met de la nouvelle couleur choisie par le joueur
-          tile.setColor(c);
-          
-          int newAssignedTiles;
-          
-          // On parcourt les cases situées à proximité et on les lui assigne si elles sont de la couleur choisie
-          while (newAssignedTiles != 0) {
-            // Tant que la grille a été modifiée à l'éxécution précédente de la boucle,
-            // on continue à vérifier si des cases ne peuvent pas être contrôlées
-            newAssignedTiles = 0;
+          if (tile.getPlayerID() == pID) {
+            // La case appartient au joueur
+            // On la met de la nouvelle couleur choisie par le joueur
+            tile.setColor(c);
             
             if (j > 0 && i > 0) {
               if (grid[j - 1][i - 1].getColor() == c) {
