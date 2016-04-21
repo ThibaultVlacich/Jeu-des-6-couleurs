@@ -6,6 +6,11 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+## Version 1.1.1 [21/04/2016]
+
+### Bugs
+- Il n'est plus possible de capturer une case en la touchant par un coin, il faut toucher une case par un coté pour la capturer.
+
 ## Version 1.1 [21/04/2016]
 
 ### Ajouts
