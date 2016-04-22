@@ -147,8 +147,8 @@ public class Game {
    * @return  (True|False)
    */
   private Boolean isColorOwned(TileColor c) {
-    for (int i = 0; i < players.length; i++) {
-      if (players[i].getColor() == c) {
+    for (Player player: players) {
+      if (player.getColor() == c) {
         return true;
       }
     }
@@ -172,9 +172,9 @@ public class Game {
       return;
     }
     
-    for (int i = 0; i < players.length; i++) {
+    for (Player player: players) {
       // ID du joueur
-      int pID = players[i].ID;
+      int pID = player.ID;
       
       // Nombre de cases controllées par le joueur
       int tilesOwnedByPlayer = grid.countTilesOwnedBy(pID);
