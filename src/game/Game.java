@@ -164,20 +164,27 @@ public class Game {
     double numberOfTiles = Math.pow(grid.getSize(), 2);
     // Nombre de cases encore non controllées
     int freeTiles = grid.countTilesOwnedBy(0);
-    // Nombre de cases controllées par les joueurs
-    int tilesOwnedByPlayer1 = grid.countTilesOwnedBy(1);
-    int tilesOwnedByPlayer2 = grid.countTilesOwnedBy(2);
     
-    if (
-        // Il n'y a plus de cases libres, la partie est terminée
-        freeTiles == 0
-        // Ou le joueur 1 contrôle plus de 50% des cases
-        || tilesOwnedByPlayer1 > numberOfTiles / 2
-        // Ou le joueur 2 contrôle plus de 50% des cases
-        || tilesOwnedByPlayer2 > numberOfTiles / 2
-        )
-    {
+    if (freeTiles == 0) {
+      // Il n'y a plus de cases libres, la partie est terminée
       gameOver = true;
+      
+      return;
+    }
+    
+    for (int i = 0; i < players.length; i++) {
+      // ID du joueur
+      int pID = players[i].ID;
+      
+      // Nombre de cases controllées par le joueur
+      int tilesOwnedByPlayer = grid.countTilesOwnedBy(pID);
+      
+      if (tilesOwnedByPlayer > numberOfTiles / 2) {
+        // Le joueur possède plus de la moitié des cases, la partie est terminée
+        gameOver = true;
+        
+        return;
+      }
     }
   }
 
