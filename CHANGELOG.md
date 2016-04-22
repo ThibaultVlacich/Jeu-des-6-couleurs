@@ -6,6 +6,9 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+### Ajouts
+- Possibilité de jouer à plus de 2 joueurs (jusqu'à 4 max)
+
 ## Version 1.1.1 [21/04/2016]
 
 ### Bugs

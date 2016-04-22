@@ -16,7 +16,7 @@ import models.Utils;
 import game.Game;
 
 public class Launcher {
-
+  // Version actuelle du jeu
   private static String version = "1.1.1";
 
   public static void main(String[] args) {
@@ -38,5 +38,4 @@ public class Launcher {
     // Ferme le scanner
     Utils.scan.close();
   }
-
 }

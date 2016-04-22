@@ -23,11 +23,20 @@ public class Game {
   private Grid grid;
   
   // Les objets joueurs
-  private Player player1 = new Player(1);
-  private Player player2 = new Player(2);
+  private Player[] players;
   
   // Défini si la partie est terminée ou non
   private Boolean gameOver = false;
+  
+  // Stock les coordonnées des coins
+  // TODO : Stocker cette info dans la classe Grid
+  // quand il y aura différents types de grilles
+  private int[][] cornersCoordinates = {
+      {0,  0},  // En haut à gauche - Joueur 1
+      {12, 12}, // En bas à droite  - Joueur 2
+      {0,  12}, // En haut à droite - Joueur 3
+      {12,  0}  // En bas à gauche  - Joueur 4
+  };
 
   /**
    * Démarre une partie
@@ -39,17 +48,31 @@ public class Game {
     // On initialise la grille de manière aléatoire
     grid.initRandom();
     
-    // On associe inialement les cases des coins aux joueurs
-    grid.assignTile(0, 0, player1.ID);
-    player1.setColor(grid.getTile(0, 0).getColor());
-    grid.assignTile(12, 12, player2.ID);
-    player2.setColor(grid.getTile(12, 12).getColor());
+    // On demande le nombre de joueurs
+    System.out.println("Veuillez saisir le nombre de joueurs (de 2 à 4)");
+    int nbOfPlayers = Utils.scan.nextInt();
     
-    // On affiche la grille générée en console
-    System.out.println("Le joueur 1 débute en haut à gauche");
-    System.out.println("Le joueur 2 débute en bas à droite");
-    System.out.println("");
+    while (nbOfPlayers < 2 || nbOfPlayers > 4) {
+      System.out.println("Erreur : le nombre de joueurs doit être compris entre 2 et 4.");
+      nbOfPlayers = Utils.scan.nextInt();
+    }
     
+    // On créé la liste des joueurs
+    players = new Player[nbOfPlayers];
+    
+    for (int i = 0; i < nbOfPlayers; i++) {
+      // On créé l'objet Player
+      players[i] = new Player(i + 1);
+      
+      int x = cornersCoordinates[i][0];
+      int y = cornersCoordinates[i][1];
+      
+      // On associe un coin au joueur
+      grid.assignTile(x, y, i + 1);
+      players[i].setColor(grid.getTile(x, y).getColor());
+    }
+    
+    // On affiche la grille générée 
     if (mode == "console") {
       grid.showConsole();
     } else {
@@ -58,8 +81,8 @@ public class Game {
     
     // Variable contenant le joueur actuel
     // Le joueur 1 commence
-    Player currentPlayer = player1;
-    Player otherPlayer   = player2;
+    Player currentPlayer = players[0];
+    Player otherPlayer   = players[1];
     
     while (!this.gameOver) {
       System.out.println("");
@@ -73,13 +96,14 @@ public class Game {
       while (
           // La couleur demandée n'existe pas
           color == null
-          // La couleur demandée est celle de l'adversaire
-          || color == otherPlayer.getColor()
-            ) {
+          // La couleur demandée est déjà controlée
+          || isColorOwned(color)
+            )
+      {
         if(color == null) {
           System.out.println("La couleur demandée n'existe pas");
-        } else if (color == otherPlayer.getColor()) {
-          System.out.println("Vous ne pouvez pas choisir la couleur de votre adversaire !");
+        } else if (isColorOwned(color)) {
+          System.out.println("Vous ne pouvez pas choisir une couleur déjà contrôlée !");
         }
         
         colorCode = Utils.scan.next();
@@ -97,8 +121,8 @@ public class Game {
       }
       
       // Au joueur suivant !
-      currentPlayer = (currentPlayer == player1) ? player2 : player1;
-      otherPlayer   = (currentPlayer == player1) ? player2 : player1;
+      otherPlayer   = players[currentPlayer.ID - 1];
+      currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];
       
       checkIsGameIsOver();
     }
@@ -113,6 +137,23 @@ public class Game {
     
     System.out.println("La partie est terminée !");
     System.out.println("Le joueur gagnant est le joueur "+winnerID);
+  }
+  
+  /**
+   * Permet de déterminer si une couleur appartient déjà à un joueur
+   * 
+   * @param c La couleur à tester
+   * 
+   * @return  (True|False)
+   */
+  private Boolean isColorOwned(TileColor c) {
+    for (int i = 0; i < players.length; i++) {
+      if (players[i].getColor() == c) {
+        return true;
+      }
+    }
+    
+    return false;
   }
   
   /**
@@ -134,7 +175,8 @@ public class Game {
         || tilesOwnedByPlayer1 > numberOfTiles / 2
         // Ou le joueur 2 contrôle plus de 50% des cases
         || tilesOwnedByPlayer2 > numberOfTiles / 2
-        ) {
+        )
+    {
       gameOver = true;
     }
   }

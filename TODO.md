@@ -15,7 +15,7 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
   - [x] Affichage graphique de la grille, mais l'affichage du score / la séléction de la couleur reste en console
   - [ ] Affichage graphique de la grille, sélection des couleurs à la souris
   - [ ] Jeu entirèrement graphique
-- [ ] Choix du nombre de joueurs (2, 3 ou 4)
+- [x] Choix du nombre de joueurs (2, 3 ou 4)
 - Forme de la grille
   - [ ] Grille carrée
   - [ ] Grille en losage (13 cases de coté)
