@@ -12,20 +12,20 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
 
 ### Extensions possible
 - Mode graphique
-  - [x] Affichage graphique de la grille, mais l'affichage du score / la séléction de la couleur reste en console
+  - [x] Affichage graphique de la grille, mais l'affichage du score / la sélection de la couleur reste en console
   - [ ] Affichage graphique de la grille, sélection des couleurs à la souris
-  - [ ] Jeu entirèrement graphique
+  - [ ] Jeu entièrement graphique
 - [x] Choix du nombre de joueurs (2, 3 ou 4)
 - Forme de la grille
   - [ ] Grille carrée
-  - [ ] Grille en losage (13 cases de coté)
+  - [ ] Grille en losange (13 cases de coté)
   - [ ] Pavage hexagonal (7 cases de coté)
   - [ ] Grille rectangulaire
   - [ ] Possibilité de choisir la taille de la grille
-- Intelligence artificelle
+- Intelligence artificielle
   - [ ] IA simple (au hasard)
   - [ ] IA qui choisit la couleur lui permettant de capturer le plus de cases
-  - [ ] IA qui choisit la couleur qui "embète" le plus l'adversaire
+  - [ ] IA qui choisit la couleur qui "embête" le plus l'adversaire
   - [ ] IA qui analyse la grille pour choisir la couleur
 - Gestion de la partie
   - [ ] Importer un fichier qui définit la grille
@@ -33,7 +33,7 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
 - [ ] Jeu en réseau
 - Grilles avancées
   - [ ] Pouvoir créer une grille : en choisir la couleur de chaque case, la sauvegarder
-  - [ ] Avoir des obstables sur la grille
+  - [ ] Avoir des obstacles sur la grille
 - Règles avancées
-  - [ ] Si les cases contrôlées par un joueur encerclent une zone de cases non controlées, il prend le controle de la zone
+  - [ ] Si les cases contrôlées par un joueur encerclent une zone de cases non contrôlées, il prend le contrôle de la zone
   - [ ] Brouillard de guerre
