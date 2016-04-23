@@ -1,59 +1,23 @@
 /**
  * Jeu des 6 couleurs
  *
- * @package game
- * @class   Grid
- * @desc    Classe permettant de gérer la grille du jeu
+ * @package   game
+ * @interface Grid
+ * @desc      Interface définissant le modèle à suivre pour créer une grille;
  *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
+ * @author    Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author    Hugo Michard <hugo.michard@isep.fr>
  */
 
 package game;
 
-// Importe les modèles utiles à la grille
 import models.TileColor;
 
-// Importe l'objet View
-import view.View;
-
-public class Grid {
-  // Taille de la grille
-  private int size;
-
-  // Grille du jeu
-  Tile[][] grid;
-
-  /**
-   * Initialise la grille avec sa taille par défaut
-   */
-  public Grid() {
-    this(13);
-  }
-
-  /**
-   * Initialise la grille avec une taille donnée
-   *
-   * @param s Taille de la grille
-   */
-  public Grid(int s) {
-    size = s;
-    
-    grid = new Tile[s][s];
-  }
-
+public interface Grid {
   /**
    * Remplit la grille de manière aléatoire
    */
-  public void initRandom() {
-    for(int i = 0; i < size; i++) {
-      for(int j = 0; j < size; j++) {
-        TileColor randomColor = TileColor.getRandomColor();
-        
-        grid[j][i] = new Tile(randomColor);
-      }
-    }
-  }
+  public void initRandom();
   
   /**
    * Permet d'obtenir la case de la grille aux coordonnées demandées
@@ -62,9 +26,7 @@ public class Grid {
    * 
    * @return  La case située aux coordonnés (x, y)
    */
-  public Tile getTile(int x, int y) {
-    return grid[y][x];
-  }
+  public Tile getTile(int x, int y);
   
   /**
    * Permet d'assigner à un joueur toutes les cases de la couleur qu'il demande
@@ -73,84 +35,7 @@ public class Grid {
    * @param pID Le joueur à qui assigner les cases
    * @param c   La couleur choisie par le joueur
    */
-  public void assignTiles(int pID, TileColor c) {
-    int newAssignedTiles = -1;
-    
-    while (newAssignedTiles != 0) {
-      // Tant que la grille a été modifiée à l'éxécution précédente de la boucle,
-      // on continue à vérifier si des cases ne peuvent pas être contrôlées
-      newAssignedTiles = 0;
-      
-      // On assigne les cases de la couleur demandée au joueur
-      for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-          Tile tile = grid[j][i];
-        
-          if (tile.getPlayerID() == pID) {
-            // La case appartient au joueur
-            // On la met de la nouvelle couleur choisie par le joueur
-            tile.setColor(c);
-            
-            if (j > 0) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[j - 1][i].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j - 1][i].getPlayerID() != pID
-                  ) {
-                // Case située en haut
-                grid[j - 1][i].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-  
-            if (i > 0) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[j][i - 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j][i - 1].getPlayerID() != pID
-                  ) {
-                // Case située à gauche
-                grid[j][i - 1].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-            
-            if (j < size - 1){
-              if (
-                  // La case est de la couleur voulue
-                  grid[j + 1][i].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j + 1][i].getPlayerID() != pID
-                  ) {
-                // Case située en dessous
-                grid[j + 1][i].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-            
-            if (i < size - 1){
-              if (
-                  // La case est de la couleur voulue
-                  grid[j][i + 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j][i + 1].getPlayerID() != pID
-                  ) {
-                // Case située à droite
-                grid[j][i + 1].setPlayerID(pID);
-                
-                newAssignedTiles++;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  public void assignTiles(int pID, TileColor c);
   
   /**
    * Permet d'assigner un joueur à une case
@@ -158,21 +43,15 @@ public class Grid {
    * @param x, y  Coordonnées de la case demandée
    * @param pID   Le joueur à qui assigner la case
    */
-  public void assignTile(int x, int y, int pID) {
-    Tile tile = grid[y][x];
-    
-    tile.setPlayerID(pID);
-  }
+  public void assignTile(int x, int y, int pID);
   
   /**
    * Permet d'obtenir la taille de la grille
    * 
    * @return  La taille de la grille
    */
-  public int getSize() {
-    return size;
-  }
-
+  public int getSize();
+  
   /**
    * Permet de compter le nombre de cases possédées par un joueur
    * 
@@ -180,52 +59,15 @@ public class Grid {
    * 
    * @return  Le nombre de cases libres
    */
-  public int countTilesOwnedBy(int pID) {
-    int count = 0;
-    
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-        Tile tile = grid[j][i];
-        
-        if (tile.getPlayerID() == pID) {
-          // La case est libre
-          count++;
-        }
-      }
-    }
-    
-    return count;
-  }
+  public int countTilesOwnedBy(int pID);
   
   /**
    * Permet d'affichier la grille en mode console
    */
-  public void showConsole() {
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-        Tile tile = grid[j][i];
-        
-        TileColor tileColor  = tile.getColor();
-        int       tilePlayerID = tile.getPlayerID();
-        
-        String tileColorCode = TileColor.getColorCode(tileColor);
-        
-        if (tilePlayerID != 0) {
-          // La case appartient à un joueur
-          tileColorCode = tileColorCode.toUpperCase();
-        }
-        
-        System.out.print(tileColorCode+" ");
-      }
-      
-      System.out.println("");
-    }
-  }
+  public void showConsole();
   
   /**
    * Permet d'afficher la grille en mode 2D
    */
-  public void show2D() {
-    View.showGrid(this);
-  }
+  public void show2D();
 }

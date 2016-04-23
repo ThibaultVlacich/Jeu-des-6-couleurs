@@ -43,7 +43,7 @@ public class Game {
    */
   public void start() {
     // Création d'une grille carrée de 13 de coté
-    grid = new Grid(13);
+    grid = new GridSquare(13);
 
     // On initialise la grille de manière aléatoire
     grid.initRandom();
