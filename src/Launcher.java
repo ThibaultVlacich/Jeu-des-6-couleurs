@@ -12,8 +12,7 @@
 // Importe la classe Utils
 import models.Utils;
 
-// Importe la classe principale du jeu
-import game.Game;
+import view.Home;
 
 public class Launcher {
   // Version actuelle du jeu
@@ -25,15 +24,7 @@ public class Launcher {
     System.out.println("###\t\t\tVersion " + version + "\t\t\t###");
     System.out.println("");
 
-    Game g = new Game();
-
-    if(args.length > 0 && args[0].equals("console")) {
-      // Permet de démarrer le jeu en mode console
-      g.setMode("console");
-    }
-
-    // Démarre le jeu
-    g.start();
+    Home.launch(Home.class);
 
     // Ferme le scanner
     Utils.scan.close();

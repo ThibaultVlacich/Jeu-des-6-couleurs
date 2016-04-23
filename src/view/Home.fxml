@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane alignment="TOP_CENTER" stylesheets="@../../ressources/home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Home">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <ImageView fitHeight="50.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ressources/logo.png" />
+         </image>
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </ImageView>
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#launchGame" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="Nouvelle partie" textAlignment="CENTER" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="75.0" right="75.0" top="40.0" />
+         </GridPane.margin>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#quitApp" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="Quitter" textAlignment="CENTER" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="75.0" right="75.0" top="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadGame" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="Charger une partie" textAlignment="CENTER" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="75.0" right="75.0" top="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="Options" textAlignment="CENTER" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="75.0" right="75.0" top="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Hyperlink onAction="#openGitHub" text="https://github.com/ThibaultVlacich/Jeu-des-6-couleurs" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets top="40.0" />
+         </GridPane.margin>
+      </Hyperlink>
+   </children>
+</GridPane>
