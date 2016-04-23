@@ -17,7 +17,7 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
   - [ ] Jeu entièrement graphique
 - [x] Choix du nombre de joueurs (2, 3 ou 4)
 - Forme de la grille
-  - [ ] Grille carrée
+  - [x] Grille carrée
   - [ ] Grille en losange (13 cases de coté)
   - [ ] Pavage hexagonal (7 cases de coté)
   - [ ] Grille rectangulaire
