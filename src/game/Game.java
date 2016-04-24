@@ -72,11 +72,20 @@ public class Game {
       players[i].setColor(grid.getTile(x, y).getColor());
     }
     
+    // On demande le type de grille
+    System.out.println("Veuillez indiquer la grille voulue : (0 pour carre, 1 pour losange)");
+    int typegrille = Utils.scan.nextInt();
+    
+    while (typegrille < 0 || typegrille > 1) {
+      System.out.println("Erreur : le numero de grille doit etre 0 ou 1.");
+      typegrille = Utils.scan.nextInt();
+    }
+    
     // On affiche la grille générée 
     if (mode == "console") {
       grid.showConsole();
     } else {
-      grid.show2D();
+      grid.show2D(typegrille);
     }
     
     // Variable contenant le joueur actuel
@@ -117,7 +126,7 @@ public class Game {
       if (mode == "console") {
         grid.showConsole();
       } else {
-        grid.show2D();
+        grid.show2D(typegrille);
       }
       
       // Au joueur suivant !

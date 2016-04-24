@@ -225,7 +225,7 @@ public class GridSquare implements Grid {
   /**
    * Permet d'afficher la grille en mode 2D
    */
-  public void show2D() {
-    View.showGrid(this);
+  public void show2D(int typegrille) {
+    View.showGrid(this,typegrille);
   }
 }
