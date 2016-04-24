@@ -82,7 +82,6 @@ public class Game {
     // Variable contenant le joueur actuel
     // Le joueur 1 commence
     Player currentPlayer = players[0];
-    Player otherPlayer   = players[1];
     
     while (!this.gameOver) {
       System.out.println("");
@@ -121,7 +120,6 @@ public class Game {
       }
       
       // Au joueur suivant !
-      otherPlayer   = players[currentPlayer.ID - 1];
       currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];
       
       checkIsGameIsOver();
