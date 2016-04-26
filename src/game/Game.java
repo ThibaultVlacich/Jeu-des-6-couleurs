@@ -11,7 +11,6 @@
 
 package game;
 
-// Importe les modèles utiles au jeu
 import models.TileColor;
 import models.Utils;
 

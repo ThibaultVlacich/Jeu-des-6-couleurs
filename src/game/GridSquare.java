@@ -14,10 +14,8 @@ package game;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
-// Importe les modèles utiles à la grille
 import models.TileColor;
 
-// Importe l'objet View
 import view.View;
 
 public class GridSquare implements Grid {

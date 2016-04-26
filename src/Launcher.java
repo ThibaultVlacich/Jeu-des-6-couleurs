@@ -9,7 +9,6 @@
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
 
-// Importe la classe Utils
 import models.Utils;
 
 import view.Home;

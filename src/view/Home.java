@@ -6,15 +6,14 @@ import java.util.Optional;
 import game.Game;
 
 import javafx.application.*;
+
 import javafx.event.ActionEvent;
 
-// Import FXML
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import javafx.geometry.Insets;
 
-// Import JavaFX scene
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,6 +23,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 

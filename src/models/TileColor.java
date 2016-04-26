@@ -11,7 +11,6 @@
 
 package models;
 
-// Importe l'objet Java Color
 import java.awt.Color;
 
 public enum TileColor {

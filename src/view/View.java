@@ -11,16 +11,12 @@
 
 package view;
 
-// Importe le package StdDraw
 import edu.princeton.cs.introcs.StdDraw;
 
-// Importe l'objet Java Color
 import java.awt.Color;
 
-// Importe les modèles utiles
 import models.TileColor;
 
-// Importe l'objet grille
 import game.Grid;
 import game.Tile;
 
