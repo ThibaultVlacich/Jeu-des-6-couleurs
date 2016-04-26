@@ -52,6 +52,22 @@ public class Home extends Application {
   
   @FXML
   protected void launchGame(ActionEvent event) {
+    // On masque l'écran d'accueil
+    mainStage.hide();
+    
+    try {
+      GameWindow gameWindow = new GameWindow(new Game());
+      
+      Scene scene = gameWindow.getScene();
+      
+      Stage stage = new Stage();
+      
+      stage.setTitle("Jeu des 6 couleurs");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   @FXML

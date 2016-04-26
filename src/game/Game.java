@@ -37,11 +37,8 @@ public class Game {
       {0,  12}, // En haut à droite - Joueur 3
       {12,  0}  // En bas à gauche  - Joueur 4
   };
-
-  /**
-   * Démarre une partie
-   */
-  public void start() {
+  
+  public Game() {
     // Création d'une grille carrée de 13 de coté
     grid = new GridSquare(13);
 
@@ -49,13 +46,7 @@ public class Game {
     grid.initRandom();
     
     // On demande le nombre de joueurs
-    System.out.println("Veuillez saisir le nombre de joueurs (de 2 à 4)");
-    int nbOfPlayers = Utils.scan.nextInt();
-    
-    while (nbOfPlayers < 2 || nbOfPlayers > 4) {
-      System.out.println("Erreur : le nombre de joueurs doit être compris entre 2 et 4.");
-      nbOfPlayers = Utils.scan.nextInt();
-    }
+    int nbOfPlayers = 2;
     
     // On créé la liste des joueurs
     players = new Player[nbOfPlayers];
@@ -78,7 +69,12 @@ public class Game {
     } else {
       grid.show2D();
     }
-    
+  }
+
+  /**
+   * Démarre une partie
+   */
+  public void start() {    
     // Variable contenant le joueur actuel
     // Le joueur 1 commence
     Player currentPlayer = players[0];
