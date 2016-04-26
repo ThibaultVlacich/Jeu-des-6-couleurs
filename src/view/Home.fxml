@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane alignment="TOP_CENTER" stylesheets="@../../ressources/home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Home">
+<GridPane alignment="TOP_CENTER" stylesheets="@css/home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Home">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -23,7 +23,7 @@
    <children>
       <ImageView fitHeight="50.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/logo.png" />
+            <Image url="@images/logo.png" />
          </image>
          <GridPane.margin>
             <Insets top="10.0" />
