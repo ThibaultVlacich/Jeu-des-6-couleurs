@@ -71,32 +71,7 @@ public class GameWindow {
   }
   
   private void drawGameGrid() {
-    GridPane gameGrid = new GridPane();
-    
-    int gridSize = game.getGrid().getSize();
-    
-    for (int i = 0; i < gridSize; i++) {
-      for (int j = 0; j < gridSize; j++) {
-        Tile tile = game.getGrid().getTile(i, j);
-        int  pID  = tile.getPlayerID();
-        
-        Button button = new Button();
-        
-        button.getStyleClass().add("tile");
-        button.getStyleClass().add(TileColor.getColorClassName(tile.getColor()));
-        
-        if (pID != 0) {
-          button.setText(Integer.toString(pID));
-        }
-        
-        button.setOnAction(event -> {
-          System.out.print("Boutton appuyé !");
-          //game.getGrid().assignTile(i, j, 1);
-        });
-        
-        gameGrid.add(button, i, j);
-      }
-    }
+    GridPane gameGrid = game.getGrid().show2D();
     
     root.add(gameGrid, 0, 1);
   }
