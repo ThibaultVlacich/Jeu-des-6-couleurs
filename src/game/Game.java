@@ -64,11 +64,11 @@ public class Game {
     }
     
     // On affiche la grille générée 
-    if (mode == "console") {
+    /*if (mode == "console") {
       grid.showConsole();
     } else {
       grid.show2D();
-    }
+    }*/
   }
 
   /**
@@ -182,6 +182,10 @@ public class Game {
     }
   }
 
+  public Grid getGrid() {
+    return grid;
+  }
+  
   /**
    * Permet de définir le mode d'affichage du jeu
    *

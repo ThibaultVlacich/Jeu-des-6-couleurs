@@ -1,0 +1,35 @@
+.tile {
+	-fx-background-radius: 5em;
+	-fx-min-width: 40px;
+	-fx-min-height: 40px;
+	-fx-max-width: 40px;
+	-fx-max-height: 40px;
+	
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+.tile.orange {
+	-fx-background-color: orange;
+}
+
+.tile.red {
+	-fx-background-color: red;
+}
+
+.tile.purple {
+	-fx-background-color: purple;
+}
+
+.tile.yellow {
+	-fx-background-color: yellow;
+}
+
+.tile.green {
+	-fx-background-color: green;
+}
+
+.tile.blue {
+	-fx-background-color: blue;
+}
