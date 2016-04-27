@@ -1,7 +1,12 @@
 package view;
 
-import game.Game;
+import java.util.List;
 
+import events.Event;
+import events.EventPool;
+import events.EventType;
+import game.Game;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -33,6 +38,41 @@ public class GameWindow {
     scene = new Scene(root);
     
     scene.getStylesheets().add(getClass().getResource("css/game.css").toExternalForm());
+    
+    Thread viewThread = new Thread() {
+      public void run() {
+        while (true) {
+          // Récupération de liste des événements
+          List<Event> events = EventPool.getEvents();
+          
+          if (events.size() > 0) {
+            // Il y a un événement en liste d'attente à traiter
+            for (Event event: events) {
+              if (event.getType() != EventType.UpdateView) {
+                // Le type ne nous interesse pas, on passe à l'événement suivant
+                continue;
+              }
+              
+              Platform.runLater(() -> drawGameGrid());
+            }
+          }
+          
+          try {
+            Thread.sleep(200);
+          } catch (Exception e) {}
+        }
+      }
+    };
+    
+    viewThread.start();
+    
+    Thread gameThread = new Thread() {
+      public void run() {
+        game.start();
+      }
+    };
+    
+    gameThread.start();
   }
   
   /**

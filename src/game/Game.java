@@ -11,6 +11,11 @@
 
 package game;
 
+import java.util.List;
+
+import events.Event;
+import events.EventPool;
+import events.EventType;
 import models.TileColor;
 import models.Utils;
 
@@ -79,45 +84,45 @@ public class Game {
     Player currentPlayer = players[0];
     
     while (!this.gameOver) {
-      System.out.println("");
-      System.out.println("Au tour du joueur "+currentPlayer.ID);
-      System.out.println("Votre couleur actuelle est "+TileColor.getColorCode(currentPlayer.getColor()));
-      System.out.println("Joueur "+currentPlayer.ID+", quelle couleur choisissez-vous ?");
+      // Récupération de liste des événements
+      List<Event> events = EventPool.getEvents();
       
-      String    colorCode = Utils.scan.next();
-      TileColor color     = TileColor.getColorFromCode(colorCode);
-      
-      while (
-          // La couleur demandée n'existe pas
-          color == null
-          // La couleur demandée est déjà controlée
-          || isColorOwned(color)
-            )
-      {
-        if(color == null) {
-          System.out.println("La couleur demandée n'existe pas");
-        } else if (isColorOwned(color)) {
-          System.out.println("Vous ne pouvez pas choisir une couleur déjà contrôlée !");
+      if (events.size() > 0) {
+        // Il y a un événement en liste d'attente à traiter
+        for (Event event: events) {
+          if (event.getType() != EventType.TileChoice) {
+            // Le type ne nous interesse pas, on passe à l'événement suivant
+            continue;
+          }
+          
+          TileColor color = event.getColorChoosed();
+          
+          System.out.println("Couleur choisie : "+TileColor.getColorClassName(color));
+          
+          currentPlayer.setColor(color);
+          grid.assignTiles(currentPlayer.ID, color);
+          
+          // Au joueur suivant !
+          currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];
         }
         
-        colorCode = Utils.scan.next();
-        color     = TileColor.getColorFromCode(colorCode);
+        // On vide la liste des événements (ils ont été traités)
+        EventPool.clearEvents();
       }
       
-      currentPlayer.setColor(color);
-      grid.assignTiles(currentPlayer.ID, color);
+      // On demande à mettre à jour la vue
+      Event updateViewEvent = new Event(EventType.UpdateView);
       
-      // On affiche la nouvelle grille
-      if (mode == "console") {
-        grid.showConsole();
-      } else {
-        grid.show2D();
-      }
+      EventPool.addEvent(updateViewEvent);
       
-      // Au joueur suivant !
-      currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];
-      
+      // On vérifie si la partie est terminée
       checkIsGameIsOver();
+      
+      // Temporisation de la boucle
+      try {
+        Thread.sleep(200);
+      } catch (Exception e) {
+      }
     }
     
     // La partie est terminée !

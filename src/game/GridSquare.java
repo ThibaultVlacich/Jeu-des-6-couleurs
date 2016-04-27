@@ -11,6 +11,10 @@
 
 package game;
 
+import events.Event;
+import events.EventPool;
+import events.EventType;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -244,8 +248,12 @@ public class GridSquare implements Grid {
         }
           
         button.setOnAction(event -> {
-          System.out.print("Boutton appuyé !");
-          //game.getGrid().assignTile(i, j, 1);
+          System.out.println("Boutton appuyé !");
+          
+          Event e = new Event(EventType.TileChoice);
+          e.setColorChoosed(tile.getColor());
+          
+          EventPool.addEvent(e);
         });
           
         gameGrid.add(button, i, j);
