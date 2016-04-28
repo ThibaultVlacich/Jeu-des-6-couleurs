@@ -6,7 +6,10 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+## Version 1.2 [28/04/2016]
+
 ### Ajouts
+- Interface graphique complète avec JavaFX
 - Possibilité de jouer à plus de 2 joueurs (jusqu'à 4 max)
 
 ## Version 1.1.1 [21/04/2016]
