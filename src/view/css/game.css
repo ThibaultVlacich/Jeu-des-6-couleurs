@@ -8,6 +8,9 @@
     -fx-padding: 5px;
     -fx-border-insets: 5px;
     -fx-background-insets: 5px;
+    
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
 }
 
 .tile.orange {
@@ -20,6 +23,8 @@
 
 .tile.purple {
 	-fx-background-color: purple;
+	
+	-fx-text-fill: white;
 }
 
 .tile.yellow {
@@ -32,4 +37,6 @@
 
 .tile.blue {
 	-fx-background-color: blue;
+	
+	-fx-text-fill: white;
 }

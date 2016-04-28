@@ -24,6 +24,8 @@ public class GameWindow implements Observer {
   //
   private GridPane root = new GridPane();
   
+  private GridPane gameGrid;
+  
   //
   private Scene scene;
   
@@ -81,7 +83,7 @@ public class GameWindow implements Observer {
   }
   
   private void drawGameGrid() {
-    GridPane gameGrid = game.getGrid().show2D(game);
+    gameGrid = game.getGrid().show2D(game);
     
     root.add(gameGrid, 0, 1);
   }
@@ -90,7 +92,11 @@ public class GameWindow implements Observer {
    * Permet de mettre à jour la vue
    */
   public void updateView() {
-    drawGameGrid();
+    root.getChildren().remove(gameGrid);
+    
+    gameGrid = game.getGrid().show2D(game);
+    
+    root.add(gameGrid, 0, 1);
   }
   
   /**

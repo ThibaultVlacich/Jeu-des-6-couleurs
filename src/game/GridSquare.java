@@ -242,8 +242,6 @@ public class GridSquare implements Grid {
         }
           
         button.setOnAction(event -> {
-          System.out.println("Boutton appuyé !");
-          
           game.chooseTile(tile);
         });
           
