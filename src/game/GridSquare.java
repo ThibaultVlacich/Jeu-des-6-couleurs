@@ -11,6 +11,9 @@
 
 package game;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -50,6 +53,25 @@ public class GridSquare implements Grid {
         TileColor randomColor = TileColor.getRandomColor();
         
         grid[i][j] = new Tile(randomColor);
+      }
+    }
+  }
+  
+  /**
+   * Remplit la grille à partir d'une sauvegarde
+   */
+  public void initWithSave(JSONArray colorGrid, JSONArray playerGrid) {
+    for(int i = 0; i < size; i++) {
+      JSONArray colorLine  = (JSONArray) colorGrid.get(i);
+      JSONArray playerLine = (JSONArray) playerGrid.get(i);
+      
+      for(int j = 0; j < size; j++) {
+        String    colorCode   = (String) colorLine.get(j);
+        TileColor randomColor = TileColor.getColorFromCode(colorCode);
+        int       pID         = ((Long) playerLine.get(j)).intValue();
+        
+        grid[i][j] = new Tile(randomColor);
+        grid[i][j].setPlayerID(pID);
       }
     }
   }
@@ -184,7 +206,7 @@ public class GridSquare implements Grid {
     
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        Tile tile = grid[j][i];
+        Tile tile = grid[i][j];
         
         if (tile.getPlayerID() == pID) {
           // La case est libre
@@ -194,31 +216,6 @@ public class GridSquare implements Grid {
     }
     
     return count;
-  }
-  
-  /**
-   * Permet d'affichier la grille en mode console
-   */
-  public void showConsole() {
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-        Tile tile = grid[i][j];
-        
-        TileColor tileColor  = tile.getColor();
-        int       tilePlayerID = tile.getPlayerID();
-        
-        String tileColorCode = TileColor.getColorCode(tileColor);
-        
-        if (tilePlayerID != 0) {
-          // La case appartient à un joueur
-          tileColorCode = tileColorCode.toUpperCase();
-        }
-        
-        System.out.print(tileColorCode+" ");
-      }
-      
-      System.out.println("");
-    }
   }
   
   /**
@@ -245,10 +242,52 @@ public class GridSquare implements Grid {
           game.chooseTile(tile);
         });
           
-        gameGrid.add(button, i, j);
+        gameGrid.add(button, j, i);
       }
     }
     
     return gameGrid;
+  }
+  
+  /**
+   * Permet d'exporter la grille au format JSON
+   * 
+   * @return  L'objet JSON représentant la grille
+   */
+  public JSONObject exportToJSON() {
+    JSONObject jsonObject = new JSONObject();
+    
+    JSONArray colorGrid = new JSONArray();
+    
+    for (int i = 0; i < size; i++) {
+      JSONArray lineArray = new JSONArray();
+      
+      for (int j = 0; j < size; j++) {
+        TileColor color = grid[i][j].getColor();
+        lineArray.add(TileColor.getColorCode(color));
+      }
+      
+      colorGrid.add(lineArray);
+    }
+    
+    jsonObject.put("colorGrid", colorGrid);
+    
+    JSONArray playerGrid = new JSONArray();
+    
+    for (int i = 0; i < size; i++) {
+      JSONArray lineArray = new JSONArray();
+      
+      for (int j = 0; j < size; j++) {
+        int pID = grid[i][j].getPlayerID();
+        
+        lineArray.add(pID);
+      }
+      
+      playerGrid.add(lineArray);
+    }
+    
+    jsonObject.put("playerGrid", playerGrid);
+
+    return jsonObject;
   }
 }

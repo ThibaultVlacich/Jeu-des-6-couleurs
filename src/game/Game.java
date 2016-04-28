@@ -64,6 +64,26 @@ public class Game implements Observable {
       players[i].setColor(grid.getTile(x, y).getColor());
     }
   }
+  
+  /**
+   * Initialise le jeu avec grille défà définie
+   * 
+   * @param _grid La grille du jeu
+   */
+  public Game(Grid _grid) {
+    // On demande le nombre de joueurs
+    int nbOfPlayers = 2;
+    
+    // On créé la liste des joueurs
+    players = new Player[nbOfPlayers];
+    
+    for (int i = 0; i < nbOfPlayers; i++) {
+      // On créé l'objet Player
+      players[i] = new Player(i + 1);
+    }
+    
+    grid = _grid;
+  }
 
   /**
    * Démarre une partie
@@ -129,6 +149,10 @@ public class Game implements Observable {
     return false;
   }
   
+  public void setColor(int pID, TileColor c) {
+    players[pID - 1].setColor(c);
+  }
+  
   /**
    * Permet de définir si la partie est terminée
    */
@@ -168,6 +192,32 @@ public class Game implements Observable {
    */
   public Grid getGrid() {
     return grid;
+  }
+  
+  /**
+   * Permet d'obtenir le nombre de joueurs
+   * 
+   * @return  Le nombre de joueurs
+   */
+  public int getNbOfPlayers() {
+    return players.length;
+  }
+  
+  /**
+   * Permet d'obtenir le joueur avec l'ID demandé
+   * 
+   * @param   pID L'ID du joueur
+   * 
+   * @return  Le joueur
+   */
+  public Player getPlayerWithID(int pID) {
+    for (Player player: players) {
+      if (player.ID == pID) {
+        return player;
+      }
+    }
+    
+    return null;
   }
   
   /**

@@ -4,6 +4,8 @@ import java.io.File;
 
 import java.util.Optional;
 
+import file.Load;
+
 import game.Game;
 
 import javafx.application.*;
@@ -82,7 +84,23 @@ public class Home extends Application {
     File file = fileChooser.showOpenDialog(mainStage);
     
     if (file != null) {
+      Game game = Load.loadSave(file);
       
+      mainStage.hide();
+      
+      try {
+        GameWindow gameWindow = new GameWindow(game);
+        
+        Scene scene = gameWindow.getScene();
+        
+        Stage stage = new Stage();
+        
+        stage.setTitle("Jeu des 6 couleurs");
+        stage.setScene(scene);
+        stage.show();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
   

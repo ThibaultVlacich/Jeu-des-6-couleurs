@@ -1,5 +1,9 @@
 package view;
 
+import java.io.File;
+
+import file.Save;
+
 import game.Game;
 
 import models.TileColor;
@@ -16,6 +20,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
 public class GameWindow implements Observer {
   // Stock une instance de l'objet Game
@@ -67,6 +72,29 @@ public class GameWindow implements Observer {
     });
     
     menuFile.getItems().add(newGameItem);
+    
+    MenuItem saveGameItem = new MenuItem("Sauvegarder la partie");
+    saveGameItem.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent e) {
+        String json = Save.save(game);
+        
+        FileChooser fileChooser = new FileChooser();
+        
+        fileChooser.getExtensionFilters().addAll(
+          new FileChooser.ExtensionFilter("Fichier texte", "*.txt")
+        );
+        
+        File file = fileChooser.showSaveDialog(Home.mainStage);
+        
+        System.out.println(file);
+        
+        if (file != null) {
+          Save.saveToFile(json, file);
+        }
+      }
+    });
+    
+    menuFile.getItems().add(saveGameItem);
     
     MenuItem quitItem = new MenuItem("Quitter");
     quitItem.setOnAction(new EventHandler<ActionEvent>() {
