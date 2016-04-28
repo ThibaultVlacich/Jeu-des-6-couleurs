@@ -6,6 +6,10 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+### Ajouts
+- Possibilité de sauvegarder la partie en cours
+- Possibilité de charger le jeu depuis une sauvegarde
+
 ## Version 1.2 [28/04/2016]
 
 ### Ajouts
