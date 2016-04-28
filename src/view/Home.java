@@ -86,6 +86,18 @@ public class Home extends Application {
     if (file != null) {
       Game game = Load.loadSave(file);
       
+      if (game == null) {
+        Alert alert = new Alert(AlertType.ERROR);
+        
+        alert.setTitle("Jeu des 6 couleurs");
+        alert.setHeaderText("Erreur");
+        alert.setContentText("Le fichier choisi n'est pas un fichier de sauvegarde valide.");
+
+        alert.showAndWait();
+        
+        return;
+      }
+      
       mainStage.hide();
       
       try {

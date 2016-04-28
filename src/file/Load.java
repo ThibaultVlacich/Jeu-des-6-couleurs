@@ -26,6 +26,17 @@ public class Load {
       
       JSONObject jsonObject = (JSONObject) (new JSONParser().parse(fileContent));
       
+      if (
+             !jsonObject.containsKey("type")
+          || !jsonObject.containsKey("size")
+          || !jsonObject.containsKey("players")
+          || !jsonObject.containsKey("colorGrid")
+          || !jsonObject.containsKey("playerGrid")
+          )
+      {
+        return null;
+      }
+      
       String gridType = (String) jsonObject.get("type");
       int    gridSize = ((Long) jsonObject.get("size")).intValue();
       
@@ -60,6 +71,8 @@ public class Load {
       }
     } catch (Exception e) {
       e.printStackTrace();
+      
+      game = null;
     }
     
     return game;
