@@ -11,7 +11,6 @@
 
 package models;
 
-// Importe l'objet Java Color
 import java.awt.Color;
 
 public enum TileColor {
@@ -99,6 +98,32 @@ public enum TileColor {
         return Color.MAGENTA;
       default:
         return Color.WHITE;
+    }
+  }
+  
+  /**
+   * Permet d'obtenir le nom de la classe CSS d'une couleur
+   * 
+   * @param c La couleur dont on veux le code
+   * 
+   * @return  Le nom de la classe CSS de la couleur demandée
+   */
+  public static String getColorClassName(TileColor c) {
+    switch (c) {
+      case Red:
+        return "red";
+      case Orange:
+        return "orange";
+      case Yellow:
+        return "yellow";
+      case Green:
+        return "green";
+      case Blue:
+        return "blue";
+      case Purple:
+        return "purple";
+      default:
+        return "";
     }
   }
 }

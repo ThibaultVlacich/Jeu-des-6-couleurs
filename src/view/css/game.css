@@ -1,0 +1,42 @@
+.tile {
+	-fx-background-radius: 5em;
+	-fx-min-width: 40px;
+	-fx-min-height: 40px;
+	-fx-max-width: 40px;
+	-fx-max-height: 40px;
+	
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.tile.orange {
+	-fx-background-color: orange;
+}
+
+.tile.red {
+	-fx-background-color: red;
+}
+
+.tile.purple {
+	-fx-background-color: purple;
+	
+	-fx-text-fill: white;
+}
+
+.tile.yellow {
+	-fx-background-color: yellow;
+}
+
+.tile.green {
+	-fx-background-color: green;
+}
+
+.tile.blue {
+	-fx-background-color: blue;
+	
+	-fx-text-fill: white;
+}

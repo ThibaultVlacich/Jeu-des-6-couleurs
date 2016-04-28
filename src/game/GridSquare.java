@@ -11,11 +11,10 @@
 
 package game;
 
-// Importe les modèles utiles à la grille
-import models.TileColor;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 
-// Importe l'objet View
-import view.View;
+import models.TileColor;
 
 public class GridSquare implements Grid {
   // Taille de la grille
@@ -225,7 +224,31 @@ public class GridSquare implements Grid {
   /**
    * Permet d'afficher la grille en mode 2D
    */
-  public void show2D() {
-    View.showGrid(this);
+  public GridPane show2D(Game game) {
+    GridPane gameGrid = new GridPane();
+      
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        Tile tile = getTile(i, j);
+        int  pID  = tile.getPlayerID();
+          
+        Button button = new Button();
+          
+        button.getStyleClass().add("tile");
+        button.getStyleClass().add(TileColor.getColorClassName(tile.getColor()));
+          
+        if (pID != 0) {
+          button.setText(Integer.toString(pID));
+        }
+          
+        button.setOnAction(event -> {
+          game.chooseTile(tile);
+        });
+          
+        gameGrid.add(button, i, j);
+      }
+    }
+    
+    return gameGrid;
   }
 }

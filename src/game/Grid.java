@@ -11,6 +11,8 @@
 
 package game;
 
+import javafx.scene.layout.GridPane;
+
 import models.TileColor;
 
 public interface Grid {
@@ -68,6 +70,7 @@ public interface Grid {
   
   /**
    * Permet d'afficher la grille en mode 2D
+   * @return  La grille créée
    */
-  public void show2D();
+  public GridPane show2D(Game game);
 }
