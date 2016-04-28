@@ -195,6 +195,32 @@ public class Game implements Observable {
   }
   
   /**
+   * Permet d'obtenir le nombre de joueurs
+   * 
+   * @return  Le nombre de joueurs
+   */
+  public int getNbOfPlayers() {
+    return players.length;
+  }
+  
+  /**
+   * Permet d'obtenir le joueur avec l'ID demandé
+   * 
+   * @param   pID L'ID du joueur
+   * 
+   * @return  Le joueur
+   */
+  public Player getPlayerWithID(int pID) {
+    for (Player player: players) {
+      if (player.ID == pID) {
+        return player;
+      }
+    }
+    
+    return null;
+  }
+  
+  /**
    * Permet de notifier l'observateur qu'il faut mettre à jour la vue
    */
   public void notifyUpdateView() {
