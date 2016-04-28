@@ -11,6 +11,9 @@
 
 package game;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javafx.scene.layout.GridPane;
 
 import models.TileColor;
@@ -20,6 +23,11 @@ public interface Grid {
    * Remplit la grille de manière aléatoire
    */
   public void initRandom();
+
+  /**
+   * Remplit la grille à partir d'une sauvegarde
+   */
+  public void initWithSave(JSONArray colorGrid, JSONArray playerGrid);
 
   /**
    * Permet d'obtenir la case de la grille aux coordonnées demandées
@@ -56,13 +64,13 @@ public interface Grid {
 
   /**
    * Permet d'obtenir les coordonnées du coin à associer au joueur
-   * 
+   *
    * @param   player  Le numéro du joueur
    *
    * @return  Les Coordonnées du coin
    */
   public int[] getCornerCoordinate(int player);
-  
+
   /**
    * Permet de compter le nombre de cases possédées par un joueur
    *
@@ -77,4 +85,11 @@ public interface Grid {
    * @return  La grille créée
    */
   public GridPane show2D(Game game);
+
+  /**
+   * Permet d'exporter la grille au format JSON
+   *
+   * @return  L'objet JSON représentant la grille
+   */
+  public JSONObject exportToJSON();
 }

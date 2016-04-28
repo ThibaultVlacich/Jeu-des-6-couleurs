@@ -1,8 +1,21 @@
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package view
+ * @class   Home
+ * @desc    Défini la fenêtre de l'écran d'accueil
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
+
 package view;
 
 import java.io.File;
 
 import java.util.Optional;
+
+import file.Load;
 
 import game.Game;
 
@@ -34,6 +47,7 @@ public class Home extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     try {
+      // Chargement de l'interface FXML
       GridPane root = FXMLLoader.load(getClass().getResource("Home.fxml"));
       
       root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -82,7 +96,35 @@ public class Home extends Application {
     File file = fileChooser.showOpenDialog(mainStage);
     
     if (file != null) {
+      Game game = Load.loadSave(file);
       
+      if (game == null) {
+        Alert alert = new Alert(AlertType.ERROR);
+        
+        alert.setTitle("Jeu des 6 couleurs");
+        alert.setHeaderText("Erreur");
+        alert.setContentText("Le fichier choisi n'est pas un fichier de sauvegarde valide.");
+
+        alert.showAndWait();
+        
+        return;
+      }
+      
+      mainStage.hide();
+      
+      try {
+        GameWindow gameWindow = new GameWindow(game);
+        
+        Scene scene = gameWindow.getScene();
+        
+        Stage stage = new Stage();
+        
+        stage.setTitle("Jeu des 6 couleurs");
+        stage.setScene(scene);
+        stage.show();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
   

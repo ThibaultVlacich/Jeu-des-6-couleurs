@@ -11,6 +11,9 @@
 
 package game;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -22,7 +25,7 @@ public class GridSquare implements Grid {
 
   // Grille du jeu
   private Tile[][] grid;
-  
+
   // Stock les coordonnées des coins
   public int[][] cornersCoordinates = {
       {0,  0},  // En haut à gauche - Joueur 1
@@ -57,7 +60,26 @@ public class GridSquare implements Grid {
       for(int j = 0; j < size; j++) {
         TileColor randomColor = TileColor.getRandomColor();
 
-        grid[j][i] = new Tile(randomColor);
+        grid[i][j] = new Tile(randomColor);
+      }
+    }
+  }
+
+  /**
+   * Remplit la grille à partir d'une sauvegarde
+   */
+  public void initWithSave(JSONArray colorGrid, JSONArray playerGrid) {
+    for(int i = 0; i < size; i++) {
+      JSONArray colorLine  = (JSONArray) colorGrid.get(i);
+      JSONArray playerLine = (JSONArray) playerGrid.get(i);
+
+      for(int j = 0; j < size; j++) {
+        String    colorCode   = (String) colorLine.get(j);
+        TileColor randomColor = TileColor.getColorFromCode(colorCode);
+        int       pID         = ((Long) playerLine.get(j)).intValue();
+
+        grid[i][j] = new Tile(randomColor);
+        grid[i][j].setPlayerID(pID);
       }
     }
   }
@@ -70,7 +92,7 @@ public class GridSquare implements Grid {
    * @return  La case située aux coordonnés (x, y)
    */
   public Tile getTile(int x, int y) {
-    return grid[y][x];
+    return grid[x][y];
   }
 
   /**
@@ -91,50 +113,36 @@ public class GridSquare implements Grid {
       // On assigne les cases de la couleur demandée au joueur
       for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-          Tile tile = grid[j][i];
+          Tile tile = grid[i][j];
 
           if (tile.getPlayerID() == pID) {
             // La case appartient au joueur
             // On la met de la nouvelle couleur choisie par le joueur
             tile.setColor(c);
 
-            if (j > 0) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[j - 1][i].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[j - 1][i].getPlayerID() != pID
-                  ) {
-                // Case située en haut
-                grid[j - 1][i].setPlayerID(pID);
-
-                newAssignedTiles++;
-              }
-            }
-
             if (i > 0) {
               if (
                   // La case est de la couleur voulue
-                  grid[j][i - 1].getColor() == c
+                  grid[i - 1][j].getColor() == c
                   // Et la case n'appartient pas déjà au joueur
-                  && grid[j][i - 1].getPlayerID() != pID
+                  && grid[i - 1][j].getPlayerID() != pID
                   ) {
-                // Case située à gauche
-                grid[j][i - 1].setPlayerID(pID);
+                // Case située en haut
+                grid[i - 1][j].setPlayerID(pID);
 
                 newAssignedTiles++;
               }
             }
 
-            if (j < size - 1){
+            if (j > 0) {
               if (
                   // La case est de la couleur voulue
-                  grid[j + 1][i].getColor() == c
+                  grid[i][j - 1].getColor() == c
                   // Et la case n'appartient pas déjà au joueur
-                  && grid[j + 1][i].getPlayerID() != pID
+                  && grid[i][j - 1].getPlayerID() != pID
                   ) {
-                // Case située en dessous
-                grid[j + 1][i].setPlayerID(pID);
+                // Case située à gauche
+                grid[i][j - 1].setPlayerID(pID);
 
                 newAssignedTiles++;
               }
@@ -143,12 +151,26 @@ public class GridSquare implements Grid {
             if (i < size - 1){
               if (
                   // La case est de la couleur voulue
-                  grid[j][i + 1].getColor() == c
+                  grid[i + 1][j].getColor() == c
                   // Et la case n'appartient pas déjà au joueur
-                  && grid[j][i + 1].getPlayerID() != pID
+                  && grid[i + 1][j].getPlayerID() != pID
+                  ) {
+                // Case située en dessous
+                grid[i + 1][j].setPlayerID(pID);
+
+                newAssignedTiles++;
+              }
+            }
+
+            if (j < size - 1){
+              if (
+                  // La case est de la couleur voulue
+                  grid[i][j + 1].getColor() == c
+                  // Et la case n'appartient pas déjà au joueur
+                  && grid[i][j + 1].getPlayerID() != pID
                   ) {
                 // Case située à droite
-                grid[j][i + 1].setPlayerID(pID);
+                grid[i][j + 1].setPlayerID(pID);
 
                 newAssignedTiles++;
               }
@@ -166,7 +188,7 @@ public class GridSquare implements Grid {
    * @param pID   Le joueur à qui assigner la case
    */
   public void assignTile(int x, int y, int pID) {
-    Tile tile = grid[y][x];
+    Tile tile = grid[x][y];
 
     tile.setPlayerID(pID);
   }
@@ -179,10 +201,10 @@ public class GridSquare implements Grid {
   public int getSize() {
     return size;
   }
-  
+
   /**
    * Permet d'obtenir les coordonnées du coin à associer au joueur
-   * 
+   *
    * @param   player  Le numéro du joueur
    *
    * @return  Les Coordonnées du coin
@@ -203,7 +225,7 @@ public class GridSquare implements Grid {
 
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        Tile tile = grid[j][i];
+        Tile tile = grid[i][j];
 
         if (tile.getPlayerID() == pID) {
           // La case est libre
@@ -213,31 +235,6 @@ public class GridSquare implements Grid {
     }
 
     return count;
-  }
-
-  /**
-   * Permet d'affichier la grille en mode console
-   */
-  public void showConsole() {
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-        Tile tile = grid[j][i];
-
-        TileColor tileColor  = tile.getColor();
-        int       tilePlayerID = tile.getPlayerID();
-
-        String tileColorCode = TileColor.getColorCode(tileColor);
-
-        if (tilePlayerID != 0) {
-          // La case appartient à un joueur
-          tileColorCode = tileColorCode.toUpperCase();
-        }
-
-        System.out.print(tileColorCode+" ");
-      }
-
-      System.out.println("");
-    }
   }
 
   /**
@@ -264,10 +261,52 @@ public class GridSquare implements Grid {
           game.chooseTile(tile);
         });
 
-        gameGrid.add(button, i, j);
+        gameGrid.add(button, j, i);
       }
     }
 
     return gameGrid;
+  }
+
+  /**
+   * Permet d'exporter la grille au format JSON
+   *
+   * @return  L'objet JSON représentant la grille
+   */
+  public JSONObject exportToJSON() {
+    JSONObject jsonObject = new JSONObject();
+
+    JSONArray colorGrid = new JSONArray();
+
+    for (int i = 0; i < size; i++) {
+      JSONArray lineArray = new JSONArray();
+
+      for (int j = 0; j < size; j++) {
+        TileColor color = grid[i][j].getColor();
+        lineArray.add(TileColor.getColorCode(color));
+      }
+
+      colorGrid.add(lineArray);
+    }
+
+    jsonObject.put("colorGrid", colorGrid);
+
+    JSONArray playerGrid = new JSONArray();
+
+    for (int i = 0; i < size; i++) {
+      JSONArray lineArray = new JSONArray();
+
+      for (int j = 0; j < size; j++) {
+        int pID = grid[i][j].getPlayerID();
+
+        lineArray.add(pID);
+      }
+
+      playerGrid.add(lineArray);
+    }
+
+    jsonObject.put("playerGrid", playerGrid);
+
+    return jsonObject;
   }
 }

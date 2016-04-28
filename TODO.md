@@ -28,8 +28,8 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
   - [ ] IA qui choisit la couleur qui "embête" le plus l'adversaire
   - [ ] IA qui analyse la grille pour choisir la couleur
 - Gestion de la partie
-  - [ ] Importer un fichier qui définit la grille
-  - [ ] Sauvegarder l'état actuel de la grille dans un fichier
+  - [x] Importer un fichier qui définit la grille
+  - [x] Sauvegarder l'état actuel de la grille dans un fichier
 - [ ] Jeu en réseau
 - Grilles avancées
   - [ ] Pouvoir créer une grille : en choisir la couleur de chaque case, la sauvegarder

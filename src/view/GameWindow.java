@@ -1,4 +1,19 @@
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package view
+ * @class   GameWindow
+ * @desc    Défini la fenêtre de jeu
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
+
 package view;
+
+import java.io.File;
+
+import file.Save;
 
 import game.Game;
 
@@ -16,17 +31,19 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
 public class GameWindow implements Observer {
-  // Stock une instance de l'objet Game
+  // Stock l'instance de jeu
   private Game game;
   
-  //
+  // Vue racine de la fenêtre
   private GridPane root = new GridPane();
   
+  // Vue représentant la grille de jeu
   private GridPane gameGrid;
   
-  //
+  // Scène javaFX racine de la fenêtre
   private Scene scene;
   
   GameWindow(Game g) {
@@ -35,11 +52,13 @@ public class GameWindow implements Observer {
     // Création de la barre des menus
     addMenuBar();
     
+    // Rendu de la grille du jeu
     drawGameGrid();
     
     // Ajout de la grille à la scène
     scene = new Scene(root);
     
+    // Chargement des fichiers CSS
     scene.getStylesheets().add(getClass().getResource("css/game.css").toExternalForm());
 
     // On ajoute la présente vue à la liste des observers du jeu
@@ -68,6 +87,29 @@ public class GameWindow implements Observer {
     
     menuFile.getItems().add(newGameItem);
     
+    MenuItem saveGameItem = new MenuItem("Sauvegarder la partie");
+    saveGameItem.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent e) {
+        String json = Save.save(game);
+        
+        FileChooser fileChooser = new FileChooser();
+        
+        fileChooser.getExtensionFilters().addAll(
+          new FileChooser.ExtensionFilter("Fichier texte", "*.txt")
+        );
+        
+        File file = fileChooser.showSaveDialog(Home.mainStage);
+        
+        System.out.println(file);
+        
+        if (file != null) {
+          Save.saveToFile(json, file);
+        }
+      }
+    });
+    
+    menuFile.getItems().add(saveGameItem);
+    
     MenuItem quitItem = new MenuItem("Quitter");
     quitItem.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent e) {
@@ -82,6 +124,9 @@ public class GameWindow implements Observer {
     root.add(menuBar, 0, 0);
   }
   
+  /**
+   * Permet de dessiner la grille de jeu dans la vue
+   */
   private void drawGameGrid() {
     gameGrid = game.getGrid().show2D(game);
     
@@ -94,9 +139,7 @@ public class GameWindow implements Observer {
   public void updateView() {
     root.getChildren().remove(gameGrid);
     
-    gameGrid = game.getGrid().show2D(game);
-    
-    root.add(gameGrid, 0, 1);
+    drawGameGrid();
   }
   
   /**
@@ -127,6 +170,11 @@ public class GameWindow implements Observer {
     alert.showAndWait();
   }
   
+  /**
+   * Permet d'obtenir la scène JavaFX
+   * 
+   * @return
+   */
   public Scene getScene() {
     return scene;
   }
