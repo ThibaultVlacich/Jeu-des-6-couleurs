@@ -1,3 +1,14 @@
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package file
+ * @class   Load
+ * @desc    Gère le chargement des sauvegardes
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
+
 package file;
 
 import org.json.simple.JSONArray;
@@ -13,6 +24,13 @@ import game.GridSquare;
 import models.TileColor;
 
 public class Load {
+  /**
+   * Permet de charger le jeu depuis un fichier
+   * 
+   * @param   file  Le fichier depuis lequel charger
+   * 
+   * @return  L'objet Game réprésentant la partie sauvegardée
+   */
   public static Game loadSave(File file) {
     Game game = new Game();
     
@@ -34,6 +52,7 @@ public class Load {
           || !jsonObject.containsKey("playerGrid")
           )
       {
+        // Le fichier de sauvegarde n'est pas correct
         return null;
       }
       

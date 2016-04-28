@@ -149,6 +149,12 @@ public class Game implements Observable {
     return false;
   }
   
+  /**
+   * Permet d'assigner une couleur au joueur
+   * 
+   * @param pID ID du joueur
+   * @param c   La couleur à assigner
+   */
   public void setColor(int pID, TileColor c) {
     players[pID - 1].setColor(c);
   }

@@ -1,5 +1,3 @@
-package observer;
-
 /**
  * Jeu des 6 couleurs
  *
@@ -10,6 +8,8 @@ package observer;
  * @author    Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author    Hugo Michard <hugo.michard@isep.fr>
  */
+
+package observer;
 
 import java.util.ArrayList;
 

@@ -1,3 +1,14 @@
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package file
+ * @class   Save
+ * @desc    Gère la sauvegarde de la partie
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
+
 package file;
 
 import java.io.File;
@@ -17,11 +28,13 @@ public class Save {
    * @param game  L'instance du jeu à sauvegarder
    */
   public static String save(Game game) {
+    // Récupération de la grille
     Grid grid = game.getGrid();
     
     // Objet JSON réprésentant le jeu 
     JSONObject jsonObject = grid.exportToJSON();
     
+    // Type de grille
     String gridType = grid.getClass().getName();
     
     if (grid.getClass().getName().equals("game.GridSquare")) {
@@ -30,7 +43,6 @@ public class Save {
         gridType = null;
     }
     
-    // Type de la grille
     jsonObject.put("type", gridType);
     
     // Taille de la grille
@@ -57,6 +69,12 @@ public class Save {
     return jsonString;
   }
   
+  /**
+   * Permet de sauvegarder dans un fichier
+   * 
+   * @param content Le contenu à sauvegarder dans le fichier
+   * @param file    Le fichier dans lequel écrire
+   */
   public static void saveToFile(String content, File file) {
     try {
       FileWriter fileWriter = new FileWriter(file);

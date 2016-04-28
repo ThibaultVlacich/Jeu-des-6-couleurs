@@ -1,3 +1,14 @@
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package view
+ * @class   Home
+ * @desc    Défini la fenêtre de l'écran d'accueil
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
+
 package view;
 
 import java.io.File;
@@ -36,6 +47,7 @@ public class Home extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     try {
+      // Chargement de l'interface FXML
       GridPane root = FXMLLoader.load(getClass().getResource("Home.fxml"));
       
       root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
