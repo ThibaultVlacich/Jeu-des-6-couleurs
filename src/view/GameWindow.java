@@ -1,22 +1,23 @@
 package view;
 
-import java.util.List;
-
-import events.Event;
-import events.EventPool;
-import events.EventType;
 import game.Game;
-import javafx.application.Platform;
+
+import models.TileColor;
+
+import observer.Observer;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 
-public class GameWindow {
+public class GameWindow implements Observer {
   // Stock une instance de l'objet Game
   private Game game;
   
@@ -38,41 +39,11 @@ public class GameWindow {
     scene = new Scene(root);
     
     scene.getStylesheets().add(getClass().getResource("css/game.css").toExternalForm());
-    
-    Thread viewThread = new Thread() {
-      public void run() {
-        while (true) {
-          // Récupération de liste des événements
-          List<Event> events = EventPool.getEvents();
-          
-          if (events.size() > 0) {
-            // Il y a un événement en liste d'attente à traiter
-            for (Event event: events) {
-              if (event.getType() != EventType.UpdateView) {
-                // Le type ne nous interesse pas, on passe à l'événement suivant
-                continue;
-              }
-              
-              Platform.runLater(() -> drawGameGrid());
-            }
-          }
-          
-          try {
-            Thread.sleep(200);
-          } catch (Exception e) {}
-        }
-      }
-    };
-    
-    viewThread.start();
-    
-    Thread gameThread = new Thread() {
-      public void run() {
-        game.start();
-      }
-    };
-    
-    gameThread.start();
+
+    // On ajoute la présente vue à la liste des observers du jeu
+    // et on lance le jeu
+    game.addObserver(this);
+    game.start();
   }
   
   /**
@@ -110,9 +81,44 @@ public class GameWindow {
   }
   
   private void drawGameGrid() {
-    GridPane gameGrid = game.getGrid().show2D();
+    GridPane gameGrid = game.getGrid().show2D(game);
     
     root.add(gameGrid, 0, 1);
+  }
+  
+  /**
+   * Permet de mettre à jour la vue
+   */
+  public void updateView() {
+    drawGameGrid();
+  }
+  
+  /**
+   * Affiche au joueur qu'il ne peut pas choisir cette couleur
+   * 
+   * @param c La couleur en question
+   */
+  public void cantChooseColor(TileColor c) {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Jeu des 6 couleurs");
+    alert.setHeaderText(null);
+    alert.setContentText("Vous ne pouvez pas choisir cette couleur, elle est déjà prise !");
+
+    alert.showAndWait();
+  }
+  
+  /**
+   * Affiche aux joueurs que la partie est terminée
+   * 
+   * @param winnerID
+   */
+  public void gameOver(int winnerID) {
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Jeu des 6 couleurs");
+    alert.setHeaderText(null);
+    alert.setContentText("La partie est terminée ! Le gagnant est le joueur " + winnerID + " !");
+
+    alert.showAndWait();
   }
   
   public Scene getScene() {

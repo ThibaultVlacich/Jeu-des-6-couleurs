@@ -11,23 +11,20 @@
 
 package game;
 
-import java.util.List;
+import observer.Observable;
+import observer.Observer;
 
-import events.Event;
-import events.EventPool;
-import events.EventType;
 import models.TileColor;
-import models.Utils;
 
-public class Game {
-  // Mode d'affichage du jeu (console ou 2D)
-  private String mode = "2D";
-
+public class Game implements Observable {
   // L'objet Grid instancié pour le jeu
   private Grid grid;
   
   // Les objets joueurs
   private Player[] players;
+  
+  // Le joueur actuel
+  private Player currentPlayer;
   
   // Défini si la partie est terminée ou non
   private Boolean gameOver = false;
@@ -66,75 +63,53 @@ public class Game {
       grid.assignTile(x, y, i + 1);
       players[i].setColor(grid.getTile(x, y).getColor());
     }
-    
-    // On affiche la grille générée 
-    /*if (mode == "console") {
-      grid.showConsole();
-    } else {
-      grid.show2D();
-    }*/
   }
 
   /**
    * Démarre une partie
    */
-  public void start() {    
-    // Variable contenant le joueur actuel
+  public void start() {
     // Le joueur 1 commence
-    Player currentPlayer = players[0];
+    currentPlayer = players[0];
+  }
+  
+  public void chooseTile(Tile tile) {
+    TileColor color = tile.getColor();
     
-    while (!this.gameOver) {
-      // Récupération de liste des événements
-      List<Event> events = EventPool.getEvents();
+    if(isColorOwned(color)) {
+      notifyCantChooseColor(color);
       
-      if (events.size() > 0) {
-        // Il y a un événement en liste d'attente à traiter
-        for (Event event: events) {
-          if (event.getType() != EventType.TileChoice) {
-            // Le type ne nous interesse pas, on passe à l'événement suivant
-            continue;
-          }
-          
-          TileColor color = event.getColorChoosed();
-          
-          System.out.println("Couleur choisie : "+TileColor.getColorClassName(color));
-          
-          currentPlayer.setColor(color);
-          grid.assignTiles(currentPlayer.ID, color);
-          
-          // Au joueur suivant !
-          currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];
-        }
-        
-        // On vide la liste des événements (ils ont été traités)
-        EventPool.clearEvents();
-      }
-      
-      // On demande à mettre à jour la vue
-      Event updateViewEvent = new Event(EventType.UpdateView);
-      
-      EventPool.addEvent(updateViewEvent);
-      
-      // On vérifie si la partie est terminée
-      checkIsGameIsOver();
-      
-      // Temporisation de la boucle
-      try {
-        Thread.sleep(200);
-      } catch (Exception e) {
-      }
+      return;
     }
     
-    // La partie est terminée !
-    // On compte le nombres de cases possédées par chaque joueur
-    int tilesOwnedByPlayer1 = grid.countTilesOwnedBy(1);
-    int tilesOwnedByPlayer2 = grid.countTilesOwnedBy(2);
+    // On lui assigne la couleur choisie
+    currentPlayer.setColor(color);
+    grid.assignTiles(currentPlayer.ID, color);
     
-    // Le gagnant est le joueur ayant le plus de cases
-    int winnerID = (tilesOwnedByPlayer1 > tilesOwnedByPlayer2) ? 1 : 2;
+    // Au joueur suivant !
+    currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];
     
-    System.out.println("La partie est terminée !");
-    System.out.println("Le joueur gagnant est le joueur "+winnerID);
+    // On notifie l'observateur qu'il faut mettre à jour la vue
+    notifyUpdateView();
+    
+    // On vérifie si la partie est terminée
+    checkIsGameIsOver();
+    
+    if (gameOver) {
+      int winnerID           = 0;
+      int tilesOwnedByWinner = 0;
+      
+      for (Player player: players) {
+        int tilesOwnedByPlayer = grid.countTilesOwnedBy(player.ID);
+        
+        if (tilesOwnedByPlayer > tilesOwnedByWinner) {
+          winnerID           = player.ID;
+          tilesOwnedByWinner = tilesOwnedByPlayer;
+        }
+      }
+      
+      notifyGameIsOver(winnerID);
+    }
   }
   
   /**
@@ -186,16 +161,43 @@ public class Game {
     }
   }
 
+  /**
+   * Permet d'obtenir la grille de jeu
+   * 
+   * @return  La grille
+   */
   public Grid getGrid() {
     return grid;
   }
   
   /**
-   * Permet de définir le mode d'affichage du jeu
-   *
-   * @param m
+   * Permet de notifier l'observateur qu'il faut mettre à jour la vue
    */
-  public void setMode(String m) {
-    mode = m;
+  public void notifyUpdateView() {
+    for (Observer obs: observers) {
+      obs.updateView();
+    }
+  }
+  
+  /**
+   * Permet de notifier l'observateur qu'il n'est pas possible de choisir cette couleur
+   *
+   * @param c La couleur
+   */
+  public void notifyCantChooseColor(TileColor c) {
+    for (Observer obs: observers) {
+      obs.cantChooseColor(c);
+    }
+  }
+  
+  /**
+   * Permet de notifier l'obesrvateur que la partie est terminée
+   * 
+   * @param winnerID  l'ID du joueur qui a gagné
+   */
+  public void notifyGameIsOver(int winnerID) {
+    for (Observer obs: observers) {
+      obs.gameOver(winnerID);
+    }
   }
 }

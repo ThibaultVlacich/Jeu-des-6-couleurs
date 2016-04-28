@@ -72,5 +72,5 @@ public interface Grid {
    * Permet d'afficher la grille en mode 2D
    * @return  La grille créée
    */
-  public GridPane show2D();
+  public GridPane show2D(Game game);
 }

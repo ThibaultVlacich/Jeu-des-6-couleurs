@@ -11,16 +11,10 @@
 
 package game;
 
-import events.Event;
-import events.EventPool;
-import events.EventType;
-
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 import models.TileColor;
-
-import view.View;
 
 public class GridSquare implements Grid {
   // Taille de la grille
@@ -230,7 +224,7 @@ public class GridSquare implements Grid {
   /**
    * Permet d'afficher la grille en mode 2D
    */
-  public GridPane show2D() {
+  public GridPane show2D(Game game) {
     GridPane gameGrid = new GridPane();
       
     for (int i = 0; i < size; i++) {
@@ -250,10 +244,7 @@ public class GridSquare implements Grid {
         button.setOnAction(event -> {
           System.out.println("Boutton appuyé !");
           
-          Event e = new Event(EventType.TileChoice);
-          e.setColorChoosed(tile.getColor());
-          
-          EventPool.addEvent(e);
+          game.chooseTile(tile);
         });
           
         gameGrid.add(button, i, j);
