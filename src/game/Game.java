@@ -236,6 +236,15 @@ public class Game implements Observable {
   }
   
   /**
+   * Permet d'obtenir le joueur actuel
+   * 
+   * @return  Le joueur dont c'est actuellement le tour
+   */
+  public Player getCurrentPlayer() {
+    return currentPlayer;
+  }
+
+  /**
    * Permet de notifier l'observateur qu'il faut mettre à jour la vue
    */
   public void notifyUpdateView() {
