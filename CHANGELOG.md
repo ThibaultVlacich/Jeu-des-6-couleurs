@@ -9,6 +9,7 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 ### Ajouts
 - Possibilité de sauvegarder la partie en cours
 - Possibilité de charger le jeu depuis une sauvegarde
+- Ecran des options
 
 ## Version 1.2 [28/04/2016]
 
