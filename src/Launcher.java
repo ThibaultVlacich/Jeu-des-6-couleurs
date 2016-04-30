@@ -10,7 +10,7 @@
  */
 
 import models.Utils;
-
+import settings.Settings;
 import view.Home;
 
 public class Launcher {
@@ -22,7 +22,11 @@ public class Launcher {
     System.out.println("###\tFait par Thibault VLACICH et Hugo MICHARD\t###");
     System.out.println("###\t\t\tVersion " + version + "\t\t\t###");
     System.out.println("");
+    
+    // Chargement des options
+    Settings.init();
 
+    // Ouverture de l'écran d'accueil
     Home.launch(Home.class);
 
     // Ferme le scanner

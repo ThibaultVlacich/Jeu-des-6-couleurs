@@ -14,6 +14,8 @@ package game;
 import observer.Observable;
 import observer.Observer;
 
+import settings.Settings;
+
 import models.TileColor;
 
 public class Game implements Observable {
@@ -32,16 +34,23 @@ public class Game implements Observable {
   // Stock les coordonnées des coins
   // TODO : Stocker cette info dans la classe Grid
   // quand il y aura différents types de grilles
-  private int[][] cornersCoordinates = {
-      {0,  0},  // En haut à gauche - Joueur 1
-      {12, 12}, // En bas à droite  - Joueur 2
-      {0,  12}, // En haut à droite - Joueur 3
-      {12,  0}  // En bas à gauche  - Joueur 4
+  private String[][] cornersCoordinates = {
+      {"min", "min"}, // En haut à gauche - Joueur 1
+      {"max", "max"}, // En bas à droite  - Joueur 2
+      {"min", "max"}, // En haut à droite - Joueur 3
+      {"max", "min"}  // En bas à gauche  - Joueur 4
   };
   
   public Game() {
-    // Création d'une grille carrée de 13 de coté
-    grid = new GridSquare(13);
+    // Création de la grille par défaut
+    String gridType = (String) Settings.get("gridType");
+    int    gridSize = ((Long) Settings.get("gridSize")).intValue();
+    
+    switch (gridType) {
+      case "square":
+      default:
+        grid = new GridSquare(gridSize);
+    }
 
     // On initialise la grille de manière aléatoire
     grid.initRandom();
@@ -56,8 +65,8 @@ public class Game implements Observable {
       // On créé l'objet Player
       players[i] = new Player(i + 1);
       
-      int x = cornersCoordinates[i][0];
-      int y = cornersCoordinates[i][1];
+      int x = cornersCoordinates[i][0] == "min" ? 0 : gridSize - 1;
+      int y = cornersCoordinates[i][1] == "min" ? 0 : gridSize - 1;
       
       // On associe un coin au joueur
       grid.assignTile(x, y, i + 1);
