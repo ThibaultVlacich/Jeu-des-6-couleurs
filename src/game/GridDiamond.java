@@ -27,11 +27,11 @@ public class GridDiamond implements Grid {
   private ArrayList<ArrayList<Tile>> grid = new ArrayList<ArrayList<Tile>>();
   
   // Stock les coordonnées des coins
-  public int[][] cornersCoordinates = {
-      {0,  0},  // En haut - Joueur 1
-      {12, 0}, // En bas  - Joueur 2
-      {0,  12}, // En haut à droite - Joueur 3
-      {12,  0}  // En bas à gauche  - Joueur 4
+  public String[][] cornersCoordinates = {
+      {"min", "min"}, // En haut - Joueur 1
+      {"max", "min"}, // En bas  - Joueur 2
+      {"min", "max"}, // En haut à droite - Joueur 3
+      {"max", "min"}  // En bas à gauche  - Joueur 4
   };
 
   /**
@@ -202,7 +202,7 @@ public class GridDiamond implements Grid {
    *
    * @return  Les Coordonnées du coin
    */
-  public int[] getCornerCoordinate(int player) {
+  public String[] getCornerCoordinate(int player) {
     return cornersCoordinates[player];
   }
 

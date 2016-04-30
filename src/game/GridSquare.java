@@ -27,11 +27,11 @@ public class GridSquare implements Grid {
   private Tile[][] grid;
 
   // Stock les coordonnées des coins
-  public int[][] cornersCoordinates = {
-      {0,  0},  // En haut à gauche - Joueur 1
-      {12, 12}, // En bas à droite  - Joueur 2
-      {0,  12}, // En haut à droite - Joueur 3
-      {12,  0}  // En bas à gauche  - Joueur 4
+  public String[][] cornersCoordinates = {
+      {"min", "min"}, // En haut à gauche - Joueur 1
+      {"max", "max"}, // En bas à droite  - Joueur 2
+      {"min", "max"}, // En haut à droite - Joueur 3
+      {"max", "min"}  // En bas à gauche  - Joueur 4
   };
 
   /**
@@ -209,7 +209,7 @@ public class GridSquare implements Grid {
    *
    * @return  Les Coordonnées du coin
    */
-  public int[] getCornerCoordinate(int player) {
+  public String[] getCornerCoordinate(int player) {
     return cornersCoordinates[player];
   }
 

@@ -53,7 +53,7 @@ public class Home extends Application {
       root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
       
       // Création de la scène
-      Scene scene = new Scene(root, 320, 380);
+      Scene scene = new Scene(root);
       
       stage.setTitle("Jeu des 6 couleurs");
       stage.setScene(scene);
@@ -125,6 +125,23 @@ public class Home extends Application {
       } catch (Exception e) {
         e.printStackTrace();
       }
+    }
+  }
+  
+  @FXML
+  protected void showSettings(ActionEvent event) {
+    try {
+      GridPane settingsWindow = FXMLLoader.load(getClass().getResource("Settings.fxml"));
+      
+      Scene scene = new Scene(settingsWindow);
+      
+      Stage stage = new Stage();
+      
+      stage.setTitle("Jeu des 6 couleurs");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
   

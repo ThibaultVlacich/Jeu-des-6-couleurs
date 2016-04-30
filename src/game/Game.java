@@ -14,6 +14,8 @@ package game;
 import observer.Observable;
 import observer.Observer;
 
+import settings.Settings;
+
 import models.TileColor;
 
 public class Game implements Observable {
@@ -28,10 +30,21 @@ public class Game implements Observable {
 
   // Défini si la partie est terminée ou non
   private Boolean gameOver = false;
-
+  
   public Game() {
-    // Création d'une grille carrée de 13 de coté
-    grid = new GridDiamond(13);
+    // Création de la grille par défaut
+    String gridType = (String) Settings.get("gridType");
+    int    gridSize = ((Long) Settings.get("gridSize")).intValue();
+    
+    switch (gridType) {
+      case "diamond":
+        grid = new GridDiamond(gridSize);
+        break;
+      case "square":
+      default:
+        grid = new GridSquare(gridSize);
+        break;
+    }
 
     // On initialise la grille de manière aléatoire
     grid.initRandom();
@@ -46,10 +59,10 @@ public class Game implements Observable {
       // On créé l'objet Player
       players[i] = new Player(i + 1);
       
-      int[] cornerCoordinates = grid.getCornerCoordinate(i);
+      String[] cornerCoordinates = grid.getCornerCoordinate(i);
 
-      int x = cornerCoordinates[0];
-      int y = cornerCoordinates[1];
+      int x = cornerCoordinates[0] == "min" ? 0 : (gridSize - 1);
+      int y = cornerCoordinates[1] == "min" ? 0 : (gridSize - 1);
 
       // On associe un coin au joueur
       grid.assignTile(x, y, i + 1);

@@ -69,7 +69,7 @@ public interface Grid {
    *
    * @return  Les Coordonnées du coin
    */
-  public int[] getCornerCoordinate(int player);
+  public String[] getCornerCoordinate(int player);
 
   /**
    * Permet de compter le nombre de cases possédées par un joueur
