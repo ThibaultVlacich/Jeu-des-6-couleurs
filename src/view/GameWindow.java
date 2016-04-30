@@ -24,6 +24,8 @@ import observer.Observer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import javafx.geometry.Insets;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -32,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 
 import javafx.stage.FileChooser;
@@ -165,10 +168,20 @@ public class GameWindow implements Observer {
       
       playerGrid.add(button, 1, 0, 1, 2);
       
-      playersGrid.add(playerGrid, i - 1, 0);
+      if (i == 1 || i == 2) {
+        playersGrid.add(playerGrid, i - 1, 0);
+      } else {
+        playersGrid.add(playerGrid, i - 3, 1);
+      }
     }
     
     root.add(playersGrid, 0, 1);
+    
+    Separator sep = new Separator();
+    
+    root.add(sep, 0, 2);
+    
+    GridPane.setMargin(sep, new Insets(5, 0, 5, 0));
   }
   
   /**
@@ -177,7 +190,7 @@ public class GameWindow implements Observer {
   private void drawGameGrid() {
     gameGrid = game.getGrid().show2D(game);
     
-    root.add(gameGrid, 0, 2);
+    root.add(gameGrid, 0, 3);
   }
   
   /**
