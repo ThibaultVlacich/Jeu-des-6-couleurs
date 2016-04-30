@@ -51,7 +51,7 @@
       </Button>
       <Hyperlink onAction="#openGitHub" text="https://github.com/ThibaultVlacich/Jeu-des-6-couleurs" GridPane.rowIndex="6">
          <GridPane.margin>
-            <Insets top="40.0" />
+            <Insets bottom="5.0" top="30.0" />
          </GridPane.margin>
       </Hyperlink>
    </children>
