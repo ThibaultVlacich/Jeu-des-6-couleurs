@@ -66,7 +66,10 @@ public class Game implements Observable {
     
     for (int i = 0; i < nbOfPlayers; i++) {
       // On créé l'objet Player
-      players[i] = new Player(i + 1);
+      if(i == 0)
+        players[i] = new LocalPlayer(i + 1);
+      else
+        players[i] = new RandomIAPlayer(i + 1);
       
       int x = cornersCoordinates[i][0] == "min" ? 0 : gridSize - 1;
       int y = cornersCoordinates[i][1] == "min" ? 0 : gridSize - 1;
@@ -91,7 +94,7 @@ public class Game implements Observable {
     
     for (int i = 0; i < nbOfPlayers; i++) {
       // On créé l'objet Player
-      players[i] = new Player(i + 1);
+      players[i] = new LocalPlayer(i + 1);
     }
     
     grid = _grid;
@@ -103,11 +106,15 @@ public class Game implements Observable {
   public void start() {
     // Le joueur 1 commence
     currentPlayer = players[startingPlayer - 1];
+    currentPlayer.play(this);
   }
   
-  public void chooseTile(Tile tile) {
-    TileColor color = tile.getColor();
-    
+  /**
+   * Le joueur a choisi une couleur
+   * 
+   * @param color La couleur choisie
+   */
+  public void chooseColor(TileColor color) {
     if(isColorOwned(color)) {
       notifyCantChooseColor(color);
       
@@ -119,7 +126,8 @@ public class Game implements Observable {
     grid.assignTiles(currentPlayer.ID, color);
     
     // Au joueur suivant !
-    currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];
+    currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];  
+    currentPlayer.play(this);
     
     // On notifie l'observateur qu'il faut mettre à jour la vue
     notifyUpdateView();
@@ -151,7 +159,7 @@ public class Game implements Observable {
    * 
    * @return  (True|False)
    */
-  private Boolean isColorOwned(TileColor c) {
+  public Boolean isColorOwned(TileColor c) {
     for (Player player: players) {
       if (player.getColor() == c) {
         return true;

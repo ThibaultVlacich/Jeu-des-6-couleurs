@@ -239,7 +239,7 @@ public class GridSquare implements Grid {
         }
           
         button.setOnAction(event -> {
-          game.chooseTile(tile);
+          game.chooseColor(tile.getColor());
         });
           
         gameGrid.add(button, j, i);
