@@ -48,6 +48,9 @@ public class Save {
     // Taille de la grille
     jsonObject.put("size", grid.getSize());
     
+    // Joueur actuel
+    jsonObject.put("currentPlayer", game.getCurrentPlayer().ID);
+    
     // Objets joueurs
     JSONObject playersObject = new JSONObject();
     

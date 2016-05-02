@@ -25,6 +25,9 @@ public class Game implements Observable {
   // Les objets joueurs
   private Player[] players;
   
+  // ID du joueur qui débute la partie
+  private int startingPlayer = 1;
+  
   // Le joueur actuel
   private Player currentPlayer;
   
@@ -99,7 +102,7 @@ public class Game implements Observable {
    */
   public void start() {
     // Le joueur 1 commence
-    currentPlayer = players[0];
+    currentPlayer = players[startingPlayer - 1];
   }
   
   public void chooseTile(Tile tile) {
@@ -235,6 +238,24 @@ public class Game implements Observable {
     return null;
   }
   
+  /**
+   * Permet de définir le joueur qui débute la partie
+   * 
+   * @param playerID  ID du joueur débutant la partie
+   */
+  public void setStartingPlayer(int playerID) {
+    startingPlayer = playerID;
+  }
+  
+  /**
+   * Permet d'obtenir le joueur actuel
+   * 
+   * @return  Le joueur dont c'est actuellement le tour
+   */
+  public Player getCurrentPlayer() {
+    return currentPlayer;
+  }
+
   /**
    * Permet de notifier l'observateur qu'il faut mettre à jour la vue
    */
