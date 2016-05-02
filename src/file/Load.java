@@ -62,8 +62,6 @@ public class Load {
       
       int currentPlayer = ((Long) jsonObject.get("currentPlayer")).intValue();
       
-      System.out.println(currentPlayer);
-      
       JSONObject playerObject = (JSONObject) jsonObject.get("players");
       
       JSONArray colorGrid  = (JSONArray) jsonObject.get("colorGrid");
