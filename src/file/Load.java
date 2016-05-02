@@ -47,6 +47,7 @@ public class Load {
       if (
              !jsonObject.containsKey("type")
           || !jsonObject.containsKey("size")
+          || !jsonObject.containsKey("currentPlayer")
           || !jsonObject.containsKey("players")
           || !jsonObject.containsKey("colorGrid")
           || !jsonObject.containsKey("playerGrid")
@@ -58,6 +59,10 @@ public class Load {
       
       String gridType = (String) jsonObject.get("type");
       int    gridSize = ((Long) jsonObject.get("size")).intValue();
+      
+      int currentPlayer = ((Long) jsonObject.get("currentPlayer")).intValue();
+      
+      System.out.println(currentPlayer);
       
       JSONObject playerObject = (JSONObject) jsonObject.get("players");
       
@@ -80,6 +85,8 @@ public class Load {
       
       if (grid != null) {
         game = new Game(grid);
+        
+        game.setStartingPlayer(currentPlayer);
         
         for (int i = 0; i < playerObject.size(); i++) {
           int    playerID    = i + 1;
