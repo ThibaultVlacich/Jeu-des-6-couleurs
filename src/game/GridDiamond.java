@@ -13,6 +13,9 @@ package game;
 
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -30,8 +33,8 @@ public class GridDiamond implements Grid {
   public String[][] cornersCoordinates = {
       {"min", "min"}, // En haut - Joueur 1
       {"max", "min"}, // En bas  - Joueur 2
-      {"min", "max"}, // En haut à droite - Joueur 3
-      {"max", "min"}  // En bas à gauche  - Joueur 4
+      {"min", "max"}, // A droite - Joueur 3
+      {"max", "min"}  // A gauche  - Joueur 4
   };
 
   /**
@@ -76,6 +79,25 @@ public class GridDiamond implements Grid {
   }
 
   /**
+   * Remplit la grille à partir d'une sauvegarde
+   */
+  public void initWithSave(JSONArray colorGrid, JSONArray playerGrid) {
+    for(int i = 0; i < nbOfLines; i++) {
+      JSONArray colorLine  = (JSONArray) colorGrid.get(i);
+      JSONArray playerLine = (JSONArray) playerGrid.get(i);
+
+      for(int j = 0; j < nbOfLines; j++) {
+        String    colorCode   = (String) colorLine.get(j);
+        TileColor randomColor = TileColor.getColorFromCode(colorCode);
+        int       pID         = ((Long) playerLine.get(j)).intValue();
+
+        grid.get(i).get(j).setColor(randomColor);
+        grid.get(i).get(j).setPlayerID(pID);
+      }
+    }
+  }
+  
+  /**
    * Permet d'obtenir la case de la grille aux coordonnées demandées
    *
    * @param x, y  Coordonnées de la case demandée
@@ -114,7 +136,7 @@ public class GridDiamond implements Grid {
             tile.setColor(c);
             
             // Case au dessus
-            if (i > 0) {
+            if (i > 0 && ((i > nbOfLines/2 + 1) || (j < i))) {
               if (
                   // La case est de la couleur voulue
                   grid.get(i - 1).get(j).getColor() == c
@@ -128,7 +150,7 @@ public class GridDiamond implements Grid {
             }
             
             // Case en dessous
-            if (i < nbOfLines - 1) {
+            if (i < nbOfLines - 1 && ((i < nbOfLines/2 - 1) || (j > i))) {
               if (
                   // La case est de la couleur voulue
                   grid.get(i + 1).get(j).getColor() == c
@@ -263,5 +285,47 @@ public class GridDiamond implements Grid {
     }
 
     return gameGrid;
+  }
+  
+  /**
+   * Permet d'exporter la grille au format JSON
+   *
+   * @return  L'objet JSON représentant la grille
+   */
+  public JSONObject exportToJSON() {
+    JSONObject jsonObject = new JSONObject();
+
+    JSONArray colorGrid = new JSONArray();
+
+    for (int i = 0; i < nbOfLines; i++) {
+      JSONArray lineArray = new JSONArray();
+
+      for (int j = 0; j < nbOfLines; j++) {
+        TileColor color = grid.get(i).get(j).getColor();
+        lineArray.add(TileColor.getColorCode(color));
+      }
+
+      colorGrid.add(lineArray);
+    }
+
+    jsonObject.put("colorGrid", colorGrid);
+
+    JSONArray playerGrid = new JSONArray();
+
+    for (int i = 0; i < nbOfLines; i++) {
+      JSONArray lineArray = new JSONArray();
+
+      for (int j = 0; j < nbOfLines; j++) {
+        int pID = grid.get(i).get(j).getPlayerID();
+
+        lineArray.add(pID);
+      }
+
+      playerGrid.add(lineArray);
+    }
+
+    jsonObject.put("playerGrid", playerGrid);
+
+    return jsonObject;
   }
 }
