@@ -23,6 +23,15 @@ public class Player {
     this.ID = ID;
   }
   
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Player)) {
+      return false;
+    }
+    
+    return (((Player) obj).ID == this.ID);
+  }
+  
   /**
    * Permet d'obtenir la couleur actuelle du joueur
    * 
