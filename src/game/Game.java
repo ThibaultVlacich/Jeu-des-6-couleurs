@@ -69,7 +69,7 @@ public class Game implements Observable {
       if(i == 0)
         players[i] = new LocalPlayer(i + 1);
       else
-        players[i] = new RandomIAPlayer(i + 1);
+        players[i] = new NoobIAPlayer(i + 1);
       
       int x = cornersCoordinates[i][0] == "min" ? 0 : gridSize - 1;
       int y = cornersCoordinates[i][1] == "min" ? 0 : gridSize - 1;

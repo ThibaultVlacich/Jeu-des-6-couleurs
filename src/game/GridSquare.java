@@ -11,6 +11,8 @@
 
 package game;
 
+import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -192,6 +194,89 @@ public class GridSquare implements Grid {
    */
   public int getSize() {
     return size;
+  }
+  
+  public int getTilesTakeable(int pID, TileColor c) {
+    int total = 0;
+    int newAssignedTiles = -1;
+    
+    ArrayList<Integer[]> listetest = new ArrayList<Integer[]>();
+    while (newAssignedTiles != 0) {
+      // Tant que la grille a été modifiée à l'éxécution précédente de la boucle,
+      // on continue à vérifier si des cases ne peuvent pas être contrôlées
+      newAssignedTiles = 0;
+      // On assigne les cases de la couleur demandée au joueur
+      for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+          Tile tile = grid[i][j];
+        
+          if (tile.getPlayerID() == pID) {     
+            if (i > 0) {
+              if (
+                  // La case est de la couleur voulue
+                  grid[i - 1][j].getColor() == c
+                  // Et la case n'appartient pas déjà au joueur
+                  && grid[i - 1][j].getPlayerID() != pID
+                  ) {
+                Integer[] coordonees1 = {i-1,j};
+                if(!listetest.contains(coordonees1)){
+                  listetest.add(coordonees1);
+                  newAssignedTiles++;
+                }
+              }
+            }
+  
+            if (j > 0) {
+              if (
+                  // La case est de la couleur voulue
+                  grid[i][j - 1].getColor() == c
+                  // Et la case n'appartient pas déjà au joueur
+                  && grid[i][j - 1].getPlayerID() != pID
+                  ) {
+                Integer[] coordonees2 = {i,j-1};
+                if(!listetest.contains(coordonees2)){
+                  listetest.add(coordonees2);
+                  newAssignedTiles++;
+                }
+              }
+            }
+            
+            if (i < size - 1){
+              if (
+                  // La case est de la couleur voulue
+                  grid[i + 1][j].getColor() == c
+                  // Et la case n'appartient pas déjà au joueur
+                  && grid[i + 1][j].getPlayerID() != pID
+                  ) {
+                Integer[] coordonees3 = {i+1,j};
+                if(!listetest.contains(coordonees3)){
+                  listetest.add(coordonees3);
+                  newAssignedTiles++;
+                }
+              }
+            }
+            
+            if (j < size - 1){
+              if (
+                  // La case est de la couleur voulue
+                  grid[i][j + 1].getColor() == c
+                  // Et la case n'appartient pas déjà au joueur
+                  && grid[i][j + 1].getPlayerID() != pID
+                  ) {
+                Integer[] coordonees4 = {i,j+1};
+                if(!listetest.contains(coordonees4)){
+                  listetest.add(coordonees4);
+                  newAssignedTiles++;
+                }
+              }
+            }                     
+          }
+        }
+      }
+      
+      total += newAssignedTiles;
+    }
+    return total;
   }
 
   /**
