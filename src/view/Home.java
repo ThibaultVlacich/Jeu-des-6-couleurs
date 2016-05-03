@@ -146,6 +146,28 @@ public class Home extends Application {
   }
   
   @FXML
+  protected void showAbout(ActionEvent event) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("About.fxml"));
+      
+      GridPane aboutRoot = loader.load();
+      
+      About aboutController = loader.getController();
+      
+      aboutController.setHostServices(getHostServices());
+      
+      aboutRoot.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+      
+      Stage dialog = new Stage();
+      dialog.setTitle("Jeu des 6 couleurs - A propos");
+      dialog.setScene(new Scene(aboutRoot));
+      dialog.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  
+  @FXML
   protected void quitApp(ActionEvent event) {
     Alert alert = new Alert(AlertType.CONFIRMATION);
     
