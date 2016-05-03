@@ -11,6 +11,11 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 - Possibilité de charger le jeu depuis une sauvegarde
 - Ecran des options
 
+### Améliorations
+- Améliore l'écran de jeu :
+	- Affiche la listes des joueurs, associée au nombre de cases possédées par les joeurs et leur couleur actuelle
+	- Affiche le joueur dont c'est le tour
+
 ## Version 1.2 [28/04/2016]
 
 ### Ajouts
