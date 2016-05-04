@@ -16,9 +16,13 @@ import models.TileColor;
 public abstract class Player {
   // ID du joueur
   public int ID;
+  
   // Couleur actuelle du joueur
   private TileColor color;
 
+  // Type de joueur (Local, IA...)
+  public PlayerType playerType;
+  
   Player(int ID) {
     this.ID = ID;
   }

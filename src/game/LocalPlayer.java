@@ -12,9 +12,10 @@
 package game;
 
 public class LocalPlayer extends Player {
-
   LocalPlayer(int playerID) {
     super(playerID);
+    
+    playerType = PlayerType.LOCAL;
   }
 
   public void play(Game game) {

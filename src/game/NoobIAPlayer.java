@@ -2,8 +2,9 @@
  * Jeu des 6 couleurs
  *
  * @package game
- * @class   RandomIAPlayer
- * @desc    Classe définissant le joueur IA aléatoire
+ * @class   NoobIAPlayer
+ * @desc    Classe définissant le joueur IA de niveau "noob"
+ * @desc    Cette IA choisit la couleur qui lui ferait gagner le plus de cases
  *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author  Hugo Michard <hugo.michard@isep.fr>
@@ -16,6 +17,8 @@ import models.TileColor;
 public class NoobIAPlayer extends Player {
   NoobIAPlayer(int playerID) {
     super(playerID);
+    
+    playerType = PlayerType.IA;
   }
   
   public void play(Game game) {

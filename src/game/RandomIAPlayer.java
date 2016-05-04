@@ -16,6 +16,8 @@ import models.TileColor;
 public class RandomIAPlayer extends Player {
   RandomIAPlayer(int playerID) {
     super(playerID);
+    
+    playerType = PlayerType.IA;
   }
   
   public void play(Game game) {

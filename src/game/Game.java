@@ -106,7 +106,24 @@ public class Game implements Observable {
   public void start() {
     // Le joueur 1 commence
     currentPlayer = players[startingPlayer - 1];
-    currentPlayer.play(this);
+    
+    // Débute le tour du joueur
+    startTurn();
+  }
+  
+  /**
+   * Débute le tour
+   */
+  public void startTurn() {
+    if (gameOver) {
+      // La partie est terminée, on ne fait rien !
+      return;
+    }
+    
+    if (currentPlayer.playerType == PlayerType.IA) {
+      // On demande à l'IA de jouer
+      currentPlayer.play(this);
+    }
   }
   
   /**
@@ -125,9 +142,15 @@ public class Game implements Observable {
     currentPlayer.setColor(color);
     grid.assignTiles(currentPlayer.ID, color);
     
+    endTurn();
+  }
+  
+  /**
+   * Termine le tour
+   */
+  public void endTurn() {
     // Au joueur suivant !
     currentPlayer = (currentPlayer.ID == players.length) ? players[0] : players[currentPlayer.ID];  
-    currentPlayer.play(this);
     
     // On notifie l'observateur qu'il faut mettre à jour la vue
     notifyUpdateView();
@@ -149,6 +172,9 @@ public class Game implements Observable {
       }
       
       notifyGameIsOver(winnerID);
+    } else {
+      // On débute le tour du joueur suivant
+      startTurn();
     }
   }
   
