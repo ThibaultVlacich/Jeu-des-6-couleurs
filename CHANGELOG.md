@@ -6,6 +6,8 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+## Version 1.3 [04/05/2016]
+
 ### Ajouts
 - Ajout d'un popup "A propos" du jeu
 - Possibilité de sauvegarder la partie en cours
