@@ -6,6 +6,11 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+## Version 1.3.1 [04/05/2016]
+
+### Améliorations
+- Compression des images
+
 ### Bugs
 - Laisse la possibilité au joueur de reprendre sa couleur. Permet, par exemple, d'avancer lors du premier tour lorsque le joueur est entouré de la couleur qu'il s'est vu assigné.
 
