@@ -108,7 +108,7 @@ public class Game implements Observable {
   public void chooseTile(Tile tile) {
     TileColor color = tile.getColor();
     
-    if(isColorOwned(color)) {
+    if(isColorOwned(color) && currentPlayer.getColor() != color) {
       notifyCantChooseColor(color);
       
       return;
