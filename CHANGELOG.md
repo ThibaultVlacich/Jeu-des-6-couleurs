@@ -7,6 +7,7 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 ## Master
 
 ### Ajouts
+- Ajout d'un popup "A propos" du jeu
 - Possibilité de sauvegarder la partie en cours
 - Possibilité de charger le jeu depuis une sauvegarde
 - Ecran des options
