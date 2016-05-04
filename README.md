@@ -1,6 +1,4 @@
-![Logo](src/view/images/logo.png "Jeu des 6 couleurs")
-
-# Jeu des 6 couleurs
+# ![Logo](src/view/images/logo.png "Jeu des 6 couleurs")
 
 Ce jeu est réalisé par deux étudiants élèves ingénieurs à l'[ISEP](http://www.isep.fr/) comme projet de première année en "Algorithmie et programmation" :
 - Thibault VLACICH
