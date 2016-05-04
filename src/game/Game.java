@@ -132,7 +132,7 @@ public class Game implements Observable {
    * @param color La couleur choisie
    */
   public void chooseColor(TileColor color) {
-    if(isColorOwned(color)) {
+    if(isColorOwned(color) && currentPlayer.getColor() != color) {
       notifyCantChooseColor(color);
       
       return;
