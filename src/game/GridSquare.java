@@ -11,8 +11,6 @@
 
 package game;
 
-import java.util.ArrayList;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -47,11 +45,31 @@ public class GridSquare implements Grid {
   }
 
   /**
+   * Permet de construire une copie d'une autre instance de GridSquare
+   * 
+   * @param copyInstance  L'instance à dupliquer
+   */
+  public GridSquare(GridSquare copyInstance) {
+    size = copyInstance.getSize();
+    
+    grid = new Tile[size][size];
+    
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        Tile tile = copyInstance.getTile(i, j);
+        
+        grid[i][j] = new Tile(tile.getColor());
+        grid[i][j].setPlayerID(tile.getPlayerID());
+      }
+    }
+  }
+  
+  /**
    * Remplit la grille de manière aléatoire
    */
   public void initRandom() {
-    for(int i = 0; i < size; i++) {
-      for(int j = 0; j < size; j++) {
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
         TileColor randomColor = TileColor.getRandomColor();
         
         grid[i][j] = new Tile(randomColor);
@@ -196,87 +214,25 @@ public class GridSquare implements Grid {
     return size;
   }
   
-  public int getTilesTakeable(int pID, TileColor c) {
-    int total = 0;
-    int newAssignedTiles = -1;
+  /**
+   * Compte le nombre de cases qu'un joueur pourrait obtenir avec la couleur spécifiée
+   * 
+   * @param pID   L'ID du joueur
+   * @param color La couleur choisie
+   * 
+   * @return  Le nombre de cases qu'il obtiendrait
+   */
+  public int countTilesTakeable(int pID, TileColor c) {
+    // On créé une copie de la grille actuelle
+    GridSquare newGameGrid = new GridSquare(this);
     
-    ArrayList<Integer[]> listetest = new ArrayList<Integer[]>();
-    while (newAssignedTiles != 0) {
-      // Tant que la grille a été modifiée à l'éxécution précédente de la boucle,
-      // on continue à vérifier si des cases ne peuvent pas être contrôlées
-      newAssignedTiles = 0;
-      // On assigne les cases de la couleur demandée au joueur
-      for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-          Tile tile = grid[i][j];
-        
-          if (tile.getPlayerID() == pID) {     
-            if (i > 0) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[i - 1][j].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[i - 1][j].getPlayerID() != pID
-                  ) {
-                Integer[] coordonees1 = {i-1,j};
-                if(!listetest.contains(coordonees1)){
-                  listetest.add(coordonees1);
-                  newAssignedTiles++;
-                }
-              }
-            }
-  
-            if (j > 0) {
-              if (
-                  // La case est de la couleur voulue
-                  grid[i][j - 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[i][j - 1].getPlayerID() != pID
-                  ) {
-                Integer[] coordonees2 = {i,j-1};
-                if(!listetest.contains(coordonees2)){
-                  listetest.add(coordonees2);
-                  newAssignedTiles++;
-                }
-              }
-            }
-            
-            if (i < size - 1){
-              if (
-                  // La case est de la couleur voulue
-                  grid[i + 1][j].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[i + 1][j].getPlayerID() != pID
-                  ) {
-                Integer[] coordonees3 = {i+1,j};
-                if(!listetest.contains(coordonees3)){
-                  listetest.add(coordonees3);
-                  newAssignedTiles++;
-                }
-              }
-            }
-            
-            if (j < size - 1){
-              if (
-                  // La case est de la couleur voulue
-                  grid[i][j + 1].getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid[i][j + 1].getPlayerID() != pID
-                  ) {
-                Integer[] coordonees4 = {i,j+1};
-                if(!listetest.contains(coordonees4)){
-                  listetest.add(coordonees4);
-                  newAssignedTiles++;
-                }
-              }
-            }                     
-          }
-        }
-      }
-      
-      total += newAssignedTiles;
-    }
-    return total;
+    // On assigne "virtuellement" au joueur la couleur
+    newGameGrid.assignTiles(pID, c);
+    
+    // On compte le nombre de nouvelles cases obtenues
+    int tilesTooked = (newGameGrid.countTilesOwnedBy(pID) - this.countTilesOwnedBy(pID));
+    
+    return tilesTooked;
   }
 
   /**

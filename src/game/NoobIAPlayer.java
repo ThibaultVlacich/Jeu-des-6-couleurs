@@ -22,16 +22,17 @@ public class NoobIAPlayer extends Player {
   }
   
   public void play(Game game) {
-    int optimal = 0;
-    TileColor colorChoosed = getColor();
+    int       maxTilesTooked = 0;
+    TileColor colorChoosed   = getColor();
+    Grid      gameGrid       = game.getGrid();
     
-    for (TileColor testcolor: TileColor.values()) {
-      if(!game.isColorOwned(testcolor)){
-        int valeur = game.getGrid().getTilesTakeable(ID, testcolor);
+    for (TileColor colorTested: TileColor.values()) {
+      if(!game.isColorOwned(colorTested)){
+        int tilesTooked = gameGrid.countTilesTakeable(ID, colorTested);
                 
-        if(valeur > optimal){
-          colorChoosed = testcolor;
-          optimal = valeur;
+        if(tilesTooked > maxTilesTooked){
+          colorChoosed   = colorTested;
+          maxTilesTooked = tilesTooked;
         }
       }
     }
