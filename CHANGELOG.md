@@ -6,6 +6,14 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+### Ajouts
+- Ajout de la possibilité de jouer contre une IA :
+	- Niveau 0 : l'IA choisit une couleur de manière aléatoire
+	- Niveau 1 : l'IA choisit la couleur qui lui permet de gagner le plus de cases
+
+### Améliorations
+- Améliore le fonctionnement de la boucle de jeu
+
 ## Version 1.3.1 [04/05/2016]
 
 ### Améliorations
