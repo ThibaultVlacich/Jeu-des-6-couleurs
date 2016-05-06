@@ -54,3 +54,7 @@
 	
 	-fx-text-fill: white;
 }
+
+.tile.white {
+	-fx-background-color: white;
+}

@@ -17,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javafx.scene.control.Button;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 import models.TileColor;
@@ -135,8 +136,8 @@ public class GridDiamond implements Grid {
             // On la met de la nouvelle couleur choisie par le joueur
             tile.setColor(c);
             
-            // Case au dessus
-            if (i > 0 && ((i > nbOfLines/2 + 1) || (j < i))) {
+            // Case au dessus a droite
+            if (i > 0 && grid.get(i - 1).get(j) != null) {
               if (
                   // La case est de la couleur voulue
                   grid.get(i - 1).get(j).getColor() == c
@@ -149,8 +150,8 @@ public class GridDiamond implements Grid {
               }
             }
             
-            // Case en dessous
-            if (i < nbOfLines - 1 && ((i < nbOfLines/2 - 1) || (j > i))) {
+            // Case en dessous a gauche
+            if (i < line.size() && grid.get(i + 1).get(j) != null) {
               if (
                   // La case est de la couleur voulue
                   grid.get(i + 1).get(j).getColor() == c
@@ -163,29 +164,29 @@ public class GridDiamond implements Grid {
               }
             }
             
-            // Case à gauche
-            if (j > 0) {
+            // Case en haut a gauche
+            if (i > 0 && j > 0 && grid.get(i - 1).get(j - 1) != null) {
               if (
                   // La case est de la couleur voulue
-                  grid.get(i).get(j - 1).getColor() == c
+                  grid.get(i - 1).get(j - 1).getColor() == c
                   // Et la case n'appartient pas déjà au joueur
-                  && grid.get(i).get(j - 1).getPlayerID() != pID
+                  && grid.get(i - 1).get(j - 1).getPlayerID() != pID
                   ) {
-                grid.get(i).get(j - 1).setPlayerID(pID);
+                grid.get(i - 1).get(j - 1).setPlayerID(pID);
                 
                 newAssignedTiles++;
               }
             }
             
-            // Case à droite
-            if (j < line.size() - 1) {
+            // Case en bas a droite
+            if (i < line.size() && j < line.size() && grid.get(i + 1).get(j) != null) {
               if (
                   // La case est de la couleur voulue
-                  grid.get(i).get(j + 1).getColor() == c
+                  grid.get(i + 1).get(j + 1).getColor() == c
                   // Et la case n'appartient pas déjà au joueur
-                  && grid.get(i).get(j + 1).getPlayerID() != pID
+                  && grid.get(i + 1).get(j + 1).getPlayerID() != pID
                   ) {
-                grid.get(i).get(j + 1).setPlayerID(pID);
+                grid.get(i + 1).get(j + 1).setPlayerID(pID);
                 
                 newAssignedTiles++;
               }
@@ -259,6 +260,13 @@ public class GridDiamond implements Grid {
    */
   public GridPane show2D(Game game) {
     GridPane gameGrid = new GridPane();
+    
+    for (int i = 0; i < nbOfLines*2; i++) {
+      ColumnConstraints col = new ColumnConstraints();
+      col.setPercentWidth(100/nbOfLines);
+      
+      gameGrid.getColumnConstraints().add(col);
+    }
 
     for (int i = 0; i < nbOfLines; i++) {
       ArrayList<Tile> line = grid.get(i);
@@ -266,7 +274,7 @@ public class GridDiamond implements Grid {
       for (int j = 0; j < line.size(); j++) {
         Tile tile = line.get(j);
         int  pID  = tile.getPlayerID();
-
+ 
         Button button = new Button();
 
         button.getStyleClass().add("tile");
@@ -275,12 +283,24 @@ public class GridDiamond implements Grid {
         if (pID != 0) {
           button.setText(Integer.toString(pID));
         }
-
+        
         button.setOnAction(event -> {
           game.chooseTile(tile);
         });
-
-        gameGrid.add(button, j, i);
+        
+        int columnIndex;
+        
+        if (i < nbOfLines/2) {
+          columnIndex = new Double(j*2+(Math.floor((nbOfLines-i)))).intValue();
+        } else {
+          columnIndex = j*2+i+1;
+        }
+        
+        gameGrid.add(button, columnIndex, i);
+        Button sertarien = new Button();
+        sertarien.getStyleClass().add("tile");
+        sertarien.getStyleClass().add("white");
+        gameGrid.add(sertarien, columnIndex+1, i);
       }
     }
 
