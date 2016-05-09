@@ -38,7 +38,8 @@ public class SettingsWindow implements Initializable {
     gridTypeChoiceBox.setItems(
         FXCollections.observableArrayList(
             "square",
-            "diamond"
+            "diamond",
+            "rectangle"
         )
     );
     

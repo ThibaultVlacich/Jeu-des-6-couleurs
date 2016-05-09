@@ -43,6 +43,9 @@ public class Game implements Observable {
       case "diamond":
         grid = new GridDiamond(gridSize);
         break;
+      case "rectangle":
+        grid = new GridRectangle(gridSize, gridSize + 10);
+        break;
       case "square":
       default:
         grid = new GridSquare(gridSize);
