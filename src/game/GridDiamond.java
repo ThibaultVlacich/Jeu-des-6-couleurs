@@ -84,17 +84,31 @@ public class GridDiamond implements Grid {
    */
   public void initWithSave(JSONArray colorGrid, JSONArray playerGrid) {
     for(int i = 0; i < nbOfLines; i++) {
+      ArrayList<Tile> line = new ArrayList<Tile>();
+      
       JSONArray colorLine  = (JSONArray) colorGrid.get(i);
       JSONArray playerLine = (JSONArray) playerGrid.get(i);
-
-      for(int j = 0; j < nbOfLines; j++) {
+      
+      int numberOfTilesForLine;
+      
+      if (i < nbOfLines / 2) {
+        numberOfTilesForLine = i + 1;
+      } else {
+        numberOfTilesForLine = -i + nbOfLines;
+      }
+      
+      for(int j = 0; j < numberOfTilesForLine; j++) {
         String    colorCode   = (String) colorLine.get(j);
         TileColor randomColor = TileColor.getColorFromCode(colorCode);
         int       pID         = ((Long) playerLine.get(j)).intValue();
 
-        grid.get(i).get(j).setColor(randomColor);
-        grid.get(i).get(j).setPlayerID(pID);
+        Tile      tile        = new Tile(randomColor);
+        tile.setPlayerID(pID);
+        
+        line.add(j, tile);
       }
+      
+      grid.add(i, line);
     }
   }
   
@@ -366,11 +380,11 @@ public class GridDiamond implements Grid {
 
     JSONArray colorGrid = new JSONArray();
 
-    for (int i = 0; i < nbOfLines; i++) {
+    for (ArrayList<Tile> line: grid) {
       JSONArray lineArray = new JSONArray();
 
-      for (int j = 0; j < nbOfLines; j++) {
-        TileColor color = grid.get(i).get(j).getColor();
+      for (Tile tile: line) {
+        TileColor color = tile.getColor();
         lineArray.add(TileColor.getColorCode(color));
       }
 
@@ -381,11 +395,11 @@ public class GridDiamond implements Grid {
 
     JSONArray playerGrid = new JSONArray();
 
-    for (int i = 0; i < nbOfLines; i++) {
+    for (ArrayList<Tile> line: grid) {
       JSONArray lineArray = new JSONArray();
 
-      for (int j = 0; j < nbOfLines; j++) {
-        int pID = grid.get(i).get(j).getPlayerID();
+      for (Tile tile: line) {
+        int pID = tile.getPlayerID();
 
         lineArray.add(pID);
       }
