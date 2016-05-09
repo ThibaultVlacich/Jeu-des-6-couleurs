@@ -63,6 +63,13 @@ public interface Grid {
   public int getSize();
 
   /**
+   * Permet d'obtenir le nombre de cases dans la grille
+   * 
+   * @return
+   */
+  public int totalNumberOfTiles();
+  
+  /**
    * Permet d'obtenir les coordonnées du coin à associer au joueur
    *
    * @param   player  Le numéro du joueur

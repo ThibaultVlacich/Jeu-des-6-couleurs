@@ -203,6 +203,15 @@ public class GridSquare implements Grid {
   }
 
   /**
+   * Permet d'obtenir le nombre de cases dans la grille
+   * 
+   * @return
+   */
+  public int totalNumberOfTiles() {
+    return (int) Math.pow(size, 2);
+  }
+  
+  /**
    * Permet d'obtenir les coordonnées du coin à associer au joueur
    *
    * @param   player  Le numéro du joueur

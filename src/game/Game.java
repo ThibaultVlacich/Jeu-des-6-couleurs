@@ -172,7 +172,7 @@ public class Game implements Observable {
    */
   private void checkIsGameIsOver() {
     // Calcule le nombre de cases dans la grille
-    double numberOfTiles = Math.pow(grid.getSize(), 2);
+    double numberOfTiles = grid.totalNumberOfTiles();
     // Nombre de cases encore non controllées
     int freeTiles = grid.countTilesOwnedBy(0);
 

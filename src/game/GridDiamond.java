@@ -127,7 +127,7 @@ public class GridDiamond implements Grid {
       // On assigne les cases de la couleur demandée au joueur
       for (int i = 0; i < nbOfLines; i++) {
         ArrayList<Tile> line = grid.get(i);
-        
+
         for (int j = 0; j < line.size(); j++) {
           Tile tile = line.get(j);
 
@@ -135,60 +135,84 @@ public class GridDiamond implements Grid {
             // La case appartient au joueur
             // On la met de la nouvelle couleur choisie par le joueur
             tile.setColor(c);
-            
-            // Case au dessus a droite
-            if (i > 0 && grid.get(i - 1).get(j) != null) {
-              if (
-                  // La case est de la couleur voulue
-                  grid.get(i - 1).get(j).getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid.get(i - 1).get(j).getPlayerID() != pID
-                  ) {
-                grid.get(i - 1).get(j).setPlayerID(pID);
-                
+
+
+            if (i < nbOfLines/2) {
+              // Case au dessus a droite
+              if(i > 0 && j < line.size() - 1){
+                if(checkAndAssign(i - 1, j, c, pID)){
+                  newAssignedTiles++;
+                }
+              }
+
+              // Case en dessous a gauche
+              if (checkAndAssign(i + 1, j, c, pID)){                
+                newAssignedTiles++;
+              }      
+
+              // Case en haut a gauche
+              if (i > 0 && j > 0) {
+                if (checkAndAssign(i - 1, j - 1, c, pID)){                
+                  newAssignedTiles++;
+                }
+              }
+
+              // Case en bas a droite
+              if (checkAndAssign(i + 1, j + 1, c, pID)){                
+                newAssignedTiles++;
+              }      
+            } else if (i > nbOfLines/2) {
+              // Case au dessus a droite
+              if(checkAndAssign(i - 1, j + 1, c, pID)){
                 newAssignedTiles++;
               }
-            }
-            
-            // Case en dessous a gauche
-            if (i < line.size() && grid.get(i + 1).get(j) != null) {
-              if (
-                  // La case est de la couleur voulue
-                  grid.get(i + 1).get(j).getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid.get(i + 1).get(j).getPlayerID() != pID
-                  ) {
-                grid.get(i + 1).get(j).setPlayerID(pID);
-                
+
+
+              // Case en dessous a gauche
+              if(j > 0){
+                if (checkAndAssign(i + 1, j - 1, c, pID)){                
+                  newAssignedTiles++;
+                }      
+              }
+              // Case en haut a gauche
+              if (checkAndAssign(i - 1, j, c, pID)){                
                 newAssignedTiles++;
               }
-            }
-            
-            // Case en haut a gauche
-            if (i > 0 && j > 0 && grid.get(i - 1).get(j - 1) != null) {
-              if (
-                  // La case est de la couleur voulue
-                  grid.get(i - 1).get(j - 1).getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid.get(i - 1).get(j - 1).getPlayerID() != pID
-                  ) {
-                grid.get(i - 1).get(j - 1).setPlayerID(pID);
-                
-                newAssignedTiles++;
+
+
+              // Case en bas a droite
+              if(j < line.size() - 1){
+                if (checkAndAssign(i + 1, j, c, pID)){                
+                  newAssignedTiles++;
+                }      
               }
             }
-            
-            // Case en bas a droite
-            if (i < line.size() && j < line.size() && grid.get(i + 1).get(j) != null) {
-              if (
-                  // La case est de la couleur voulue
-                  grid.get(i + 1).get(j + 1).getColor() == c
-                  // Et la case n'appartient pas déjà au joueur
-                  && grid.get(i + 1).get(j + 1).getPlayerID() != pID
-                  ) {
-                grid.get(i + 1).get(j + 1).setPlayerID(pID);
-                
-                newAssignedTiles++;
+            else{
+              // Case en dessous a gauche
+              if(j > 0){
+                if (checkAndAssign(i + 1, j - 1, c, pID)){                
+                  newAssignedTiles++;
+                }      
+              }
+              // Case en haut a gauche
+              if(j > 0){
+                if (checkAndAssign(i - 1, j - 1, c, pID)){                
+                  newAssignedTiles++;
+                }      
+              }
+
+              // Case en bas a droite
+              if(j < line.size() - 1){
+                if (checkAndAssign(i + 1, j, c, pID)){                
+                  newAssignedTiles++;
+                }      
+              }
+
+              // Case au dessus a droite
+              if(j < line.size() - 1){
+                if (checkAndAssign(i - 1, j, c, pID)){                
+                  newAssignedTiles++;
+                }      
               }
             }
           }
@@ -197,6 +221,23 @@ public class GridDiamond implements Grid {
     }
   }
 
+  
+  public Boolean checkAndAssign(int i, int j, TileColor c, int pID){
+    if (
+        // La case est de la couleur voulue
+        grid.get(i).get(j).getColor() == c
+        // Et la case n'appartient pas déjà au joueur
+        && grid.get(i).get(j).getPlayerID() != pID
+        ) {
+          grid.get(i).get(j).setPlayerID(pID);
+          return true;
+          }else{
+            return false;
+          }
+  }
+  
+  
+  
   /**
    * Permet d'assigner un joueur à une case
    *
@@ -216,6 +257,21 @@ public class GridDiamond implements Grid {
    */
   public int getSize() {
     return nbOfLines;
+  }
+  
+  /**
+   * Permet d'obtenir le nombre de cases dans la grille
+   * 
+   * @return
+   */
+  public int totalNumberOfTiles() {
+    int total = 0;
+    
+    for (ArrayList<Tile> line: grid) {
+      total += line.size();
+    }
+    
+    return total;
   }
   
   /**
@@ -260,13 +316,6 @@ public class GridDiamond implements Grid {
    */
   public GridPane show2D(Game game) {
     GridPane gameGrid = new GridPane();
-    
-    for (int i = 0; i < nbOfLines*2; i++) {
-      ColumnConstraints col = new ColumnConstraints();
-      col.setPercentWidth(100/nbOfLines);
-      
-      gameGrid.getColumnConstraints().add(col);
-    }
 
     for (int i = 0; i < nbOfLines; i++) {
       ArrayList<Tile> line = grid.get(i);
