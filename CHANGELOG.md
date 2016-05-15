@@ -6,6 +6,8 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+## Version 1.4 [15/05/2016]
+
 ### Ajouts
 - Ajout de la possibilité de jouer contre une IA :
 	- Niveau 0 : l'IA choisit une couleur de manière aléatoire
