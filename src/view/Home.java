@@ -100,19 +100,7 @@ public class Home extends Application {
       
       mainStage.hide();
       
-      try {
-        GameWindow gameWindow = new GameWindow(game);
-        
-        Scene scene = gameWindow.getScene();
-        
-        Stage stage = new Stage();
-        
-        stage.setTitle("Jeu des 6 couleurs");
-        stage.setScene(scene);
-        stage.show();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      new GameWindow(game);
     }
   }
   

@@ -11,12 +11,10 @@
 
 package game;
 
+import models.TileColor;
+
 import observer.Observable;
 import observer.Observer;
-
-import settings.Settings;
-
-import models.TileColor;
 
 public class Game implements Observable {
   // L'objet Grid instancié pour le jeu
@@ -44,13 +42,42 @@ public class Game implements Observable {
       {"max", "min"}  // En bas à gauche  - Joueur 4
   };
   
+  /**
+   * Constructeur par défaut du jeu
+   */
   public Game() {
-    // Création de la grille par défaut
-    String gridType = (String) Settings.get("gridType");
-    int    gridSize = ((Long) Settings.get("gridSize")).intValue();
+    // Création de la grille
+    grid = new GridSquare(13);
+
+    // On initialise la grille de manière aléatoire
+    grid.initRandom();
     
+    // On créé la liste des joueurs
+    players = new Player[2];
+    
+    for (int i = 0; i < 2; i++) {
+      players[i] = new LocalPlayer(i + 1);
+      
+      int x = cornersCoordinates[i][0] == "min" ? 0 : 13 - 1;
+      int y = cornersCoordinates[i][1] == "min" ? 0 : 13 - 1;
+      
+      // On associe un coin au joueur
+      grid.assignTile(x, y, i + 1);
+      players[i].setColor(grid.getTile(x, y).getColor());
+    }
+  }
+  
+  /**
+   * Construit le jeu à partir de réglages pré-définis
+   * 
+   * @param _players    La liste des joueurs du jeu
+   * @param gridType    Le type de grille
+   * @param gridSize    La taille de la grille
+   */
+  public Game(Player[] _players, String gridType, int gridSize) {
+    // Création de la grille
     switch (gridType) {
-      case "square":
+      case "Carré":
       default:
         grid = new GridSquare(gridSize);
     }
@@ -58,19 +85,10 @@ public class Game implements Observable {
     // On initialise la grille de manière aléatoire
     grid.initRandom();
     
-    // On demande le nombre de joueurs
-    int nbOfPlayers = 2;
-    
     // On créé la liste des joueurs
-    players = new Player[nbOfPlayers];
+    players = _players;
     
-    for (int i = 0; i < nbOfPlayers; i++) {
-      // On créé l'objet Player
-      if(i == 0)
-        players[i] = new LocalPlayer(i + 1);
-      else
-        players[i] = new NoobIAPlayer(i + 1);
-      
+    for (int i = 0; i < players.length; i++) {
       int x = cornersCoordinates[i][0] == "min" ? 0 : gridSize - 1;
       int y = cornersCoordinates[i][1] == "min" ? 0 : gridSize - 1;
       
@@ -81,7 +99,7 @@ public class Game implements Observable {
   }
   
   /**
-   * Initialise le jeu avec grille défà définie
+   * Initialise le jeu avec grille déjà définie
    * 
    * @param _grid La grille du jeu
    */

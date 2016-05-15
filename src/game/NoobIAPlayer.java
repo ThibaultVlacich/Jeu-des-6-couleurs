@@ -15,7 +15,7 @@ package game;
 import models.TileColor;
 
 public class NoobIAPlayer extends Player {
-  NoobIAPlayer(int playerID) {
+  public NoobIAPlayer(int playerID) {
     super(playerID);
     
     playerType = PlayerType.IA;

@@ -11,6 +11,11 @@
 
 package view;
 
+import game.Game;
+import game.LocalPlayer;
+import game.NoobIAPlayer;
+import game.Player;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,9 +42,17 @@ public class NewGameWindow {
   private Scene scene;
   
   // Index de ligne actuel dans la grille root
-  int currentIndex = 0;
+  private int currentIndex = 0;
   
   private GridPane playersList = new GridPane();
+  
+  /**
+   * Liste des variables utiles au jeu
+   */
+  private String   gridType;
+  private int      gridSize;
+  private int      nbOfPlayers;
+  private Player[] players;
   
   NewGameWindow() { 
     root.setPadding(new Insets(10));
@@ -64,6 +77,9 @@ public class NewGameWindow {
     stage.show();
   }
   
+  /**
+   * Affiche le "header" de la fenêtre
+   */
   private void drawHeading() {
     Label newGameLabel = new Label("Nouvelle partie");
     root.add(newGameLabel, 0, currentIndex++);
@@ -74,6 +90,9 @@ public class NewGameWindow {
     GridPane.setMargin(newGameSeparator, new Insets(5, 0, 5, 0));
   }
   
+  /**
+   * Affiche les réglages concernant la grille
+   */
   private void drawGameSettings() {
     GridPane gameSettingsGrid = new GridPane();
     
@@ -83,7 +102,9 @@ public class NewGameWindow {
 
     gameSettingsGrid.getColumnConstraints().addAll(column1, column2);
     
-    // Type de la grille
+    /**
+     * Type de la grille
+     */
     Label gridTypeLabel = new Label("Type de grille :");
     gameSettingsGrid.add(gridTypeLabel, 0, 0);
     
@@ -96,11 +117,24 @@ public class NewGameWindow {
         )
     );
     
+    gridTypeChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+      @Override
+      public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+        gridType = gridTypeChoiceBox.getItems().get((Integer) newValue);
+      }
+    });
+    
+    // Valeur par défaut
+    gridTypeChoiceBox.setValue("Carré");
+    gridType = "Carré";
+    
     GridPane.setMargin(gridTypeChoiceBox, new Insets(5, 0, 5, 0));
     
     gameSettingsGrid.add(gridTypeChoiceBox, 1, 0);
     
-    // Taille de la grille
+    /**
+     * Taille de la grille
+     */
     Label gridSizeLabel = new Label("Taille de la grille :");
     gameSettingsGrid.add(gridSizeLabel, 0, 1);
     
@@ -118,6 +152,16 @@ public class NewGameWindow {
     
     gridSizeSlider.setSnapToTicks(true);
     
+    gridSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+      public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
+        gridSize = new_val.intValue();
+      }
+    });
+    
+    // Valeur par défaut
+    gridSizeSlider.setValue(13.0);
+    gridSize = 13;
+    
     GridPane.setMargin(gridSizeSlider, new Insets(5, 0, 5, 0));
     
     gameSettingsGrid.add(gridSizeSlider, 1, 1);
@@ -130,6 +174,9 @@ public class NewGameWindow {
     GridPane.setMargin(gameSettingsSeparator, new Insets(5, 0, 5, 0));
   }
   
+  /**
+   * Affiche les réglages concernant le nombre de joueurs
+   */
   private void drawPlayersSettings() {
     GridPane playersSettingsGrid = new GridPane();
     
@@ -138,7 +185,9 @@ public class NewGameWindow {
     
     playersSettingsGrid.getColumnConstraints().setAll(column1, column2);
     
-    // Nombre de joueurs
+    /**
+     * Choix du nombre de joueurs
+     */
     Label nbOfPlayersLabel = new Label("Nombre de joueurs :");
     playersSettingsGrid.add(nbOfPlayersLabel, 0, 0);
     
@@ -156,10 +205,14 @@ public class NewGameWindow {
     nbOfPlayersChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
       @Override
       public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-        int nbOfPlayers = nbOfPlayersChoiceBox.getItems().get((Integer) newValue);
-        drawPlayersList(nbOfPlayers);
+        nbOfPlayers = nbOfPlayersChoiceBox.getItems().get((Integer) newValue);
+        drawPlayersList();
       }
     });
+    
+    // Valeur par défaut
+    nbOfPlayersChoiceBox.setValue(2);
+    nbOfPlayers = 2;
     
     GridPane.setMargin(nbOfPlayersChoiceBox, new Insets(5, 0, 5, 0));
     
@@ -175,7 +228,10 @@ public class NewGameWindow {
     GridPane.setMargin(playersSettingsSeparator, new Insets(5, 0, 5, 0));
   }
   
-  private void drawPlayersList(int nbOfPlayers) {
+  /**
+   * Affiche la liste des joueurs, et les réglages associés
+   */
+  private void drawPlayersList() {
     playersList.getChildren().clear();
     
     ColumnConstraints col1 = new ColumnConstraints(150);
@@ -184,8 +240,12 @@ public class NewGameWindow {
     
     playersList.getColumnConstraints().addAll(col1, col2, col3);
     
+    players = new Player[nbOfPlayers];
+    
     for (int i = 0; i < nbOfPlayers; i++) {
-      Label playerName = new Label("Joueur " + (i + 1));
+      int playerID = i + 1;
+      
+      Label playerName = new Label("Joueur " + playerID);
       playersList.add(playerName, 0, i);
       
       ChoiceBox<String> playerTypeChoiceBox = new ChoiceBox<String>();
@@ -203,12 +263,14 @@ public class NewGameWindow {
           String playerType = playerTypeChoiceBox.getItems().get((Integer) newValue);
           
           if (playerType.equals("Joueur IA")) {
-            
+            players[playerID - 1] = new NoobIAPlayer(playerID);
           } else {
-            
+            players[playerID - 1] = new LocalPlayer(playerID);
           }
         }
       });
+      
+      playerTypeChoiceBox.setValue("Joueur local");
       
       playersList.add(playerTypeChoiceBox, 1, i);
       
@@ -220,7 +282,7 @@ public class NewGameWindow {
   }
   
   /**
-   * Dessine les boutons en bas de fenêtre
+   * Affiche les boutons en bas de fenêtre
    */
   private void drawButtons() {
     GridPane buttonsGrid = new GridPane();
@@ -236,7 +298,7 @@ public class NewGameWindow {
     startButton.setText("Lancer la partie");
     
     startButton.setOnAction((event) -> {
-      //startGame();
+      startGame();
     });
     
     buttonsGrid.add(startButton, 0, 0);
@@ -253,5 +315,16 @@ public class NewGameWindow {
     buttonsGrid.add(cancelButton, 1, 0);
     
     root.add(buttonsGrid, 0, currentIndex++);
+  }
+  
+  /**
+   * Action : Débute le jeu
+   */
+  private void startGame() {
+    stage.close();
+    
+    Game game = new Game(players, gridType, gridSize);
+    
+    new GameWindow(game);
   }
 }

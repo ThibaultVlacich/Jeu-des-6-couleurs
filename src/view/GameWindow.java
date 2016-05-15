@@ -38,8 +38,12 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class GameWindow implements Observer {
+  // Fenêtre
+  Stage stage = new Stage();
+  
   // Stock l'instance de jeu
   private Game game;
   
@@ -77,6 +81,11 @@ public class GameWindow implements Observer {
     
     // Chargement des fichiers CSS
     scene.getStylesheets().add(getClass().getResource("css/game.css").toExternalForm());
+    
+    // Affichage de la fenêtre
+    stage.setTitle("Jeu des 6 couleurs");
+    stage.setScene(scene);
+    stage.show();
   }
   
   /**
@@ -231,14 +240,4 @@ public class GameWindow implements Observer {
 
     alert.showAndWait();
   }
-  
-  /**
-   * Permet d'obtenir la scène JavaFX
-   * 
-   * @return
-   */
-  public Scene getScene() {
-    return scene;
-  }
-
 }

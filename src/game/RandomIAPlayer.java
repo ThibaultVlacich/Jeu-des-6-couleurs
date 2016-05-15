@@ -14,7 +14,7 @@ package game;
 import models.TileColor;
 
 public class RandomIAPlayer extends Player {
-  RandomIAPlayer(int playerID) {
+  public RandomIAPlayer(int playerID) {
     super(playerID);
     
     playerType = PlayerType.IA;
