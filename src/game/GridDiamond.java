@@ -55,6 +55,36 @@ public class GridDiamond implements Grid {
   }
 
   /**
+   * Permet de construire une copie d'une autre instance de GridDiamond
+   * 
+   * @param copyInstance  L'instance à dupliquer
+   */
+  public GridDiamond(GridDiamond copyInstance) {
+    nbOfLines = copyInstance.getSize();
+    
+    for(int i = 0; i < nbOfLines; i++) {
+      ArrayList<Tile> line = new ArrayList<Tile>();
+      
+      int numberOfTilesForLine;
+      
+      if (i < nbOfLines / 2) {
+        numberOfTilesForLine = i + 1;
+      } else {
+        numberOfTilesForLine = -i + nbOfLines;
+      }
+      
+      for(int j = 0; j < numberOfTilesForLine; j++) {
+        Tile tile = copyInstance.getTile(i, j);
+
+        line.add(j, new Tile(tile.getColor()));
+        line.get(j).setPlayerID(tile.getPlayerID());
+      }
+      
+      grid.add(i, line);
+    }
+  }
+  
+  /**
    * Remplit la grille de manière aléatoire
    */
   public void initRandom() {
@@ -244,10 +274,10 @@ public class GridDiamond implements Grid {
         && grid.get(i).get(j).getPlayerID() != pID
         ) {
           grid.get(i).get(j).setPlayerID(pID);
-          return true;
-          }else{
-            return false;
-          }
+      return true;
+    } else {
+      return false;
+    }
   }
   
   
@@ -271,6 +301,27 @@ public class GridDiamond implements Grid {
    */
   public int getSize() {
     return nbOfLines;
+  }
+  
+  /**
+   * Compte le nombre de cases qu'un joueur pourrait obtenir avec la couleur spécifiée
+   * 
+   * @param pID   L'ID du joueur
+   * @param color La couleur choisie
+   * 
+   * @return  Le nombre de cases qu'il obtiendrait
+   */
+  public int countTilesTakeable(int pID, TileColor c) {
+    // On créé une copie de la grille actuelle
+    GridDiamond newGameGrid = new GridDiamond(this);
+    
+    // On assigne "virtuellement" au joueur la couleur
+    newGameGrid.assignTiles(pID, c);
+    
+    // On compte le nombre de nouvelles cases obtenues
+    int tilesTooked = (newGameGrid.countTilesOwnedBy(pID) - this.countTilesOwnedBy(pID));
+    
+    return tilesTooked;
   }
   
   /**
@@ -348,7 +399,7 @@ public class GridDiamond implements Grid {
         }
         
         button.setOnAction(event -> {
-          game.chooseTile(tile);
+          game.chooseColor(tile.getColor());
         });
         
         int columnIndex;

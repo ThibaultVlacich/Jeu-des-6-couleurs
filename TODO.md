@@ -18,13 +18,13 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
 - [x] Choix du nombre de joueurs (2, 3 ou 4)
 - Forme de la grille
   - [x] Grille carrée
-  - [ ] Grille en losange (13 cases de coté)
+  - [x] Grille en losange (13 cases de coté)
   - [ ] Pavage hexagonal (7 cases de coté)
-  - [ ] Grille rectangulaire
-  - [ ] Possibilité de choisir la taille de la grille
+  - [x] Grille rectangulaire
+  - [x] Possibilité de choisir la taille de la grille
 - Intelligence artificielle
-  - [ ] IA simple (au hasard)
-  - [ ] IA qui choisit la couleur lui permettant de capturer le plus de cases
+  - [x] IA simple (au hasard)
+  - [x] IA qui choisit la couleur lui permettant de capturer le plus de cases
   - [ ] IA qui choisit la couleur qui "embête" le plus l'adversaire
   - [ ] IA qui analyse la grille pour choisir la couleur
 - Gestion de la partie

@@ -7,6 +7,31 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 ## Master
 
 ### Ajouts
+- Ajout de type de grilles supplémentaires :
+	- Grille en losage
+	- Grille rectangulaire
+
+## Version 1.4 [15/05/2016]
+
+### Ajouts
+- Ajout de la possibilité de jouer contre une IA :
+	- Niveau 0 : l'IA choisit une couleur de manière aléatoire
+	- Niveau 1 : l'IA choisit la couleur qui lui permet de gagner le plus de cases
+
+### Améliorations
+- Améliore le fonctionnement de la boucle de jeu
+
+## Version 1.3.1 [04/05/2016]
+
+### Améliorations
+- Compression des images
+
+### Bugs
+- Laisse la possibilité au joueur de reprendre sa couleur. Permet, par exemple, d'avancer lors du premier tour lorsque le joueur est entouré de la couleur qu'il s'est vu assigné.
+
+## Version 1.3 [04/05/2016]
+
+### Ajouts
 - Ajout d'un popup "A propos" du jeu
 - Possibilité de sauvegarder la partie en cours
 - Possibilité de charger le jeu depuis une sauvegarde

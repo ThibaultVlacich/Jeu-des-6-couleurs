@@ -53,6 +53,27 @@ public class GridRectangle implements Grid {
 
     grid = new Tile[x][y];
   }
+  
+  /**
+   * Permet de construire une copie d'une autre instance de GridRectangle
+   * 
+   * @param copyInstance  L'instance à dupliquer
+   */
+  public GridRectangle(GridRectangle copyInstance) {
+    sizex = copyInstance.getSizeX();
+    sizey = copyInstance.getSizeY();
+    
+    grid = new Tile[sizex][sizey];
+    
+    for (int i = 0; i < sizex; i++) {
+      for (int j = 0; j < sizey; j++) {
+        Tile tile = copyInstance.getTile(i, j);
+        
+        grid[i][j] = new Tile(tile.getColor());
+        grid[i][j].setPlayerID(tile.getPlayerID());
+      }
+    }
+  }
 
   /**
    * Remplit la grille de manière aléatoire
@@ -194,14 +215,48 @@ public class GridRectangle implements Grid {
 
     tile.setPlayerID(pID);
   }
-
-  /**
-   * Permet d'obtenir la taille de la grille
-   *
-   * @return  La taille de la grille
-   */
+  
   public int getSize() {
     return 0;
+  }
+
+  /**
+   * Permet d'obtenir la largeur de la grille
+   *
+   * @return  La largeur de la grille
+   */
+  public int getSizeX() {
+    return sizex;
+  }
+  
+  /**
+   * Permet d'obtenir la hauteur de la grille
+   *
+   * @return  La hauteur de la grille
+   */
+  public int getSizeY() {
+    return sizey;
+  }
+  
+  /**
+   * Compte le nombre de cases qu'un joueur pourrait obtenir avec la couleur spécifiée
+   * 
+   * @param pID   L'ID du joueur
+   * @param color La couleur choisie
+   * 
+   * @return  Le nombre de cases qu'il obtiendrait
+   */
+  public int countTilesTakeable(int pID, TileColor c) {
+    // On créé une copie de la grille actuelle
+    GridRectangle newGameGrid = new GridRectangle(this);
+    
+    // On assigne "virtuellement" au joueur la couleur
+    newGameGrid.assignTiles(pID, c);
+    
+    // On compte le nombre de nouvelles cases obtenues
+    int tilesTooked = (newGameGrid.countTilesOwnedBy(pID) - this.countTilesOwnedBy(pID));
+    
+    return tilesTooked;
   }
 
   /**
@@ -269,7 +324,7 @@ public class GridRectangle implements Grid {
         }
 
         button.setOnAction(event -> {
-          game.chooseTile(tile);
+          game.chooseColor(tile.getColor());
         });
 
         gameGrid.add(button, j, i);
