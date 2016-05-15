@@ -12,6 +12,7 @@
 package view;
 
 import java.io.File;
+import java.util.Optional;
 
 import file.Save;
 
@@ -29,6 +30,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -102,7 +104,17 @@ public class GameWindow implements Observer {
     MenuItem newGameItem = new MenuItem("Nouvelle partie");
     newGameItem.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent e) {
-        System.out.println("lel");
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Jeu des 6 couleurs");
+        alert.setHeaderText("Êtes-vous sur de vouloir lancer une nouvelle partie ?");
+        alert.setContentText("Attention, toute progression non sauvegardée dans la partie actuelle sera perdue.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+          stage.close();
+          
+          new NewGameWindow();
+        }
       }
     });
     

@@ -15,6 +15,7 @@ import game.Game;
 import game.LocalPlayer;
 import game.NoobIAPlayer;
 import game.Player;
+import game.RandomIAPlayer;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -263,7 +264,31 @@ public class NewGameWindow {
           String playerType = playerTypeChoiceBox.getItems().get((Integer) newValue);
           
           if (playerType.equals("Joueur IA")) {
-            players[playerID - 1] = new NoobIAPlayer(playerID);
+            ChoiceBox<String> IALevelChoiceBox = new ChoiceBox<String>();
+            
+            IALevelChoiceBox.setItems(
+              FXCollections.observableArrayList(
+                "Facile",
+                "Moyen"
+              )
+            );
+            
+            IALevelChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+              @Override
+              public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                String IALevel = IALevelChoiceBox.getItems().get((Integer) newValue);
+                
+                if (IALevel.equals("Facile")) {
+                  players[playerID - 1] = new RandomIAPlayer(playerID);
+                } else if (IALevel.equals("Moyen")) {
+                  players[playerID - 1] = new NoobIAPlayer(playerID);
+                }
+              }
+            });
+            
+            playersList.add(IALevelChoiceBox, 2, playerID - 1);
+            
+            GridPane.setMargin(IALevelChoiceBox, new Insets(5, 0, 5, 0));
           } else {
             players[playerID - 1] = new LocalPlayer(playerID);
           }
