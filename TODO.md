@@ -23,8 +23,8 @@ Réalisé par Thibault VLACICH et Hugo MICHARD
   - [ ] Grille rectangulaire
   - [ ] Possibilité de choisir la taille de la grille
 - Intelligence artificielle
-  - [ ] IA simple (au hasard)
-  - [ ] IA qui choisit la couleur lui permettant de capturer le plus de cases
+  - [x] IA simple (au hasard)
+  - [x] IA qui choisit la couleur lui permettant de capturer le plus de cases
   - [ ] IA qui choisit la couleur qui "embête" le plus l'adversaire
   - [ ] IA qui analyse la grille pour choisir la couleur
 - Gestion de la partie

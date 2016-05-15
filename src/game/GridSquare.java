@@ -45,11 +45,31 @@ public class GridSquare implements Grid {
   }
 
   /**
+   * Permet de construire une copie d'une autre instance de GridSquare
+   * 
+   * @param copyInstance  L'instance à dupliquer
+   */
+  public GridSquare(GridSquare copyInstance) {
+    size = copyInstance.getSize();
+    
+    grid = new Tile[size][size];
+    
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        Tile tile = copyInstance.getTile(i, j);
+        
+        grid[i][j] = new Tile(tile.getColor());
+        grid[i][j].setPlayerID(tile.getPlayerID());
+      }
+    }
+  }
+  
+  /**
    * Remplit la grille de manière aléatoire
    */
   public void initRandom() {
-    for(int i = 0; i < size; i++) {
-      for(int j = 0; j < size; j++) {
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
         TileColor randomColor = TileColor.getRandomColor();
         
         grid[i][j] = new Tile(randomColor);
@@ -193,6 +213,27 @@ public class GridSquare implements Grid {
   public int getSize() {
     return size;
   }
+  
+  /**
+   * Compte le nombre de cases qu'un joueur pourrait obtenir avec la couleur spécifiée
+   * 
+   * @param pID   L'ID du joueur
+   * @param color La couleur choisie
+   * 
+   * @return  Le nombre de cases qu'il obtiendrait
+   */
+  public int countTilesTakeable(int pID, TileColor c) {
+    // On créé une copie de la grille actuelle
+    GridSquare newGameGrid = new GridSquare(this);
+    
+    // On assigne "virtuellement" au joueur la couleur
+    newGameGrid.assignTiles(pID, c);
+    
+    // On compte le nombre de nouvelles cases obtenues
+    int tilesTooked = (newGameGrid.countTilesOwnedBy(pID) - this.countTilesOwnedBy(pID));
+    
+    return tilesTooked;
+  }
 
   /**
    * Permet de compter le nombre de cases possédées par un joueur
@@ -239,7 +280,7 @@ public class GridSquare implements Grid {
         }
           
         button.setOnAction(event -> {
-          game.chooseTile(tile);
+          game.chooseColor(tile.getColor());
         });
           
         gameGrid.add(button, j, i);

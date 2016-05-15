@@ -63,6 +63,16 @@ public interface Grid {
   public int getSize();
   
   /**
+   * Compte le nombre de cases qu'un joueur pourrait obtenir avec la couleur spécifiée
+   * 
+   * @param pID   L'ID du joueur
+   * @param color La couleur choisie
+   * 
+   * @return  Le nombre de cases qu'il obtiendrait
+   */
+  public int countTilesTakeable(int pID, TileColor color);
+  
+  /**
    * Permet de compter le nombre de cases possédées par un joueur
    * 
    * @param   pID L'ID du joueur (0 pour avoir les cases libres)
