@@ -19,7 +19,6 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
-      <RowConstraints />
    </rowConstraints>
    <children>
       <ImageView fitHeight="65.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
@@ -35,7 +34,7 @@
             <Insets bottom="10.0" left="75.0" right="75.0" top="40.0" />
          </GridPane.margin>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#quitApp" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="Quitter" textAlignment="CENTER" GridPane.rowIndex="5">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#quitApp" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="Quitter" textAlignment="CENTER" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="10.0" left="75.0" right="75.0" top="10.0" />
          </GridPane.margin>
@@ -45,17 +44,12 @@
             <Insets bottom="10.0" left="75.0" right="75.0" top="10.0" />
          </GridPane.margin>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showSettings" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="Options" textAlignment="CENTER" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="75.0" right="75.0" top="10.0" />
-         </GridPane.margin>
-      </Button>
-      <Hyperlink maxWidth="300.0" onAction="#openGitHub" text="https://github.com/ThibaultVlacich/Jeu-des-6-couleurs" GridPane.rowIndex="6">
+      <Hyperlink maxWidth="300.0" onAction="#openGitHub" text="https://github.com/ThibaultVlacich/Jeu-des-6-couleurs" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets bottom="5.0" top="30.0" />
          </GridPane.margin>
       </Hyperlink>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showAbout" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="A propos" textAlignment="CENTER" GridPane.rowIndex="4">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showAbout" prefHeight="30.0" prefWidth="150.0" styleClass="dark-blue" text="A propos" textAlignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="10.0" left="75.0" right="75.0" top="10.0" />
          </GridPane.margin>

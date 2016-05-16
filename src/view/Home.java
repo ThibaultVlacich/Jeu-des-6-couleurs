@@ -105,23 +105,6 @@ public class Home extends Application {
   }
   
   @FXML
-  protected void showSettings(ActionEvent event) {
-    try {
-      GridPane settingsWindow = FXMLLoader.load(getClass().getResource("Settings.fxml"));
-      
-      Scene scene = new Scene(settingsWindow);
-      
-      Stage stage = new Stage();
-      
-      stage.setTitle("Jeu des 6 couleurs");
-      stage.setScene(scene);
-      stage.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-  
-  @FXML
   protected void showAbout(ActionEvent event) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("About.fxml"));
