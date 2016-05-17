@@ -9,7 +9,6 @@
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
 
-import models.Utils;
 import view.Home;
 
 public class Launcher {
@@ -24,8 +23,5 @@ public class Launcher {
 
     // Ouverture de l'écran d'accueil
     Home.launch(Home.class);
-
-    // Ferme le scanner
-    Utils.scan.close();
   }
 }
