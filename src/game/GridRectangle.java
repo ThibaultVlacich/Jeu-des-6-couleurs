@@ -269,14 +269,21 @@ public class GridRectangle implements Grid {
   }
   
   /**
-   * Permet d'obtenir les coordonnées du coin à associer au joueur
+   * Permet d'assigner un coin au joueur
    *
-   * @param   player  Le numéro du joueur
+   * @param   playerID  L'ID du joueur
    *
-   * @return  Les Coordonnées du coin
+   * @return  La couleur du coin assigné
    */
-  public String[] getCornerCoordinate(int player) {
-    return cornersCoordinates[player];
+  public TileColor assignCornerTo(int playerID) {
+    String[] cornerCoordinate = cornersCoordinates[playerID - 1];
+    
+    int x = (cornerCoordinate[0].equals("min")) ? 0 : sizex - 1;
+    int y = (cornerCoordinate[1].equals("min")) ? 0 : sizey - 1;
+    
+    assignTile(x, y, playerID);
+    
+    return getTile(x, y).getColor();
   }
 
   /**

@@ -70,13 +70,13 @@ public interface Grid {
   public int totalNumberOfTiles();
   
   /**
-   * Permet d'obtenir les coordonnées du coin à associer au joueur
+   * Permet d'assigner un coin au joueur
    *
-   * @param   player  Le numéro du joueur
+   * @param   playerID  L'ID du joueur
    *
-   * @return  Les Coordonnées du coin
+   * @return  La couleur du coin assigné
    */
-  public String[] getCornerCoordinate(int player);
+  public TileColor assignCornerTo(int playerID);
 
   /**
    * Compte le nombre de cases qu'un joueur pourrait obtenir avec la couleur spécifiée

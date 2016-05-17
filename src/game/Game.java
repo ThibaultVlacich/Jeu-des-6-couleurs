@@ -46,16 +46,13 @@ public class Game implements Observable {
     players = new Player[2];
     
     for (int i = 0; i < 2; i++) {
-      players[i] = new LocalPlayer(i + 1);
-      
-      String[] cornerCoordinates = grid.getCornerCoordinate(i);
-      
-      int x = cornerCoordinates[0] == "min" ? 0 : 13 - 1;
-      int y = cornerCoordinates[1] == "min" ? 0 : 13 - 1;
-      
+      Player player = new LocalPlayer(i + 1);
+
       // On associe un coin au joueur
-      grid.assignTile(x, y, i + 1);
-      players[i].setColor(grid.getTile(x, y).getColor());
+      TileColor color = grid.assignCornerTo(player.ID);
+      player.setColor(color);
+      
+      players[i] = player;
     }
   }
   
@@ -88,14 +85,9 @@ public class Game implements Observable {
     players = _players;
     
     for (int i = 0; i < players.length; i++) {
-      String[] cornerCoordinates = grid.getCornerCoordinate(i);
-
-      int x = cornerCoordinates[0] == "min" ? 0 : gridSize - 1;
-      int y = cornerCoordinates[1] == "min" ? 0 : gridSize - 1;
-
       // On associe un coin au joueur
-      grid.assignTile(x, y, i + 1);
-      players[i].setColor(grid.getTile(x, y).getColor());
+      TileColor color = grid.assignCornerTo(players[i].ID);
+      players[i].setColor(color);
     }
   }
   
