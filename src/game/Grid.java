@@ -77,6 +77,16 @@ public interface Grid {
    * @return  La couleur du coin assigné
    */
   public TileColor assignCornerTo(int playerID);
+  
+  /**
+   * Permet d'assigner un coin au joueur avec une couleur donnée
+   *
+   * @param   playerID  L'ID du joueur
+   * @param   color     La couleur à associer
+   *
+   * @return  La couleur du coin assigné
+   */
+  public TileColor assignCornerTo(int playerID, TileColor color);
 
   /**
    * Compte le nombre de cases qu'un joueur pourrait obtenir avec la couleur spécifiée

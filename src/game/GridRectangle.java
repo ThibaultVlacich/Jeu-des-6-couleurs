@@ -285,6 +285,26 @@ public class GridRectangle implements Grid {
     
     return getTile(x, y).getColor();
   }
+  
+  /**
+   * Permet d'assigner un coin au joueur avec une couleur donnée
+   *
+   * @param   playerID  L'ID du joueur
+   * @param   color     La couleur à associer
+   *
+   * @return  La couleur du coin assigné
+   */
+  public TileColor assignCornerTo(int playerID, TileColor color) {
+    String[] cornerCoordinate = cornersCoordinates[playerID - 1];
+    
+    int x = (cornerCoordinate[0].equals("min")) ? 0 : sizex - 1;
+    int y = (cornerCoordinate[1].equals("min")) ? 0 : sizey - 1;
+    
+    assignTile(x, y, playerID);
+    getTile(x, y).setColor(color);
+    
+    return getTile(x, y).getColor();
+  }
 
   /**
    * Permet de compter le nombre de cases possédées par un joueur

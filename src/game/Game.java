@@ -50,6 +50,13 @@ public class Game implements Observable {
 
       // On associe un coin au joueur
       TileColor color = grid.assignCornerTo(player.ID);
+      
+      // Permet d'éviter que plusieurs joueurs débutent la partie avec la même couleur
+      while (isColorOwned(color)) {
+        color = TileColor.getRandomColor();
+        grid.assignCornerTo(player.ID, color);
+      }
+      
       player.setColor(color);
       
       players[i] = player;
@@ -84,10 +91,17 @@ public class Game implements Observable {
     // On créé la liste des joueurs
     players = _players;
     
-    for (int i = 0; i < players.length; i++) {
+    for (Player player: players) {
       // On associe un coin au joueur
-      TileColor color = grid.assignCornerTo(players[i].ID);
-      players[i].setColor(color);
+      TileColor color = grid.assignCornerTo(player.ID);
+      
+      // Permet d'éviter que plusieurs joueurs débutent la partie avec la même couleur
+      while (isColorOwned(color)) {
+        color = TileColor.getRandomColor();
+        grid.assignCornerTo(player.ID, color);
+      }
+      
+      player.setColor(color);
     }
   }
   
