@@ -336,8 +336,8 @@ public class Game implements Observable {
   }
 
   /**
-   * Permet de notifier l'obesrvateur que la partie est terminée
-   *
+   * Permet de notifier l'observateur que la partie est terminée
+   * 
    * @param winnerID  l'ID du joueur qui a gagné
    */
   public void notifyGameIsOver(int winnerID) {
