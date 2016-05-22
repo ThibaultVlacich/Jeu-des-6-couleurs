@@ -17,7 +17,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 import models.TileColor;
@@ -31,11 +30,11 @@ public class GridDiamond implements Grid {
   private ArrayList<ArrayList<Tile>> grid = new ArrayList<ArrayList<Tile>>();
   
   // Stock les coordonnées des coins
-  public String[][] cornersCoordinates = {
-      {"min", "min"}, // En haut - Joueur 1
-      {"max", "min"}, // En bas  - Joueur 2
-      {"min", "max"}, // A droite - Joueur 3
-      {"max", "min"}  // A gauche  - Joueur 4
+  public String[] cornersCoordinates = {
+      "top",    // En haut - Joueur 1
+      "bottom", // En bas  - Joueur 2
+      "right",  // A droite - Joueur 3
+      "left"    // A gauche  - Joueur 4
   };
 
   /**
@@ -265,22 +264,29 @@ public class GridDiamond implements Grid {
     }
   }
 
-  
-  public Boolean checkAndAssign(int i, int j, TileColor c, int pID){
+  /**
+   * Vérifie qu'une case existe et, le cas échéant, lui assigne un joueur si elle est de la couleur demandée
+   * 
+   * @param i   La ligne de la case
+   * @param j   La colonne de la case
+   * @param c   La couleur demandée
+   * @param pID L'ID du joueur à assigner
+   * 
+   * @return  Boolean Indique si la case a été assignée au joueur ou non
+   */
+  public Boolean checkAndAssign(int i, int j, TileColor c, int pID) {
     if (
         // La case est de la couleur voulue
         grid.get(i).get(j).getColor() == c
         // Et la case n'appartient pas déjà au joueur
         && grid.get(i).get(j).getPlayerID() != pID
         ) {
-          grid.get(i).get(j).setPlayerID(pID);
+      grid.get(i).get(j).setPlayerID(pID);
       return true;
     } else {
       return false;
     }
   }
-  
-  
   
   /**
    * Permet d'assigner un joueur à une case
@@ -347,11 +353,30 @@ public class GridDiamond implements Grid {
    * @return  La couleur du coin assigné
    */
   public TileColor assignCornerTo(int playerID) {
-    String[] cornerCoordinate = cornersCoordinates[playerID - 1];
+    String cornerCoordinate = cornersCoordinates[playerID - 1];
     
-    int x = (cornerCoordinate[0].equals("min")) ? 0 : nbOfLines - 1;
-    int y = (cornerCoordinate[1].equals("min")) ? 0 : nbOfLines - 1;
+    int x, y;
     
+    switch (cornerCoordinate) {
+      default:
+      case "top":
+        x = 0;
+        y = 0;
+      break;
+      case "bottom":
+        x = nbOfLines - 1;
+        y = 0;
+      break;
+      case "right":
+        x = nbOfLines / 2;
+        y = 0;
+      break;
+      case "left":
+        x = nbOfLines / 2;
+        y = grid.get(x).size() - 1;
+      break;
+    }
+ 
     assignTile(x, y, playerID);
     
     return getTile(x, y).getColor();
@@ -366,10 +391,29 @@ public class GridDiamond implements Grid {
    * @return  La couleur du coin assigné
    */
   public TileColor assignCornerTo(int playerID, TileColor color) {
-    String[] cornerCoordinate = cornersCoordinates[playerID - 1];
+    String cornerCoordinate = cornersCoordinates[playerID - 1];
     
-    int x = (cornerCoordinate[0].equals("min")) ? 0 : nbOfLines - 1;
-    int y = (cornerCoordinate[1].equals("min")) ? 0 : nbOfLines - 1;
+    int x, y;
+    
+    switch (cornerCoordinate) {
+      default:
+      case "top":
+        x = 0;
+        y = 0;
+      break;
+      case "bottom":
+        x = nbOfLines - 1;
+        y = 0;
+      break;
+      case "right":
+        x = nbOfLines / 2;
+        y = 0;
+      break;
+      case "left":
+        x = nbOfLines / 2;
+        y = grid.get(x).size() - 1;
+      break;
+    }
     
     assignTile(x, y, playerID);
     getTile(x, y).setColor(color);
@@ -438,10 +482,12 @@ public class GridDiamond implements Grid {
         }
         
         gameGrid.add(button, columnIndex, i);
-        Button sertarien = new Button();
-        sertarien.getStyleClass().add("tile");
-        sertarien.getStyleClass().add("white");
-        gameGrid.add(sertarien, columnIndex+1, i);
+        
+        Button blank = new Button();
+        blank.getStyleClass().add("tile");
+        blank.getStyleClass().add("white");
+        
+        gameGrid.add(blank, columnIndex+1, i);
       }
     }
 
