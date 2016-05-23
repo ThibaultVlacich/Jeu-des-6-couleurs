@@ -2,6 +2,7 @@
 .metadata
 bin/
 tmp/
+uml/
 *.tmp
 *.bak
 *.swp

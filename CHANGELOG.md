@@ -6,6 +6,11 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+### Ajouts
+- Ajout de type de grilles supplémentaires :
+	- Grille en losange
+	- Grille rectangulaire
+
 ## Version 1.4 [15/05/2016]
 
 ### Ajouts

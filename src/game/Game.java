@@ -19,28 +19,18 @@ import observer.Observer;
 public class Game implements Observable {
   // L'objet Grid instancié pour le jeu
   private Grid grid;
-  
+
   // Les objets joueurs
   private Player[] players;
-  
+
   // ID du joueur qui débute la partie
   private int startingPlayer = 1;
-  
+
   // Le joueur actuel
   private Player currentPlayer;
-  
+
   // Défini si la partie est terminée ou non
   private Boolean gameOver = false;
-  
-  // Stock les coordonnées des coins
-  // TODO : Stocker cette info dans la classe Grid
-  // quand il y aura différents types de grilles
-  private String[][] cornersCoordinates = {
-      {"min", "min"}, // En haut à gauche - Joueur 1
-      {"max", "max"}, // En bas à droite  - Joueur 2
-      {"min", "max"}, // En haut à droite - Joueur 3
-      {"max", "min"}  // En bas à gauche  - Joueur 4
-  };
   
   /**
    * Constructeur par défaut du jeu
@@ -56,14 +46,20 @@ public class Game implements Observable {
     players = new Player[2];
     
     for (int i = 0; i < 2; i++) {
-      players[i] = new LocalPlayer(i + 1);
-      
-      int x = cornersCoordinates[i][0] == "min" ? 0 : 13 - 1;
-      int y = cornersCoordinates[i][1] == "min" ? 0 : 13 - 1;
-      
+      Player player = new LocalPlayer(i + 1);
+
       // On associe un coin au joueur
-      grid.assignTile(x, y, i + 1);
-      players[i].setColor(grid.getTile(x, y).getColor());
+      TileColor color = grid.assignCornerTo(player.ID);
+      
+      // Permet d'éviter que plusieurs joueurs débutent la partie avec la même couleur
+      while (isColorOwned(color)) {
+        color = TileColor.getRandomColor();
+        grid.assignCornerTo(player.ID, color);
+      }
+      
+      player.setColor(color);
+      
+      players[i] = player;
     }
   }
   
@@ -77,24 +73,35 @@ public class Game implements Observable {
   public Game(Player[] _players, String gridType, int gridSize) {
     // Création de la grille
     switch (gridType) {
+      case "Losange":
+        grid = new GridDiamond(gridSize);
+        break;
+      case "Rectangle":
+        grid = new GridRectangle(gridSize, gridSize + 10);
+        break;
       case "Carré":
       default:
         grid = new GridSquare(gridSize);
+        break;
     }
 
     // On initialise la grille de manière aléatoire
     grid.initRandom();
-    
+
     // On créé la liste des joueurs
     players = _players;
     
-    for (int i = 0; i < players.length; i++) {
-      int x = cornersCoordinates[i][0] == "min" ? 0 : gridSize - 1;
-      int y = cornersCoordinates[i][1] == "min" ? 0 : gridSize - 1;
-      
+    for (Player player: players) {
       // On associe un coin au joueur
-      grid.assignTile(x, y, i + 1);
-      players[i].setColor(grid.getTile(x, y).getColor());
+      TileColor color = grid.assignCornerTo(player.ID);
+      
+      // Permet d'éviter que plusieurs joueurs débutent la partie avec la même couleur
+      while (isColorOwned(color)) {
+        color = TileColor.getRandomColor();
+        grid.assignCornerTo(player.ID, color);
+      }
+      
+      player.setColor(color);
     }
   }
   
@@ -128,7 +135,7 @@ public class Game implements Observable {
     // Débute le tour du joueur
     startTurn();
   }
-  
+
   /**
    * Débute le tour
    */
@@ -195,12 +202,12 @@ public class Game implements Observable {
       startTurn();
     }
   }
-  
+
   /**
    * Permet de déterminer si une couleur appartient déjà à un joueur
-   * 
+   *
    * @param c La couleur à tester
-   * 
+   *
    * @return  (True|False)
    */
   public Boolean isColorOwned(TileColor c) {
@@ -209,10 +216,10 @@ public class Game implements Observable {
         return true;
       }
     }
-    
+
     return false;
   }
-  
+
   /**
    * Permet d'assigner une couleur au joueur
    * 
@@ -228,28 +235,28 @@ public class Game implements Observable {
    */
   private void checkIsGameIsOver() {
     // Calcule le nombre de cases dans la grille
-    double numberOfTiles = Math.pow(grid.getSize(), 2);
+    double numberOfTiles = grid.totalNumberOfTiles();
     // Nombre de cases encore non controllées
     int freeTiles = grid.countTilesOwnedBy(0);
-    
+
     if (freeTiles == 0) {
       // Il n'y a plus de cases libres, la partie est terminée
       gameOver = true;
-      
+
       return;
     }
-    
+
     for (Player player: players) {
       // ID du joueur
       int pID = player.ID;
-      
+
       // Nombre de cases controllées par le joueur
       int tilesOwnedByPlayer = grid.countTilesOwnedBy(pID);
-      
+
       if (tilesOwnedByPlayer > numberOfTiles / 2) {
         // Le joueur possède plus de la moitié des cases, la partie est terminée
         gameOver = true;
-        
+
         return;
       }
     }
@@ -257,13 +264,13 @@ public class Game implements Observable {
 
   /**
    * Permet d'obtenir la grille de jeu
-   * 
+   *
    * @return  La grille
    */
   public Grid getGrid() {
     return grid;
   }
-  
+
   /**
    * Permet d'obtenir le nombre de joueurs
    * 
@@ -316,7 +323,7 @@ public class Game implements Observable {
       obs.updateView();
     }
   }
-  
+
   /**
    * Permet de notifier l'observateur qu'il n'est pas possible de choisir cette couleur
    *
@@ -327,7 +334,7 @@ public class Game implements Observable {
       obs.cantChooseColor(c);
     }
   }
-  
+
   /**
    * Permet de notifier l'observateur que la partie est terminée
    * 

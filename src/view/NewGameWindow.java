@@ -114,7 +114,9 @@ public class NewGameWindow {
     
     gridTypeChoiceBox.setItems(
         FXCollections.observableArrayList(
-            "Carré"
+            "Carré",
+            "Losange",
+            "Rectangle"
         )
     );
     

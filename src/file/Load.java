@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 
 import game.Game;
 import game.Grid;
+import game.GridDiamond;
 import game.GridSquare;
 import models.TileColor;
 
@@ -76,6 +77,10 @@ public class Load {
           
           grid.initWithSave(colorGrid, playerGrid);
         break;
+        case "diamond":
+          grid = new GridDiamond(gridSize);
+          
+          grid.initWithSave(colorGrid, playerGrid);
         default:
           // Type de grille inconnue
           grid = null;

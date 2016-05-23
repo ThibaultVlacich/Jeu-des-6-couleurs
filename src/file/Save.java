@@ -39,6 +39,8 @@ public class Save {
     
     if (grid.getClass().getName().equals("game.GridSquare")) {
       gridType = "square";
+    } else if (grid.getClass().getName().equals("game.GridDiamond")) {
+      gridType = "diamond";
     } else {
         gridType = null;
     }
