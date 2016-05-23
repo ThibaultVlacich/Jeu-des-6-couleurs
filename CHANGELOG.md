@@ -6,10 +6,18 @@ Les changements notables sont documentés dans ce fichier. Ce projet respecte le
 
 ## Master
 
+## Version 1.5 [23/05/2016]
+
 ### Ajouts
 - Ajout de type de grilles supplémentaires :
 	- Grille en losange
 	- Grille rectangulaire
+	
+### Améliorations
+- Suppression des settings, désormais inutiles avec l'écran "nouvelle partie"
+
+### Bugs
+- Corrige un bug qui pouvait faire que plusieurs joueurs débutent la partie avec la même couleur
 
 ## Version 1.4 [15/05/2016]
 
