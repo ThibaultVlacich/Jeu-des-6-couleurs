@@ -464,6 +464,10 @@ public class GridDiamond implements Grid {
 
         button.getStyleClass().add("tile");
         button.getStyleClass().add(TileColor.getColorClassName(tile.getColor()));
+        
+        if (nbOfLines > 19) {
+          button.getStyleClass().add("small");
+        }
 
         if (pID != 0) {
           button.setText(Integer.toString(pID));
@@ -486,6 +490,10 @@ public class GridDiamond implements Grid {
         Button blank = new Button();
         blank.getStyleClass().add("tile");
         blank.getStyleClass().add("white");
+        
+        if (nbOfLines > 19) {
+          blank.getStyleClass().add("small");
+        }
         
         gameGrid.add(blank, columnIndex+1, i);
       }

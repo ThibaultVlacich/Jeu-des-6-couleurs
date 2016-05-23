@@ -329,6 +329,10 @@ public class GridSquare implements Grid {
 
         button.getStyleClass().add("tile");
         button.getStyleClass().add(TileColor.getColorClassName(tile.getColor()));
+        
+        if (size > 19) {
+          button.getStyleClass().add("small");
+        }
 
         if (pID != 0) {
           button.setText(Integer.toString(pID));

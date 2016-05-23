@@ -345,6 +345,10 @@ public class GridRectangle implements Grid {
 
         button.getStyleClass().add("tile");
         button.getStyleClass().add(TileColor.getColorClassName(tile.getColor()));
+        
+        if (sizey > 19) {
+          button.getStyleClass().add("small");
+        }
 
         if (pID != 0) {
           button.setText(Integer.toString(pID));
