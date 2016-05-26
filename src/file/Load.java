@@ -22,6 +22,8 @@ import game.Game;
 import game.Grid;
 import game.GridDiamond;
 import game.GridSquare;
+import game.GridRectangle;
+
 import models.TileColor;
 
 public class Load {
@@ -33,7 +35,7 @@ public class Load {
    * @return  L'objet Game réprésentant la partie sauvegardée
    */
   public static Game loadSave(File file) {
-    Game game = new Game();
+    Game game;
     
     try {
       FileInputStream input = new FileInputStream(file);
@@ -47,7 +49,6 @@ public class Load {
       
       if (
              !jsonObject.containsKey("type")
-          || !jsonObject.containsKey("size")
           || !jsonObject.containsKey("currentPlayer")
           || !jsonObject.containsKey("players")
           || !jsonObject.containsKey("colorGrid")
@@ -59,7 +60,6 @@ public class Load {
       }
       
       String gridType = (String) jsonObject.get("type");
-      int    gridSize = ((Long) jsonObject.get("size")).intValue();
       
       int currentPlayer = ((Long) jsonObject.get("currentPlayer")).intValue();
       
@@ -73,37 +73,45 @@ public class Load {
       switch (gridType) {
         case "square":
           // Grille carrée
+          int gridSize = ((Long) jsonObject.get("size")).intValue();
+
           grid = new GridSquare(gridSize);
           
           grid.initWithSave(colorGrid, playerGrid);
         break;
         case "diamond":
-          grid = new GridDiamond(gridSize);
+          // Grille en losange
+          int nbOfLines = ((Long) jsonObject.get("nbOfLines")).intValue();
+
+          grid = new GridDiamond(nbOfLines);
           
           grid.initWithSave(colorGrid, playerGrid);
+        break;
+        case "rectangle":
+          // Grille rectangulaire
+          int gridSizeX = ((Long) jsonObject.get("sizex")).intValue();
+          int gridSizeY = ((Long) jsonObject.get("sizey")).intValue();
+
+          grid = new GridRectangle(gridSizeX, gridSizeY);
+          
+          grid.initWithSave(colorGrid, playerGrid);
+        break;
         default:
           // Type de grille inconnue
           grid = null;
       }
       
       if (grid != null) {
-        game = new Game(grid);
+        game = new Game(playerObject, grid);
         
         game.setStartingPlayer(currentPlayer);
         
-        for (int i = 0; i < playerObject.size(); i++) {
-          int    playerID    = i + 1;
-          String playerColor = (String) playerObject.get(Integer.toString(playerID));
-          
-          game.setColor(playerID, TileColor.getColorFromCode(playerColor));
-        }
+        return game;
       }
     } catch (Exception e) {
       e.printStackTrace();
-      
-      game = null;
     }
     
-    return game;
+    return null;
   }
 }

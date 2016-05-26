@@ -16,9 +16,8 @@ import java.io.FileWriter;
 
 import org.json.simple.JSONObject;
 
-import game.Game;
-import game.Grid;
-import game.Player;
+import game.*;
+
 import models.TileColor;
 
 public class Save {
@@ -34,21 +33,21 @@ public class Save {
     // Objet JSON réprésentant le jeu 
     JSONObject jsonObject = grid.exportToJSON();
     
-    // Type de grille
-    String gridType = grid.getClass().getName();
-    
-    if (grid.getClass().getName().equals("game.GridSquare")) {
-      gridType = "square";
-    } else if (grid.getClass().getName().equals("game.GridDiamond")) {
-      gridType = "diamond";
-    } else {
-        gridType = null;
+    // Type et taille de la grille
+    if (grid instanceof GridSquare) {
+      jsonObject.put("type", "square");
+      
+      jsonObject.put("size", grid.getSize());
+    } else if (grid instanceof GridDiamond) {
+      jsonObject.put("type", "diamond");
+      
+      jsonObject.put("nbOfLines", grid.getSize());
+    } else if (grid instanceof GridRectangle) {
+      jsonObject.put("type", "rectangle");
+      
+      jsonObject.put("sizex", ((GridRectangle) grid).getSizeX());
+      jsonObject.put("sizey", ((GridRectangle) grid).getSizeY());
     }
-    
-    jsonObject.put("type", gridType);
-    
-    // Taille de la grille
-    jsonObject.put("size", grid.getSize());
     
     // Joueur actuel
     jsonObject.put("currentPlayer", game.getCurrentPlayer().ID);
@@ -59,11 +58,22 @@ public class Save {
     for(int i = 0; i < game.getNbOfPlayers() ; i++) {
       int pID = i + 1;
       
+      JSONObject playerObject = new JSONObject();
+      
       Player player = game.getPlayerWithID(pID);
-      
+            
       String colorCode = TileColor.getColorCode(player.getColor());
+      playerObject.put("color", colorCode);
       
-      playersObject.put(pID, colorCode);
+      if (player instanceof LocalPlayer) {
+        playerObject.put("type", "local");
+      } else if (player instanceof RandomIAPlayer) {
+        playerObject.put("type", "ia-easy");
+      } else if (player instanceof NoobIAPlayer) {
+        playerObject.put("type", "ia-medium");
+      }
+      
+      playersObject.put(pID, playerObject);
     }
     
     jsonObject.put("players", playersObject);

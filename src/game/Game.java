@@ -11,6 +11,8 @@
 
 package game;
 
+import org.json.simple.JSONObject;
+
 import models.TileColor;
 
 import observer.Observable;
@@ -110,16 +112,36 @@ public class Game implements Observable {
    * 
    * @param _grid La grille du jeu
    */
-  public Game(Grid _grid) {
-    // On demande le nombre de joueurs
-    int nbOfPlayers = 2;
+  public Game(JSONObject playersObject, Grid _grid) {
+    int nbOfPlayers = playersObject.size();
     
     // On créé la liste des joueurs
     players = new Player[nbOfPlayers];
     
     for (int i = 0; i < nbOfPlayers; i++) {
-      // On créé l'objet Player
-      players[i] = new LocalPlayer(i + 1);
+      int playerID = i + 1;
+      
+      JSONObject playerObject = (JSONObject) playersObject.get(Integer.toString(playerID));
+      
+      String playerType = (String) playerObject.get("type");
+      
+      switch (playerType) {
+        case "ia-easy":
+          players[i] = new RandomIAPlayer(playerID);
+        break;
+        
+        case "ia-medium":
+          players[i] = new NoobIAPlayer(playerID);
+        break;
+        
+        case "local":
+        default:
+          players[i] = new LocalPlayer(playerID);
+      }
+      
+      String playerColor = (String) playerObject.get("color");
+      
+      setColor(playerID, TileColor.getColorFromCode(playerColor));
     }
     
     grid = _grid;
