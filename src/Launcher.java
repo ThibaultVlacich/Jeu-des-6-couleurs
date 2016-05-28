@@ -13,7 +13,7 @@ import view.Home;
 
 public class Launcher {
   // Version actuelle du jeu
-  private static String version = "1.5";
+  private static String version = "1.5.1";
 
   public static void main(String[] args) {
     System.out.println("###\t\tJeu des 6 couleurs en Java\t\t###");

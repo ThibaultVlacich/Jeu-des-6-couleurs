@@ -179,7 +179,6 @@ public class GridDiamond implements Grid {
             // On la met de la nouvelle couleur choisie par le joueur
             tile.setColor(c);
 
-
             if (i < nbOfLines/2) {
               // Case au dessus a droite
               if(i > 0 && j < line.size() - 1){
@@ -210,7 +209,6 @@ public class GridDiamond implements Grid {
                 newAssignedTiles++;
               }
 
-
               // Case en dessous a gauche
               if(j > 0){
                 if (checkAndAssign(i + 1, j - 1, c, pID)){                
@@ -221,7 +219,6 @@ public class GridDiamond implements Grid {
               if (checkAndAssign(i - 1, j, c, pID)){                
                 newAssignedTiles++;
               }
-
 
               // Case en bas a droite
               if(j < line.size() - 1){
