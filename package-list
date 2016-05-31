@@ -1,8 +1,10 @@
-
-file
-game
-models
-observer
+edu.isep.jeudes6couleurs
+edu.isep.jeudes6couleurs.file
+edu.isep.jeudes6couleurs.game
+edu.isep.jeudes6couleurs.game.grids
+edu.isep.jeudes6couleurs.game.players
+edu.isep.jeudes6couleurs.models
+edu.isep.jeudes6couleurs.observer
+edu.isep.jeudes6couleurs.view
 org.json.simple
 org.json.simple.parser
-view
