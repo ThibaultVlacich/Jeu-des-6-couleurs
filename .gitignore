@@ -3,6 +3,7 @@
 bin/
 tmp/
 uml/
+doc/
 *.tmp
 *.bak
 *.swp
