@@ -1,3 +1,7 @@
+package edu.isep.jeudes6couleurs.observer;
+
+import edu.isep.jeudes6couleurs.models.TileColor;
+
 /**
  * Jeu des 6 couleurs
  *
@@ -8,11 +12,6 @@
  * @author    Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author    Hugo Michard <hugo.michard@isep.fr>
  */
-
-package observer;
-
-import models.TileColor;
-
 public interface Observer {
   /**
    * Permet de mettre à jour la vue

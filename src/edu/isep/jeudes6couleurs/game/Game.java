@@ -1,23 +1,24 @@
+package edu.isep.jeudes6couleurs.game;
+
+import org.json.simple.JSONObject;
+
+import edu.isep.jeudes6couleurs.game.players.*;
+import edu.isep.jeudes6couleurs.game.grids.*;
+
+import edu.isep.jeudes6couleurs.models.TileColor;
+
+import edu.isep.jeudes6couleurs.observer.*;
+
 /**
  * Jeu des 6 couleurs
  *
- * @package game
+ * @package edu.isep.jeudes6couleurs.game
  * @class   Game
  * @desc    Classe principale du jeu
  *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
-
-package game;
-
-import org.json.simple.JSONObject;
-
-import models.TileColor;
-
-import observer.Observable;
-import observer.Observer;
-
 public class Game implements Observable {
   // L'objet Grid instancié pour le jeu
   private Grid grid;

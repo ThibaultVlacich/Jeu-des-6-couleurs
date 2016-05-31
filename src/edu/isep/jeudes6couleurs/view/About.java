@@ -1,4 +1,4 @@
-package view;
+package edu.isep.jeudes6couleurs.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +12,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.view
+ * @class   About
+ * @desc    Défini la fenêtre "A propos" du jeu
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
 public class About implements Initializable {
   private HostServices hostServices;
   

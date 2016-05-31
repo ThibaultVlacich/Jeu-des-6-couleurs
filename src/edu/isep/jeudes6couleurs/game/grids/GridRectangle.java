@@ -1,15 +1,4 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package game
- * @class   GridSquare
- * @desc    Classe définissant une grille de type carrée
- *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
- */
-
-package game;
+package edu.isep.jeudes6couleurs.game.grids;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,11 +6,25 @@ import org.json.simple.JSONObject;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
-import models.TileColor;
+import edu.isep.jeudes6couleurs.game.Game;
+import edu.isep.jeudes6couleurs.game.Tile;
 
-public class GridSquare implements Grid {
+import edu.isep.jeudes6couleurs.models.TileColor;
+
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.game
+ * @class   GridSquare
+ * @desc    Classe définissant une grille de type carrée
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
+public class GridRectangle implements Grid {
   // Taille de la grille
-  private int size;
+  private int sizex;
+  private int sizey;
 
   // Grille du jeu
   private Tile[][] grid;
@@ -37,8 +40,8 @@ public class GridSquare implements Grid {
   /**
    * Initialise la grille avec sa taille par défaut
    */
-  public GridSquare() {
-    this(13);
+  public GridRectangle() {
+    this(20,13);
   }
 
   /**
@@ -46,24 +49,26 @@ public class GridSquare implements Grid {
    *
    * @param s Taille de la grille
    */
-  public GridSquare(int s) {
-    size = s;
+  public GridRectangle(int x, int y) {
+    sizex = x;
+    sizey = y;
 
-    grid = new Tile[s][s];
+    grid = new Tile[x][y];
   }
-
+  
   /**
-   * Permet de construire une copie d'une autre instance de GridSquare
+   * Permet de construire une copie d'une autre instance de GridRectangle
    * 
    * @param copyInstance  L'instance à dupliquer
    */
-  public GridSquare(GridSquare copyInstance) {
-    size = copyInstance.getSize();
+  public GridRectangle(GridRectangle copyInstance) {
+    sizex = copyInstance.getSizeX();
+    sizey = copyInstance.getSizeY();
     
-    grid = new Tile[size][size];
+    grid = new Tile[sizex][sizey];
     
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+    for (int i = 0; i < sizex; i++) {
+      for (int j = 0; j < sizey; j++) {
         Tile tile = copyInstance.getTile(i, j);
         
         grid[i][j] = new Tile(tile.getColor());
@@ -71,13 +76,13 @@ public class GridSquare implements Grid {
       }
     }
   }
-  
+
   /**
    * Remplit la grille de manière aléatoire
    */
   public void initRandom() {
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+    for(int i = 0; i < sizex; i++) {
+      for(int j = 0; j < sizey; j++) {
         TileColor randomColor = TileColor.getRandomColor();
 
         grid[i][j] = new Tile(randomColor);
@@ -89,11 +94,11 @@ public class GridSquare implements Grid {
    * Remplit la grille à partir d'une sauvegarde
    */
   public void initWithSave(JSONArray colorGrid, JSONArray playerGrid) {
-    for(int i = 0; i < size; i++) {
+    for(int i = 0; i < sizex; i++) {
       JSONArray colorLine  = (JSONArray) colorGrid.get(i);
       JSONArray playerLine = (JSONArray) playerGrid.get(i);
 
-      for(int j = 0; j < size; j++) {
+      for(int j = 0; j < sizey; j++) {
         String    colorCode   = (String) colorLine.get(j);
         TileColor randomColor = TileColor.getColorFromCode(colorCode);
         int       pID         = ((Long) playerLine.get(j)).intValue();
@@ -131,8 +136,8 @@ public class GridSquare implements Grid {
       newAssignedTiles = 0;
 
       // On assigne les cases de la couleur demandée au joueur
-      for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
+      for (int i = 0; i < sizex; i++) {
+        for (int j = 0; j < sizey; j++) {
           Tile tile = grid[i][j];
 
           if (tile.getPlayerID() == pID) {
@@ -168,7 +173,7 @@ public class GridSquare implements Grid {
               }
             }
 
-            if (i < size - 1){
+            if (i < sizex - 1){
               if (
                   // La case est de la couleur voulue
                   grid[i + 1][j].getColor() == c
@@ -182,7 +187,7 @@ public class GridSquare implements Grid {
               }
             }
 
-            if (j < size - 1){
+            if (j < sizey - 1){
               if (
                   // La case est de la couleur voulue
                   grid[i][j + 1].getColor() == c
@@ -212,14 +217,27 @@ public class GridSquare implements Grid {
 
     tile.setPlayerID(pID);
   }
+  
+  public int getSize() {
+    return 0;
+  }
 
   /**
-   * Permet d'obtenir la taille de la grille
+   * Permet d'obtenir la largeur de la grille
    *
-   * @return  La taille de la grille
+   * @return  La largeur de la grille
    */
-  public int getSize() {
-    return size;
+  public int getSizeX() {
+    return sizex;
+  }
+  
+  /**
+   * Permet d'obtenir la hauteur de la grille
+   *
+   * @return  La hauteur de la grille
+   */
+  public int getSizeY() {
+    return sizey;
   }
   
   /**
@@ -232,7 +250,7 @@ public class GridSquare implements Grid {
    */
   public int countTilesTakeable(int pID, TileColor c) {
     // On créé une copie de la grille actuelle
-    GridSquare newGameGrid = new GridSquare(this);
+    GridRectangle newGameGrid = new GridRectangle(this);
     
     // On assigne "virtuellement" au joueur la couleur
     newGameGrid.assignTiles(pID, c);
@@ -249,7 +267,7 @@ public class GridSquare implements Grid {
    * @return
    */
   public int totalNumberOfTiles() {
-    return (int) Math.pow(size, 2);
+    return (int) (sizex*sizey);
   }
   
   /**
@@ -262,8 +280,8 @@ public class GridSquare implements Grid {
   public TileColor assignCornerTo(int playerID) {
     String[] cornerCoordinate = cornersCoordinates[playerID - 1];
     
-    int x = (cornerCoordinate[0].equals("min")) ? 0 : size - 1;
-    int y = (cornerCoordinate[1].equals("min")) ? 0 : size - 1;
+    int x = (cornerCoordinate[0].equals("min")) ? 0 : sizex - 1;
+    int y = (cornerCoordinate[1].equals("min")) ? 0 : sizey - 1;
     
     assignTile(x, y, playerID);
     
@@ -281,15 +299,15 @@ public class GridSquare implements Grid {
   public TileColor assignCornerTo(int playerID, TileColor color) {
     String[] cornerCoordinate = cornersCoordinates[playerID - 1];
     
-    int x = (cornerCoordinate[0].equals("min")) ? 0 : size - 1;
-    int y = (cornerCoordinate[1].equals("min")) ? 0 : size - 1;
+    int x = (cornerCoordinate[0].equals("min")) ? 0 : sizex - 1;
+    int y = (cornerCoordinate[1].equals("min")) ? 0 : sizey - 1;
     
     assignTile(x, y, playerID);
     getTile(x, y).setColor(color);
     
     return getTile(x, y).getColor();
   }
-  
+
   /**
    * Permet de compter le nombre de cases possédées par un joueur
    *
@@ -300,8 +318,8 @@ public class GridSquare implements Grid {
   public int countTilesOwnedBy(int pID) {
     int count = 0;
 
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+    for (int i = 0; i < sizex; i++) {
+      for (int j = 0; j < sizey; j++) {
         Tile tile = grid[i][j];
 
         if (tile.getPlayerID() == pID) {
@@ -320,8 +338,8 @@ public class GridSquare implements Grid {
   public GridPane show2D(Game game) {
     GridPane gameGrid = new GridPane();
 
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+    for (int i = 0; i < sizex; i++) {
+      for (int j = 0; j < sizey; j++) {
         Tile tile = getTile(i, j);
         int  pID  = tile.getPlayerID();
 
@@ -330,7 +348,7 @@ public class GridSquare implements Grid {
         button.getStyleClass().add("tile");
         button.getStyleClass().add(TileColor.getColorClassName(tile.getColor()));
         
-        if (size > 19) {
+        if (sizey > 19) {
           button.getStyleClass().add("small");
         }
 
@@ -359,10 +377,10 @@ public class GridSquare implements Grid {
 
     JSONArray colorGrid = new JSONArray();
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < sizex; i++) {
       JSONArray lineArray = new JSONArray();
 
-      for (int j = 0; j < size; j++) {
+      for (int j = 0; j < sizey; j++) {
         TileColor color = grid[i][j].getColor();
         lineArray.add(TileColor.getColorCode(color));
       }
@@ -374,10 +392,10 @@ public class GridSquare implements Grid {
 
     JSONArray playerGrid = new JSONArray();
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < sizex; i++) {
       JSONArray lineArray = new JSONArray();
 
-      for (int j = 0; j < size; j++) {
+      for (int j = 0; j < sizey; j++) {
         int pID = grid[i][j].getPlayerID();
 
         lineArray.add(pID);

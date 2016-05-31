@@ -1,18 +1,17 @@
+package edu.isep.jeudes6couleurs.game;
+
+import edu.isep.jeudes6couleurs.models.TileColor;
+
 /**
  * Jeu des 6 couleurs
  *
- * @package game
+ * @package edu.isep.jeudes6couleurs.game
  * @class   Tile
  * @desc    Classe définissant une case du jeu
  *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
-
-package game;
-
-import models.TileColor;
-
 public class Tile {
   // Couleur de la case
   private TileColor color;
@@ -24,9 +23,9 @@ public class Tile {
   /**
    * Initialise la case avec une couleur
    * 
-   * @param c
+   * @param c La couleur de la case
    */
-  Tile(TileColor c) {
+  public Tile(TileColor c) {
     color = c;
   }
   

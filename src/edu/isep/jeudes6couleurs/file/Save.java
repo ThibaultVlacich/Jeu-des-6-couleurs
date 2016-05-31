@@ -1,25 +1,31 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package file
- * @class   Save
- * @desc    Gère la sauvegarde de la partie
- *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
- */
-
-package file;
+package edu.isep.jeudes6couleurs.file;
 
 import java.io.File;
 import java.io.FileWriter;
 
 import org.json.simple.JSONObject;
 
-import game.*;
+import edu.isep.jeudes6couleurs.game.*;
+import edu.isep.jeudes6couleurs.game.grids.Grid;
+import edu.isep.jeudes6couleurs.game.grids.GridDiamond;
+import edu.isep.jeudes6couleurs.game.grids.GridRectangle;
+import edu.isep.jeudes6couleurs.game.grids.GridSquare;
+import edu.isep.jeudes6couleurs.game.players.LocalPlayer;
+import edu.isep.jeudes6couleurs.game.players.NoobIAPlayer;
+import edu.isep.jeudes6couleurs.game.players.Player;
+import edu.isep.jeudes6couleurs.game.players.RandomIAPlayer;
+import edu.isep.jeudes6couleurs.models.TileColor;
 
-import models.TileColor;
-
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.file
+ * @class   Save
+ * @desc    Gère la sauvegarde de la partie
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
 public class Save {
   /**
    * Permet de sauvegarder le jeu dans un fichier

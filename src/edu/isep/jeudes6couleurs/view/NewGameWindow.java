@@ -1,21 +1,7 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package view
- * @class   NewGameWindow
- * @desc    Défini la fenêtre permettant de lancer une nouvelle partie
- *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
- */
+package edu.isep.jeudes6couleurs.view;
 
-package view;
-
-import game.Game;
-import game.LocalPlayer;
-import game.NoobIAPlayer;
-import game.Player;
-import game.RandomIAPlayer;
+import edu.isep.jeudes6couleurs.game.*;
+import edu.isep.jeudes6couleurs.game.players.*;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,6 +18,16 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.view
+ * @class   NewGameWindow
+ * @desc    Défini la fenêtre permettant de lancer une nouvelle partie
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
 public class NewGameWindow {
   // Fenêtre
   Stage stage = new Stage();

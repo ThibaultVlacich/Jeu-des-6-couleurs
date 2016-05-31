@@ -1,18 +1,17 @@
+package edu.isep.jeudes6couleurs.models;
+
+import java.awt.Color;
+
 /**
  * Jeu des 6 couleurs
  *
- * @package models
+ * @package edu.isep.jeudes6couleurs.models
  * @enum    TileColor
  * @desc    Liste les couleurs disponibles
  *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
-
-package models;
-
-import java.awt.Color;
-
 public enum TileColor {
   Red,
   Orange,

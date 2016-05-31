@@ -1,15 +1,4 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package file
- * @class   Load
- * @desc    Gère le chargement des sauvegardes
- *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
- */
-
-package file;
+package edu.isep.jeudes6couleurs.file;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,14 +7,22 @@ import org.json.simple.parser.JSONParser;
 import java.io.File;
 import java.io.FileInputStream;
 
-import game.Game;
-import game.Grid;
-import game.GridDiamond;
-import game.GridSquare;
-import game.GridRectangle;
+import edu.isep.jeudes6couleurs.game.*;
+import edu.isep.jeudes6couleurs.game.grids.Grid;
+import edu.isep.jeudes6couleurs.game.grids.GridDiamond;
+import edu.isep.jeudes6couleurs.game.grids.GridRectangle;
+import edu.isep.jeudes6couleurs.game.grids.GridSquare;
 
-import models.TileColor;
-
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.file
+ * @class   Load
+ * @desc    Gère le chargement des sauvegardes
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
 public class Load {
   /**
    * Permet de charger le jeu depuis un fichier

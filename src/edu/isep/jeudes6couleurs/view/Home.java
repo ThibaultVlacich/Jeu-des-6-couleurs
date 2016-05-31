@@ -1,23 +1,12 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package view
- * @class   Home
- * @desc    Défini la fenêtre de l'écran d'accueil
- *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
- */
-
-package view;
+package edu.isep.jeudes6couleurs.view;
 
 import java.io.File;
 
 import java.util.Optional;
 
-import file.Load;
+import edu.isep.jeudes6couleurs.file.Load;
 
-import game.Game;
+import edu.isep.jeudes6couleurs.game.Game;
 
 import javafx.application.*;
 
@@ -41,6 +30,16 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.view
+ * @class   Home
+ * @desc    Défini la fenêtre de l'écran d'accueil
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
 public class Home extends Application {
   static Stage mainStage;
   

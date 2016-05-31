@@ -1,15 +1,4 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package game
- * @class   GridSquare
- * @desc    Classe définissant une grille de type carrée
- *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
- */
-
-package game;
+package edu.isep.jeudes6couleurs.game.grids;
 
 import java.util.ArrayList;
 
@@ -19,8 +8,21 @@ import org.json.simple.JSONObject;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
-import models.TileColor;
+import edu.isep.jeudes6couleurs.game.Game;
+import edu.isep.jeudes6couleurs.game.Tile;
 
+import edu.isep.jeudes6couleurs.models.TileColor;
+
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.game
+ * @class   GridSquare
+ * @desc    Classe définissant une grille de type carrée
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
 public class GridDiamond implements Grid {
   // Nombre de lignes de la grille
   // Doit être un nombre impair

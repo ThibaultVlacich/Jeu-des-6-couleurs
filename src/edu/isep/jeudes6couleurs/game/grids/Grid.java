@@ -1,23 +1,25 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package   game
- * @interface Grid
- * @desc      Interface définissant le modèle à suivre pour créer une grille;
- *
- * @author    Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author    Hugo Michard <hugo.michard@isep.fr>
- */
-
-package game;
+package edu.isep.jeudes6couleurs.game.grids;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javafx.scene.layout.GridPane;
 
-import models.TileColor;
+import edu.isep.jeudes6couleurs.game.Game;
+import edu.isep.jeudes6couleurs.game.Tile;
 
+import edu.isep.jeudes6couleurs.models.TileColor;
+
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package   edu.isep.jeudes6couleurs.game
+ * @interface Grid
+ * @desc      Interface définissant le modèle à suivre pour créer une grille;
+ *
+ * @author    Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author    Hugo Michard <hugo.michard@isep.fr>
+ */
 public interface Grid {
   /**
    * Remplit la grille de manière aléatoire

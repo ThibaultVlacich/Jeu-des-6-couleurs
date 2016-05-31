@@ -1,16 +1,15 @@
+package edu.isep.jeudes6couleurs.game.players;
+
 /**
  * Jeu des 6 couleurs
  *
- * @package   game
+ * @package   edu.isep.jeudes6couleurs.game
  * @interface Player
  * @desc      Interface listant les types de joueurs possibles
  *
  * @author    Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author    Hugo Michard <hugo.michard@isep.fr>
  */
-
-package game;
-
 public enum PlayerType {
   LOCAL,
   IA;

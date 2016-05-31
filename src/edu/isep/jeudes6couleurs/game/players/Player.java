@@ -1,18 +1,18 @@
+package edu.isep.jeudes6couleurs.game.players;
+
+import edu.isep.jeudes6couleurs.game.Game;
+import edu.isep.jeudes6couleurs.models.TileColor;
+
 /**
  * Jeu des 6 couleurs
  *
- * @package game
+ * @package edu.isep.jeudes6couleurs.game
  * @class   Player
  * @desc    Classe abstraite définissant l'objet joueur
  *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
-
-package game;
-
-import models.TileColor;
-
 public abstract class Player {
   // ID du joueur
   public int ID;
@@ -39,7 +39,7 @@ public abstract class Player {
   /**
    * Demande au joueur de jouer
    */
-  abstract void play(Game game);
+  abstract public void play(Game game);
   
   /**
    * Permet d'obtenir la couleur actuelle du joueur

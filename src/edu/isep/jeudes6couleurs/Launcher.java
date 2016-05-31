@@ -1,16 +1,17 @@
+package edu.isep.jeudes6couleurs;
+
+import edu.isep.jeudes6couleurs.view.Home;
+
 /**
  * Jeu des 6 couleurs
  *
- * @package default
+ * @package edu.isep.jeudes6couleurs
  * @class   Launcher
  * @desc    Permet de lancer le jeu
  *
  * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author  Hugo Michard <hugo.michard@isep.fr>
  */
-
-import view.Home;
-
 public class Launcher {
   // Version actuelle du jeu
   private static String version = "1.5.1";

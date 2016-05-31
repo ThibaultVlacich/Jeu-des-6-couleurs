@@ -1,26 +1,15 @@
-/**
- * Jeu des 6 couleurs
- *
- * @package view
- * @class   GameWindow
- * @desc    Défini la fenêtre de jeu
- *
- * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
- * @author  Hugo Michard <hugo.michard@isep.fr>
- */
-
-package view;
+package edu.isep.jeudes6couleurs.view;
 
 import java.io.File;
 import java.util.Optional;
 
-import file.Save;
+import edu.isep.jeudes6couleurs.file.Save;
 
-import game.Game;
-import game.Player;
-import models.TileColor;
+import edu.isep.jeudes6couleurs.game.Game;
+import edu.isep.jeudes6couleurs.game.players.Player;
+import edu.isep.jeudes6couleurs.models.TileColor;
 
-import observer.Observer;
+import edu.isep.jeudes6couleurs.observer.Observer;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,6 +31,16 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Jeu des 6 couleurs
+ *
+ * @package edu.isep.jeudes6couleurs.view
+ * @class   GameWindow
+ * @desc    Défini la fenêtre de jeu
+ *
+ * @author  Thibault Vlacich <thibault.vlacich@isep.fr>
+ * @author  Hugo Michard <hugo.michard@isep.fr>
+ */
 public class GameWindow implements Observer {
   // Fenêtre
   Stage stage = new Stage();

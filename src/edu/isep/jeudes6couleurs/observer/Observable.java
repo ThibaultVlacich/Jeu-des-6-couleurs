@@ -1,20 +1,19 @@
+package edu.isep.jeudes6couleurs.observer;
+
+import java.util.ArrayList;
+
+import edu.isep.jeudes6couleurs.models.TileColor;
+
 /**
  * Jeu des 6 couleurs
  *
- * @package   observer
+ * @package   edu.isep.jeudes6couleurs.observer
  * @interface Observable
  * @desc      Interface définissant un objet observable
  *
  * @author    Thibault Vlacich <thibault.vlacich@isep.fr>
  * @author    Hugo Michard <hugo.michard@isep.fr>
  */
-
-package observer;
-
-import java.util.ArrayList;
-
-import models.TileColor;
-
 public interface Observable {
   // Liste des observateurs
   ArrayList<Observer> observers = new ArrayList<Observer>();
