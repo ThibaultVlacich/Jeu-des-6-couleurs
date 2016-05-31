@@ -4,6 +4,8 @@ Ce jeu est réalisé par deux étudiants élèves ingénieurs à l'[ISEP](http:/
 - [Thibault VLACICH](https://github.com/ThibaultVlacich)
 - [Hugo MICHARD](https://github.com/HugoMichard)
 
+JavaDoc : [http://thibaultvlacich.github.io/Jeu-des-6-couleurs/](http://thibaultvlacich.github.io/Jeu-des-6-couleurs/)
+
 ## Règles du jeu
 
 Le jeu des six couleurs est un jeu de stratégie se déroulant sur un plateau découpé en cases de 6 couleurs différentes (rouge, orange, jaune, vert, bleu, ou violet). Le but du jeu est de contrôler plus de cases que les adversaires à la fin de la partie.
